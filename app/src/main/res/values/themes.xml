@@ -2,13 +2,12 @@
 <resources>
 
     <style name="Theme.Markety" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/dark_bg</item>
+        <item name="android:statusBarColor">@color/primary</item>
     </style>
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/primary</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/text_logo_primary</item>
-        <!--        <item name="windowSplashScreenAnimationDuration"></item>-->
         <item name="postSplashScreenTheme">@style/Theme.Markety</item>
     </style>
 </resources>
