@@ -8,6 +8,11 @@ import org.includejoe.markety.base.data.remote.MarketyAPI
 import org.includejoe.markety.base.util.Constants
 import org.includejoe.markety.feature_authentication.data.repository.AuthenticationRepositoryImpl
 import org.includejoe.markety.feature_authentication.domain.repository.AuthenticationRepository
+import org.includejoe.markety.feature_authentication.domain.use_case.AuthenticationUseCases
+import org.includejoe.markety.feature_authentication.domain.use_case.LoginUseCase
+import org.includejoe.markety.feature_authentication.util.validators.FormValidators
+import org.includejoe.markety.feature_authentication.util.validators.ValidatePassword
+import org.includejoe.markety.feature_authentication.util.validators.ValidateUsername
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -30,4 +35,17 @@ object AppModule {
     fun provideAuthenticationRepository(api: MarketyAPI): AuthenticationRepository {
         return AuthenticationRepositoryImpl(api)
     }
+
+    @Provides
+    @Singleton
+    fun provideAuthenticationUseCases(repository: AuthenticationRepository) = AuthenticationUseCases(
+        login = LoginUseCase(repository = repository)
+    )
+
+    @Provides
+    @Singleton
+    fun provideFormValidators() = FormValidators (
+        username = ValidateUsername(),
+        password = ValidatePassword()
+    )
 }

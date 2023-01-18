@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Markety</string>
+
+    <!-- Errors -->
+    <string name="unexpected_error">An unexpected error occurred</string>
+    <string name="internet_error">Could not reach server, check your internet connection</string>
     <string name="blank_username">Username can\'t be blank</string>
     <string name="invalid_username">
         Username can only contain letters, numbers, underscores and full stops. Username can\'t end with a full stop either
@@ -8,4 +12,16 @@
     <string name="blank_password">Password can\'t be blank</string>
     <string name="min_password">Password must consist of at least 8 characters</string>
     <string name="invalid_password">Password must contain at least one letter and digit</string>
+
+    <!-- Labels -->
+    <string name="username_label">Username</string>
+    <string name="password_label">Password</string>
+
+    <!-- Buttons -->
+    <string name="login_btn">LOGIN</string>
+
+    <!-- Login Screen -->
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="register">REGISTER</string>
+
 </resources>

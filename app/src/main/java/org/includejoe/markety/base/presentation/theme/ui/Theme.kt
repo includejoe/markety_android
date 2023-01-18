@@ -2,9 +2,12 @@ package org.includejoe.markety.base.presentation.theme.ui
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ProvideTextStyle
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 
 private val DarkColorPalette = darkColors(
     primary = Primary,
@@ -12,7 +15,9 @@ private val DarkColorPalette = darkColors(
     background = DarkBg700,
     onPrimary = TextWhite,
     onSecondary = TextWhite,
-    onBackground = TextWhite
+    onBackground = TextWhite,
+    surface = Color.White,
+    onSurface = TextDark
 )
 
 private val LightColorPalette = lightColors(
@@ -21,7 +26,9 @@ private val LightColorPalette = lightColors(
     background = LightBg,
     onPrimary = TextWhite,
     onSecondary = TextWhite,
-    onBackground = TextDark
+    onBackground = TextDark,
+    surface = DarkBg500,
+    onSurface = TextWhite
 )
 
 @Composable

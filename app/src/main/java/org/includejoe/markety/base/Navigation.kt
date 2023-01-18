@@ -9,7 +9,9 @@ import org.includejoe.markety.feature_authentication.presentation.LoginScreen
 
 
 @Composable
-fun Navigation(navController: NavHostController) {
+fun Navigation(
+    navController: NavHostController,
+) {
     NavHost(
         navController = navController,
         startDestination = Screens.LoginScreen.route

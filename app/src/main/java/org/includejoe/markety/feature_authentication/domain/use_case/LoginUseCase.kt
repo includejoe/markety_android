@@ -2,8 +2,9 @@ package org.includejoe.markety.feature_authentication.domain.use_case
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import org.includejoe.markety.R
 import org.includejoe.markety.base.util.Response
-import org.includejoe.markety.feature_authentication.data.remote.dto.LoginDTO
+import org.includejoe.markety.base.util.UIText
 import org.includejoe.markety.feature_authentication.data.remote.dto.toLogin
 import org.includejoe.markety.feature_authentication.domain.model.Login
 import org.includejoe.markety.feature_authentication.domain.repository.AuthenticationRepository
@@ -23,9 +24,9 @@ class LoginUseCase @Inject constructor(
             val data = repository.login(username, password).toLogin()
             emit(Response.Success<Login>(data))
         } catch (e: HttpException) {
-            emit(Response.Error<Login>(e.localizedMessage ?: "An unexpected error occurred"))
+            emit(Response.Error<Login>(e.localizedMessage ?: UIText.StringResource(resId = R.string.unexpected_error)))
         } catch(e: IOException) {
-            emit(Response.Error<Login>("Couldn't reach server, check your internet connection"))
+            emit(Response.Error<Login>(UIText.StringResource(resId = R.string.internet_error)))
         }
     }
 }
