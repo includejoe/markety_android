@@ -15,4 +15,5 @@ val DarkBg700 = Color(0xFF131428)
 // generic colors
 val Primary = Color(0xFF735CF6)
 val Secondary = Color(0xFFE8249A)
-val Error = Color(0xFF851b1b)
+val Error500 = Color(0xFFDA3838)
+val Error700 = Color(0xFF851b1b)

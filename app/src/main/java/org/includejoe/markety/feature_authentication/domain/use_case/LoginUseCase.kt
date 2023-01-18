@@ -24,9 +24,9 @@ class LoginUseCase @Inject constructor(
             val data = repository.login(username, password).toLogin()
             emit(Response.Success<Login>(data))
         } catch (e: HttpException) {
-            emit(Response.Error<Login>(e.localizedMessage ?: UIText.StringResource(resId = R.string.unexpected_error)))
+            emit(Response.Error<Login>(R.string.unexpected_error))
         } catch(e: IOException) {
-            emit(Response.Error<Login>(UIText.StringResource(resId = R.string.internet_error)))
+            emit(Response.Error<Login>(R.string.internet_error))
         }
     }
 }

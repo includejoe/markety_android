@@ -1,18 +1,16 @@
 package org.includejoe.markety.feature_authentication.presentation
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import org.includejoe.markety.R
 import org.includejoe.markety.base.util.Constants
 import org.includejoe.markety.base.util.Response
-import org.includejoe.markety.base.util.UIText
 import org.includejoe.markety.feature_authentication.domain.use_case.AuthenticationUseCases
 import org.includejoe.markety.feature_authentication.util.*
 import org.includejoe.markety.feature_authentication.util.validators.FormValidators
@@ -25,9 +23,6 @@ class LoginViewModel @Inject constructor(
 ): ViewModel() {
     private val _state = mutableStateOf(LoginState())
     val state: State<LoginState> = _state
-
-    private val validationEventChannel = Channel<ValidationEvent>()
-    val validationEvents = validationEventChannel.receiveAsFlow()
 
     fun onEvent(event: LoginEvent) {
         when(event) {
@@ -74,11 +69,12 @@ class LoginViewModel @Inject constructor(
 
                     is Response.Success -> {
                         _state.value = LoginState(data = result.data)
+                        Log.d("response_data", _state.value.data.toString())
                     }
 
                     is Response.Error -> {
                         _state.value = LoginState(
-                            submissionError = result.message ?: UIText.StringResource(resId = R.string.unexpected_error)
+                            submissionError =  result.message ?: R.string.unexpected_error
                         )
                     }
                 }

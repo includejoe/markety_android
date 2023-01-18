@@ -12,9 +12,10 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.composables.MButton
@@ -22,6 +23,7 @@ import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.base.util.Screens
 import org.includejoe.markety.feature_authentication.presentation.composables.TextInput
 import org.includejoe.markety.feature_authentication.util.InputType
+import org.includejoe.markety.feature_authentication.util.LoginEvent
 
 @Composable
 fun LoginScreen(
@@ -46,7 +48,7 @@ fun LoginScreen(
             .background(MaterialTheme.colors.background)
             .padding(MaterialTheme.spacing.md)
             .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.md, alignment = Alignment.Bottom),
+        verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(
@@ -57,13 +59,30 @@ fun LoginScreen(
         )
 
         TextInput(
+            initialValue = state.value.username,
+            error = state.value.usernameError,
+            onChange = {state.value.username = it},
             inputType = InputType.Username,
-            keyboardActions = KeyboardActions(onNext =    {
+            keyboardActions = KeyboardActions(onNext = {
                 passwordFocusRequester.requestFocus()
             })
         )
 
+        if(state.value.usernameError != null) {
+            Text(
+                text = stringResource(state.value.usernameError!!),
+                color = MaterialTheme.colors.error,
+                modifier = Modifier.align(Alignment.End),
+                fontSize = 12.sp
+            )
+        }
+        
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
+
         TextInput(
+            initialValue = state.value.password,
+            error = state.value.passwordError,
+            onChange = {state.value.password = it},
             inputType = InputType.Password,
             keyboardActions = KeyboardActions(onDone = {
                 focusManager.clearFocus()
@@ -71,18 +90,40 @@ fun LoginScreen(
             focusRequester = passwordFocusRequester
         )
 
-        MButton(onClick = { /*TODO*/ }, text = R.string.login_btn)
+        if(state.value.passwordError != null) {
+            Text(
+                text = stringResource(state.value.passwordError!!),
+                color = MaterialTheme.colors.error,
+                modifier = Modifier.align(Alignment.End),
+                fontSize = 12.sp
+            )
+        }
+
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
+
+        if(state.value.isSubmitting) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(25.dp),
+                color = MaterialTheme.colors.primary
+            )
+        } else {
+            MButton(
+                onClick = { viewModel.onEvent(LoginEvent.Submit) },
+                text = R.string.login_btn
+            )
+        }
+
 
         Divider(
-            color = Color.White.copy(alpha = 0.3f),
+            color = MaterialTheme.colors.surface.copy(alpha = 0.3f),
             thickness = 1.dp,
             modifier = Modifier.padding(top = 48.dp)
         )
 
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text("Don't have an account?", color = Color.White)
+            Text(stringResource(R.string.no_account), color = Color.White)
             TextButton(onClick = {}) {
-                Text(text = "SIGN UP", color = MaterialTheme.colors.secondary)
+                Text(text = stringResource(R.string.register), color = MaterialTheme.colors.secondary)
             }
         }
     }

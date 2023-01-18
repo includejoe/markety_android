@@ -11,21 +11,30 @@ import androidx.compose.ui.focus.focusOrder
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import org.includejoe.markety.feature_authentication.presentation.LoginViewModel
 import org.includejoe.markety.feature_authentication.util.InputType
+import org.includejoe.markety.feature_authentication.util.LoginState
 
 @Composable
 fun TextInput(
+    initialValue: String,
+    error: Any?,
+    onChange: (String) -> Unit = {},
     inputType: InputType,
     focusRequester: FocusRequester? = null,
     keyboardActions: KeyboardActions
 ) {
     var value by remember {
-        mutableStateOf("")
+        mutableStateOf(initialValue)
     }
 
     TextField(
         value = value,
-        onValueChange = { value = it },
+        onValueChange = {
+            value = it
+            onChange(it)
+        },
+        isError = error != null,
         modifier = Modifier
             .clip(MaterialTheme.shapes.medium)
             .fillMaxWidth()

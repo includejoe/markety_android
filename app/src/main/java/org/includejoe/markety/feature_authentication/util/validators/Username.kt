@@ -2,7 +2,6 @@ package org.includejoe.markety.feature_authentication.util.validators
 
 import org.includejoe.markety.R
 import org.includejoe.markety.base.util.Constants
-import org.includejoe.markety.base.util.UIText
 import org.includejoe.markety.feature_authentication.util.ValidationResult
 
 class ValidateUsername {
@@ -14,7 +13,7 @@ class ValidateUsername {
         if(username.isBlank()) {
             return ValidationResult(
                 successful = false,
-                errorMessage = UIText.StringResource(resId = R.string.blank_username)
+                errorMessage = R.string.blank_username
             )
         }
 
@@ -24,7 +23,7 @@ class ValidateUsername {
                 if(!isValid) {
                     return ValidationResult(
                         successful = false,
-                        errorMessage = UIText.StringResource(resId = R.string.invalid_username)
+                        errorMessage = R.string.invalid_username
                     )
                 }
             }
