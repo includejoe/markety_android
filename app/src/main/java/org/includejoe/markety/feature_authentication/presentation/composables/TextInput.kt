@@ -17,22 +17,18 @@ import org.includejoe.markety.feature_authentication.util.LoginState
 
 @Composable
 fun TextInput(
-    initialValue: String,
+    value: String,
     error: Any?,
-    onChange: (String) -> Unit = {},
+    onValueChange: (String) -> Unit,
     inputType: InputType,
     focusRequester: FocusRequester? = null,
     keyboardActions: KeyboardActions
 ) {
-    var value by remember {
-        mutableStateOf(initialValue)
-    }
 
     TextField(
         value = value,
         onValueChange = {
-            value = it
-            onChange(it)
+            onValueChange(it)
         },
         isError = error != null,
         modifier = Modifier

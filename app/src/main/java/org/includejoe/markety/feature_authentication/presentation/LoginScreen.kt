@@ -9,7 +9,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -19,8 +18,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.composables.MButton
+import org.includejoe.markety.base.presentation.composables.Toast
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.base.util.Screens
+import org.includejoe.markety.feature_authentication.domain.model.Login
 import org.includejoe.markety.feature_authentication.presentation.composables.TextInput
 import org.includejoe.markety.feature_authentication.util.InputType
 import org.includejoe.markety.feature_authentication.util.LoginEvent
@@ -59,9 +60,9 @@ fun LoginScreen(
         )
 
         TextInput(
-            initialValue = state.value.username,
+            value = state.value.username,
             error = state.value.usernameError,
-            onChange = {state.value.username = it},
+            onValueChange = {viewModel.onEvent(LoginEvent.UsernameChanged(it))},
             inputType = InputType.Username,
             keyboardActions = KeyboardActions(onNext = {
                 passwordFocusRequester.requestFocus()
@@ -80,9 +81,9 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
 
         TextInput(
-            initialValue = state.value.password,
+            value = state.value.password,
             error = state.value.passwordError,
-            onChange = {state.value.password = it},
+            onValueChange = {viewModel.onEvent(LoginEvent.PasswordChanged(it))},
             inputType = InputType.Password,
             keyboardActions = KeyboardActions(onDone = {
                 focusManager.clearFocus()
@@ -113,6 +114,18 @@ fun LoginScreen(
             )
         }
 
+        if(state.value.submissionError != null) {
+            when(state.value.submissionError) {
+                is Int -> {
+                    Toast(message = stringResource(state.value.submissionError as Int))
+                }
+
+                is String -> {
+                    Toast(message = state.value.submissionError as String)
+                }
+            }
+        }
+
 
         Divider(
             color = MaterialTheme.colors.surface.copy(alpha = 0.3f),
@@ -121,8 +134,11 @@ fun LoginScreen(
         )
 
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(stringResource(R.string.no_account), color = Color.White)
-            TextButton(onClick = {}) {
+            Text(stringResource(R.string.no_account), color = MaterialTheme.colors.onBackground)
+            TextButton(
+                onClick = {},
+                modifier = Modifier.align(Alignment.CenterVertically)
+            ) {
                 Text(text = stringResource(R.string.register), color = MaterialTheme.colors.secondary)
             }
         }

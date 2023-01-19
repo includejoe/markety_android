@@ -8,6 +8,8 @@
     <string name="invalid_username">
         Username can only contain letters, numbers, underscores and full stops. Username can\'t end with a full stop either
     </string>
+    <string name="invalid_credentials">Invalid Credentials</string>
+
 
     <string name="blank_password">Password can\'t be blank</string>
     <string name="min_password">Password must consist of at least 8 characters</string>

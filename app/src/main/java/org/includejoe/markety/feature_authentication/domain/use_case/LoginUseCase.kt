@@ -1,5 +1,6 @@
 package org.includejoe.markety.feature_authentication.domain.use_case
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.includejoe.markety.R
@@ -24,7 +25,14 @@ class LoginUseCase @Inject constructor(
             val data = repository.login(username, password).toLogin()
             emit(Response.Success<Login>(data))
         } catch (e: HttpException) {
-            emit(Response.Error<Login>(R.string.unexpected_error))
+            when(e.code().toString()) {
+                "400" -> {
+                    emit(Response.Error<Login>(R.string.invalid_credentials))
+                }
+                else -> {
+                    emit(Response.Error<Login>(R.string.unexpected_error))
+                }
+            }
         } catch(e: IOException) {
             emit(Response.Error<Login>(R.string.internet_error))
         }

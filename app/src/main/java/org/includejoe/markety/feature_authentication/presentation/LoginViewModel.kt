@@ -69,7 +69,6 @@ class LoginViewModel @Inject constructor(
 
                     is Response.Success -> {
                         _state.value = LoginState(data = result.data)
-                        Log.d("response_data", _state.value.data.toString())
                     }
 
                     is Response.Error -> {

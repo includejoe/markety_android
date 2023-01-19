@@ -8,6 +8,6 @@ data class LoginState(
     var password: String = "",
     val passwordError: Int? = null,
     val isSubmitting: Boolean = false,
-    val submissionError: Int? = null,
+    val submissionError: Any? = null,
     val data: Login? = null,
 )
