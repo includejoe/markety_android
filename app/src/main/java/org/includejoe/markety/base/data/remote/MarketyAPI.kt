@@ -7,9 +7,9 @@ import org.includejoe.markety.feature_authentication.domain.model.Register
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface MarketyAPI {
+interface MarketyAPI  {
     @POST("auth/login/")
-    suspend fun login(@Body body: Login): LoginDTO
+     suspend fun login(@Body body: Login): LoginDTO
 
     @POST("auth/register/")
     suspend fun register(@Body body: Register): RegisterDTO

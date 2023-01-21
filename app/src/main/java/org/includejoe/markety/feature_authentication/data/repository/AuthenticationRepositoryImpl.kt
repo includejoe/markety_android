@@ -36,6 +36,10 @@ class AuthenticationRepositoryImpl @Inject constructor(
         return api.login(Login(username = username, password = password))
     }
 
+    override fun refreshToken(refreshToken: String): String {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun logout(): Boolean {
         TODO("Not yet implemented")
     }

@@ -24,5 +24,7 @@ interface AuthenticationRepository {
 
     suspend fun login(username: String, password: String): LoginDTO
 
+    fun refreshToken(refreshToken: String): String
+
     suspend fun logout(): Boolean
 }
