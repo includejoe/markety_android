@@ -4,7 +4,9 @@ package org.includejoe.markety.feature_authentication.data.repository
 import org.includejoe.markety.base.data.remote.MarketyAPI
 import org.includejoe.markety.feature_authentication.data.remote.dto.LoginDTO
 import org.includejoe.markety.feature_authentication.data.remote.dto.RegisterDTO
+import org.includejoe.markety.feature_authentication.data.remote.dto.TokensDTO
 import org.includejoe.markety.feature_authentication.domain.model.Login
+import org.includejoe.markety.feature_authentication.domain.model.RefreshTokenRequest
 import org.includejoe.markety.feature_authentication.domain.repository.AuthenticationRepository
 import javax.inject.Inject
 
@@ -36,13 +38,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
         return api.login(Login(username = username, password = password))
     }
 
-    override fun refreshToken(refreshToken: String): String {
-        TODO("Not yet implemented")
+    override suspend fun getNewAccessToken(refreshToken: String): TokensDTO {
+        return api.getNewAccessToken(RefreshTokenRequest(refreshToken = refreshToken))
     }
-
-    override suspend fun logout(): Boolean {
-        TODO("Not yet implemented")
-    }
-
-
 }

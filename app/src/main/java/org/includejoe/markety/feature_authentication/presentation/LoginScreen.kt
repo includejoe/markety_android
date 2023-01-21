@@ -31,12 +31,12 @@ fun LoginScreen(
     navController: NavHostController,
     viewModel: LoginViewModel = hiltViewModel()
 ){
-    val authValue = false
+    val isAuthenticated = viewModel.state.value.isAuthenticated
     val state = viewModel.state
     val passwordFocusRequester = FocusRequester()
     val focusManager = LocalFocusManager.current
 
-    if(authValue) {
+    if(isAuthenticated) {
         navController.navigate(Screens.FeedsScreen.route) {
             popUpTo(Screens.LoginScreen.route) {
                 inclusive = true

@@ -10,4 +10,5 @@ data class LoginState(
     val isSubmitting: Boolean = false,
     val submissionError: Any? = null,
     val data: Login? = null,
+    var isAuthenticated: Boolean = false
 )

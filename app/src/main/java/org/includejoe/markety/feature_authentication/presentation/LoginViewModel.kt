@@ -1,6 +1,6 @@
 package org.includejoe.markety.feature_authentication.presentation
 
-import android.util.Log
+
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import org.includejoe.markety.R
 import org.includejoe.markety.base.util.Constants
 import org.includejoe.markety.base.util.Response
+import org.includejoe.markety.base.util.TokenManager
 import org.includejoe.markety.feature_authentication.domain.use_case.AuthenticationUseCases
 import org.includejoe.markety.feature_authentication.util.*
 import org.includejoe.markety.feature_authentication.util.validators.FormValidators
@@ -19,10 +20,26 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val authUseCases: AuthenticationUseCases,
-    private val validators: FormValidators
+    private val validators: FormValidators,
+    private val tokenManager: TokenManager
 ): ViewModel() {
     private val _state = mutableStateOf(LoginState())
     val state: State<LoginState> = _state
+
+    private var accessToken: String? = null
+    private var refreshToken: String? = null
+
+    init {
+        if(refreshToken == null) {
+            refreshToken = tokenManager.readRefreshToken()
+        }
+
+        if(accessToken == null) {
+            accessToken = tokenManager.readAccessToken()
+        }
+
+        _state.value = _state.value.copy(isAuthenticated = refreshToken != null)
+    }
 
     fun onEvent(event: LoginEvent) {
         when(event) {
@@ -38,6 +55,13 @@ class LoginViewModel @Inject constructor(
                 submit()
             }
         }
+    }
+
+    private fun setAuthenticationStatusAndJWT(accessToken: String?, refreshToken: String?) {
+        this.accessToken = accessToken
+        this.refreshToken = refreshToken
+        _state.value.isAuthenticated = refreshToken != null
+        tokenManager.saveOrRemoveTokens(accessToken, refreshToken)
     }
 
     private fun submit() {
@@ -69,6 +93,10 @@ class LoginViewModel @Inject constructor(
 
                     is Response.Success -> {
                         _state.value = LoginState(data = result.data)
+                        setAuthenticationStatusAndJWT(
+                            accessToken = result.data?.tokens?.access,
+                            refreshToken = result.data?.tokens?.refresh
+                        )
                     }
 
                     is Response.Error -> {

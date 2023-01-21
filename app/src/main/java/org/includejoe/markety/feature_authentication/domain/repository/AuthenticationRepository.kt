@@ -2,6 +2,7 @@ package org.includejoe.markety.feature_authentication.domain.repository
 
 import org.includejoe.markety.feature_authentication.data.remote.dto.LoginDTO
 import org.includejoe.markety.feature_authentication.data.remote.dto.RegisterDTO
+import org.includejoe.markety.feature_authentication.data.remote.dto.TokensDTO
 
 interface AuthenticationRepository {
 
@@ -24,7 +25,5 @@ interface AuthenticationRepository {
 
     suspend fun login(username: String, password: String): LoginDTO
 
-    fun refreshToken(refreshToken: String): String
-
-    suspend fun logout(): Boolean
+    suspend fun getNewAccessToken(refreshToken: String): TokensDTO
 }

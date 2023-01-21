@@ -9,5 +9,5 @@ object Constants {
 
     const val ACCESS_TOKEN_KEY = "access_token"
     const val REFRESH_TOKEN_KEY = "refresh_token"
-    const val APP_SHARED_PREFERENCES = "app_shared_preferences"
+    const val ENCRYPTED_SHARED_PREFS = "encrypted_shared_prefs"
 }

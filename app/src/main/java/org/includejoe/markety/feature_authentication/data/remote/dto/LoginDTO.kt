@@ -7,7 +7,7 @@ data class LoginDTO(
     val email: String,
     @SerializedName("is_staff")
     val isStaff: Boolean,
-    val tokens: Tokens,
+    val tokens: TokensDTO,
     val username: String
 )
 
