@@ -1,10 +1,12 @@
 package org.includejoe.markety.feature_authentication.presentation
 
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -21,7 +23,6 @@ import org.includejoe.markety.base.presentation.composables.MButton
 import org.includejoe.markety.base.presentation.composables.Toast
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.base.util.Screens
-import org.includejoe.markety.feature_authentication.domain.model.Login
 import org.includejoe.markety.feature_authentication.presentation.composables.TextInput
 import org.includejoe.markety.feature_authentication.util.InputType
 import org.includejoe.markety.feature_authentication.util.LoginEvent
@@ -31,15 +32,29 @@ fun LoginScreen(
     navController: NavHostController,
     viewModel: LoginViewModel = hiltViewModel()
 ){
-    val isAuthenticated = viewModel.state.value.isAuthenticated
     val state = viewModel.state
     val passwordFocusRequester = FocusRequester()
     val focusManager = LocalFocusManager.current
 
-    if(isAuthenticated) {
-        navController.navigate(Screens.FeedsScreen.route) {
-            popUpTo(Screens.LoginScreen.route) {
-                inclusive = true
+    if(state.value.submissionError != null) {
+        when(state.value.submissionError) {
+            is Int -> {
+                Toast(message = stringResource(state.value.submissionError as Int))
+            }
+
+            is String -> {
+                Toast(message = state.value.submissionError as String)
+            }
+        }
+    }
+
+
+    if(state.value.submissionSuccess) {
+        LaunchedEffect(key1 = true) {
+            navController.navigate(Screens.FeedsScreen.route) {
+                popUpTo(Screens.LoginScreen.route) {
+                    inclusive = true
+                }
             }
         }
     }
@@ -113,19 +128,6 @@ fun LoginScreen(
                 text = R.string.login_btn
             )
         }
-
-        if(state.value.submissionError != null) {
-            when(state.value.submissionError) {
-                is Int -> {
-                    Toast(message = stringResource(state.value.submissionError as Int))
-                }
-
-                is String -> {
-                    Toast(message = state.value.submissionError as String)
-                }
-            }
-        }
-
 
         Divider(
             color = MaterialTheme.colors.surface.copy(alpha = 0.3f),

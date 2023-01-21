@@ -49,6 +49,16 @@ class TokenManager @Inject constructor(
         return sharedPreferences.getString(Constants.REFRESH_TOKEN_KEY, null)
     }
 
+    fun setIsAuthenticated(isAuthenticated: Boolean) {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean(Constants.USER_AUTHENTICATED, isAuthenticated)
+        editor.apply()
+    }
+
+    fun readIsAuthenticated(): Boolean {
+        return sharedPreferences.getBoolean(Constants.USER_AUTHENTICATED, false)
+    }
+
     private fun saveTokens(accessToken: String?, refreshToken: String?) {
         val editor = sharedPreferences.edit()
         editor.putString(Constants.ACCESS_TOKEN_KEY, accessToken)

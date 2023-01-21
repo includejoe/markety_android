@@ -11,11 +11,11 @@ data class LoginDTO(
     val username: String
 )
 
-fun LoginDTO.toLogin(): Login {
-    return Login (
-        username = username,
-        email = email,
-        isStaff = isStaff,
-        tokens = tokens,
-    )
-}
+//fun LoginDTO.toLogin(): Login {
+//    return Login (
+//        username = username,
+//        email = email,
+//        isStaff = isStaff,
+//        tokens = tokens,
+//    )
+//}

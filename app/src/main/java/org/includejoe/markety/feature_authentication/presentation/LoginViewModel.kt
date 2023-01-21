@@ -38,7 +38,7 @@ class LoginViewModel @Inject constructor(
             accessToken = tokenManager.readAccessToken()
         }
 
-        _state.value = _state.value.copy(isAuthenticated = refreshToken != null)
+        tokenManager.setIsAuthenticated(isAuthenticated = refreshToken != null)
     }
 
     fun onEvent(event: LoginEvent) {
@@ -60,7 +60,7 @@ class LoginViewModel @Inject constructor(
     private fun setAuthenticationStatusAndJWT(accessToken: String?, refreshToken: String?) {
         this.accessToken = accessToken
         this.refreshToken = refreshToken
-        _state.value.isAuthenticated = refreshToken != null
+        tokenManager.setIsAuthenticated(isAuthenticated = refreshToken != null)
         tokenManager.saveOrRemoveTokens(accessToken, refreshToken)
     }
 
@@ -92,7 +92,7 @@ class LoginViewModel @Inject constructor(
                     }
 
                     is Response.Success -> {
-                        _state.value = LoginState(data = result.data)
+                        _state.value = LoginState(data = result.data, submissionSuccess = true)
                         setAuthenticationStatusAndJWT(
                             accessToken = result.data?.tokens?.access,
                             refreshToken = result.data?.tokens?.refresh

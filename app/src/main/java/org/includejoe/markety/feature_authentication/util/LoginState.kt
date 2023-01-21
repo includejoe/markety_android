@@ -1,6 +1,6 @@
 package org.includejoe.markety.feature_authentication.util
 
-import org.includejoe.markety.feature_authentication.domain.model.Login
+import org.includejoe.markety.feature_authentication.data.remote.dto.LoginDTO
 
 data class LoginState(
     var username: String = "",
@@ -9,6 +9,6 @@ data class LoginState(
     val passwordError: Int? = null,
     val isSubmitting: Boolean = false,
     val submissionError: Any? = null,
-    val data: Login? = null,
-    var isAuthenticated: Boolean = false
+    var submissionSuccess: Boolean = false,
+    val data: LoginDTO? = null,
 )

@@ -10,4 +10,5 @@ object Constants {
     const val ACCESS_TOKEN_KEY = "access_token"
     const val REFRESH_TOKEN_KEY = "refresh_token"
     const val ENCRYPTED_SHARED_PREFS = "encrypted_shared_prefs"
+    const val USER_AUTHENTICATED = "is_user_authenticated"
 }
