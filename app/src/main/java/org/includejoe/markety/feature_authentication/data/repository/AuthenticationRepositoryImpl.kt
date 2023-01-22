@@ -7,15 +7,13 @@ import org.includejoe.markety.feature_authentication.data.remote.dto.RegisterDTO
 import org.includejoe.markety.feature_authentication.data.remote.dto.TokensDTO
 import org.includejoe.markety.feature_authentication.domain.model.Login
 import org.includejoe.markety.feature_authentication.domain.model.RefreshTokenRequest
+import org.includejoe.markety.feature_authentication.domain.model.RefreshTokenResponse
 import org.includejoe.markety.feature_authentication.domain.repository.AuthenticationRepository
 import javax.inject.Inject
 
 class AuthenticationRepositoryImpl @Inject constructor(
     private val api: MarketyAPI
 ): AuthenticationRepository {
-    override suspend fun isUserAuthenticated(): Boolean {
-        TODO("Not yet implemented")
-    }
 
     override suspend fun register(
         email: String,
@@ -38,7 +36,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
         return api.login(Login(username = username, password = password))
     }
 
-    override suspend fun getNewAccessToken(refreshToken: String): TokensDTO {
-        return api.getNewAccessToken(RefreshTokenRequest(refreshToken = refreshToken))
+    override suspend fun getNewAccessToken(refreshToken: String): RefreshTokenResponse {
+        return api.getNewAccessToken(RefreshTokenRequest(refresh = refreshToken))
     }
 }

@@ -12,7 +12,7 @@ import org.includejoe.markety.base.presentation.theme.ui.MarketyTheme
 import org.includejoe.markety.base.util.Screens
 import org.includejoe.markety.base.util.TokenManager
 import org.includejoe.markety.feature_authentication.presentation.LoginScreen
-import org.includejoe.markety.feature_post.presentation.FeedsScreen
+import org.includejoe.markety.feature_post.presentation.HomeScreen
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
             MarketyTheme(darkTheme = true) {
                 val navController = rememberNavController()
                 val startDestination = if (tokenManager.readIsAuthenticated()) {
-                    Screens.FeedsScreen.route
+                    Screens.HomeScreen.route
                 } else {
                     Screens.LoginScreen.route
                 }
@@ -39,8 +39,8 @@ class MainActivity : ComponentActivity() {
                         LoginScreen(navController = navController)
                     }
 
-                    composable(route = Screens.FeedsScreen.route) {
-                        FeedsScreen()
+                    composable(route = Screens.HomeScreen.route) {
+                        HomeScreen(navController = navController)
                     }
                 }
             }

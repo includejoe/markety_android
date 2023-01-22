@@ -3,10 +3,9 @@ package org.includejoe.markety.feature_authentication.domain.repository
 import org.includejoe.markety.feature_authentication.data.remote.dto.LoginDTO
 import org.includejoe.markety.feature_authentication.data.remote.dto.RegisterDTO
 import org.includejoe.markety.feature_authentication.data.remote.dto.TokensDTO
+import org.includejoe.markety.feature_authentication.domain.model.RefreshTokenResponse
 
 interface AuthenticationRepository {
-
-    suspend fun isUserAuthenticated(): Boolean
 
     suspend fun register(
         email: String,
@@ -25,5 +24,5 @@ interface AuthenticationRepository {
 
     suspend fun login(username: String, password: String): LoginDTO
 
-    suspend fun getNewAccessToken(refreshToken: String): TokensDTO
+    suspend fun getNewAccessToken(refreshToken: String): RefreshTokenResponse
 }

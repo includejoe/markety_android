@@ -14,6 +14,7 @@ import org.includejoe.markety.base.util.TokenManager
 import org.includejoe.markety.feature_authentication.data.repository.AuthenticationRepositoryImpl
 import org.includejoe.markety.feature_authentication.domain.repository.AuthenticationRepository
 import org.includejoe.markety.feature_authentication.domain.use_case.AuthenticationUseCases
+import org.includejoe.markety.feature_authentication.domain.use_case.GetNewAccessTokenUseCase
 import org.includejoe.markety.feature_authentication.domain.use_case.LoginUseCase
 import org.includejoe.markety.feature_authentication.util.validators.FormValidators
 import org.includejoe.markety.feature_authentication.util.validators.ValidatePassword
@@ -64,8 +65,15 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAuthenticationUseCases(repository: AuthenticationRepository) = AuthenticationUseCases(
-        login = LoginUseCase(repository = repository)
+    fun provideAuthenticationUseCases(
+        repository: AuthenticationRepository,
+        tokenManager: TokenManager
+    ) = AuthenticationUseCases(
+        login = LoginUseCase(repository = repository),
+        getNewAccessTokenUseCase = GetNewAccessTokenUseCase(
+            repository = repository,
+            tokenManager = tokenManager
+        )
     )
 
     @Provides

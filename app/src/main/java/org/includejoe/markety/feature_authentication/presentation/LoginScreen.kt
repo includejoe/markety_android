@@ -51,7 +51,7 @@ fun LoginScreen(
 
     if(state.value.submissionSuccess) {
         LaunchedEffect(key1 = true) {
-            navController.navigate(Screens.FeedsScreen.route) {
+            navController.navigate(Screens.HomeScreen.route) {
                 popUpTo(Screens.LoginScreen.route) {
                     inclusive = true
                 }

@@ -5,11 +5,19 @@ import org.includejoe.markety.feature_authentication.data.remote.dto.RegisterDTO
 import org.includejoe.markety.feature_authentication.data.remote.dto.TokensDTO
 import org.includejoe.markety.feature_authentication.domain.model.Login
 import org.includejoe.markety.feature_authentication.domain.model.RefreshTokenRequest
+import org.includejoe.markety.feature_authentication.domain.model.RefreshTokenResponse
 import org.includejoe.markety.feature_authentication.domain.model.Register
+import org.includejoe.markety.feature_post.data.remote.dto.PostDTO
+import org.includejoe.markety.feature_post.domain.model.CreatePost
 import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface MarketyAPI  {
+
+    // AUTHENTICATION
     @POST("auth/login/")
      suspend fun login(@Body body: Login): LoginDTO
 
@@ -17,5 +25,22 @@ interface MarketyAPI  {
     suspend fun register(@Body body: Register): RegisterDTO
 
     @POST("token/refresh/")
-    suspend fun getNewAccessToken(@Body refreshTokenRequest: RefreshTokenRequest): TokensDTO
+    suspend fun getNewAccessToken(@Body refreshTokenRequest: RefreshTokenRequest): RefreshTokenResponse
+
+    // POSTS
+    @GET("posts/")
+    suspend fun getPosts(): PostDTO
+
+    @POST("posts/create/")
+    suspend fun createPost(
+        @Body body: CreatePost,
+        @Header("Authorization") authHeader: String
+    ): PostDTO
+
+    @GET("posts/detail/{postId}")
+    suspend fun getPost(
+        @Path("postId") postId: String,
+        @Header("Authorization") authHeader: String
+    ): PostDTO
+
 }
