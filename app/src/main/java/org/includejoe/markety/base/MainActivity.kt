@@ -12,7 +12,11 @@ import org.includejoe.markety.base.presentation.theme.ui.MarketyTheme
 import org.includejoe.markety.base.util.Screens
 import org.includejoe.markety.base.util.TokenManager
 import org.includejoe.markety.feature_authentication.presentation.LoginScreen
+import org.includejoe.markety.feature_notification.presentation.NotificationsScreen
+import org.includejoe.markety.feature_post.presentation.CreatePostScreen
 import org.includejoe.markety.feature_post.presentation.HomeScreen
+import org.includejoe.markety.feature_search.presentation.SearchScreen
+import org.includejoe.markety.feature_user.presentation.ProfileScreen
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -41,6 +45,22 @@ class MainActivity : ComponentActivity() {
 
                     composable(route = Screens.HomeScreen.route) {
                         HomeScreen(navController = navController)
+                    }
+
+                    composable(route = Screens.SearchScreen.route) {
+                        SearchScreen(navController = navController)
+                    }
+
+                    composable(route = Screens.CreatePostScreen.route) {
+                        CreatePostScreen(navController = navController)
+                    }
+
+                    composable(route = Screens.NotificationsScreen.route) {
+                        NotificationsScreen(navController = navController)
+                    }
+
+                    composable(route = Screens.ProfileScreen.route) {
+                        ProfileScreen(navController = navController)
                     }
                 }
             }

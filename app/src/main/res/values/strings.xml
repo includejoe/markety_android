@@ -26,4 +26,11 @@
     <string name="no_account">Don\'t have an account?</string>
     <string name="register">REGISTER</string>
 
+    <!-- Bottom Navigation -->
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="post">Post</string>
+    <string name="notifications">Notifications</string>
+    <string name="profile">Profile</string>
+
 </resources>
