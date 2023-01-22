@@ -11,6 +11,7 @@ import androidx.compose.ui.text.TextStyle
 
 private val DarkColorPalette = darkColors(
     primary = Primary,
+    primaryVariant = DarkBg500,
     secondary = Secondary,
     background = DarkBg700,
     onPrimary = TextWhite,
@@ -23,6 +24,7 @@ private val DarkColorPalette = darkColors(
 
 private val LightColorPalette = lightColors(
     primary = Primary,
+    primaryVariant = Color.White,
     secondary = Secondary,
     background = LightBg,
     onPrimary = TextWhite,

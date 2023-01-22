@@ -2,6 +2,7 @@ package org.includejoe.markety.base.presentation.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
@@ -26,6 +27,7 @@ fun MButton(
         onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
+            .height(50.dp)
             .clip(MaterialTheme.shapes.medium)
             .background(bgColor)
     ) {

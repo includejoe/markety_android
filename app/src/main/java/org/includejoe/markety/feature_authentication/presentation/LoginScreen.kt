@@ -1,7 +1,5 @@
 package org.includejoe.markety.feature_authentication.presentation
 
-
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
@@ -20,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.composables.MButton
+import org.includejoe.markety.feature_authentication.presentation.composables.PasswordInput
 import org.includejoe.markety.base.presentation.composables.Toast
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.base.util.Screens
@@ -61,7 +60,6 @@ fun LoginScreen(
 
     Column(
         Modifier
-            .background(MaterialTheme.colors.background)
             .padding(MaterialTheme.spacing.md)
             .fillMaxSize(),
         verticalArrangement = Arrangement.Bottom,
@@ -95,7 +93,7 @@ fun LoginScreen(
         
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
 
-        TextInput(
+        PasswordInput(
             value = state.value.password,
             error = state.value.passwordError,
             onValueChange = {viewModel.onEvent(LoginEvent.PasswordChanged(it))},
@@ -135,11 +133,22 @@ fun LoginScreen(
             modifier = Modifier.padding(top = 48.dp)
         )
 
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
             Text(stringResource(R.string.no_account), color = MaterialTheme.colors.onBackground)
+            Spacer(modifier = Modifier.width(MaterialTheme.spacing.xs))
             TextButton(
-                onClick = {},
-                modifier = Modifier.align(Alignment.CenterVertically)
+                onClick = {
+                    navController.navigate(Screens.RegisterScreen.route) {
+                        popUpTo(Screens.LoginScreen.route) {
+                            inclusive = true
+                        }
+                    }
+                },
             ) {
                 Text(text = stringResource(R.string.register), color = MaterialTheme.colors.secondary)
             }

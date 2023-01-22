@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Markety</string>
+    <string name="markety">markety</string>
 
     <!-- Errors -->
     <string name="unexpected_error">An unexpected error occurred</string>
@@ -25,6 +26,10 @@
     <!-- Login Screen -->
     <string name="no_account">Don\'t have an account?</string>
     <string name="register">REGISTER</string>
+
+    <!-- Register Screen -->
+    <string name="yes_account">Already have an account?</string>
+
 
     <!-- Bottom Navigation -->
     <string name="home">Home</string>

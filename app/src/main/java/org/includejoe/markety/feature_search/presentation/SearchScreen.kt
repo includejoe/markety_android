@@ -1,6 +1,5 @@
 package org.includejoe.markety.feature_search.presentation
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,8 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import org.includejoe.markety.base.presentation.composables.AppTopBar
 import org.includejoe.markety.base.presentation.composables.BottomNavigation
-import org.includejoe.markety.base.presentation.composables.BottomNavigationItem
+import org.includejoe.markety.base.util.NavigationItem
 
 @Composable
 fun SearchScreen(
@@ -20,8 +20,8 @@ fun SearchScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background)
     ) {
+        AppTopBar(navController = navController)
         Column(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.Center,
@@ -30,7 +30,7 @@ fun SearchScreen(
             Text(text = "SEARCH SCREEN", color = MaterialTheme.colors.onBackground)
         }
         BottomNavigation(
-            selectedItem = BottomNavigationItem.SEARCH,
+            selectedItem = NavigationItem.SEARCH,
             navController = navController
         )
     }
