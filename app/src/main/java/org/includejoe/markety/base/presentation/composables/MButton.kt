@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -19,7 +18,7 @@ import androidx.compose.ui.unit.sp
 fun MButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    text: Int,
+    text: String,
     textColor: Color = MaterialTheme.colors.onPrimary,
     bgColor: Color = MaterialTheme.colors.primary
 ) {
@@ -32,7 +31,7 @@ fun MButton(
             .background(bgColor)
     ) {
         Text(
-            text = stringResource(text),
+            text = text,
             modifier = Modifier.padding(vertical = 8.dp),
             color = textColor,
             fontSize = 16.sp

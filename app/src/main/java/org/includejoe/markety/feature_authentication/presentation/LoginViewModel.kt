@@ -41,19 +41,20 @@ class LoginViewModel @Inject constructor(
         tokenManager.setIsAuthenticated(isAuthenticated = refreshToken != null)
     }
 
-    fun onEvent(event: LoginEvent) {
+    fun onEvent(event: FormEvent) {
         when(event) {
-            is LoginEvent.UsernameChanged -> {
+            is FormEvent.UsernameChanged -> {
                 _state.value = _state.value.copy(username = event.username)
             }
 
-            is LoginEvent.PasswordChanged -> {
+            is FormEvent.PasswordChanged -> {
                 _state.value = _state.value.copy(password = event.password)
             }
 
-            is LoginEvent.Submit -> {
+            is FormEvent.Submit -> {
                 submit()
             }
+            else -> {}
         }
     }
 

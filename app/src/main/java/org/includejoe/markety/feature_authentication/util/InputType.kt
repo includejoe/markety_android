@@ -1,33 +1,61 @@
 package org.includejoe.markety.feature_authentication.util
 
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import org.includejoe.markety.R
-
 
 sealed class InputType(
     val label: Int,
     val icon: ImageVector,
-    val keyboardOptions: KeyboardOptions,
-    val visualTransformation: VisualTransformation
 ){
     object Username: InputType(
         label = R.string.username_label,
         icon = Icons.Default.Person,
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-        visualTransformation = VisualTransformation.None
     )
 
     object Password: InputType(
         label = R.string.password_label,
         icon = Icons.Default.Lock,
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-        visualTransformation = PasswordVisualTransformation()
+    )
+
+    object Email: InputType(
+        label = R.string.email_label,
+        icon = Icons.Default.Email,
+    )
+
+    object FirstName: InputType(
+        label = R.string.firstname_label,
+        icon = Icons.Default.Person,
+    )
+
+    object LastName: InputType(
+        label = R.string.lastname_label,
+        icon = Icons.Default.Person,
+    )
+
+    object Dob: InputType(
+        label = R.string.dob_label,
+        icon = Icons.Default.CalendarViewDay,
+    )
+
+    object Phone: InputType(
+        label = R.string.phone_label,
+        icon = Icons.Default.Phone,
+    )
+
+    object Location: InputType(
+        label = R.string.location_label,
+        icon = Icons.Default.LocationOn,
+    )
+
+    object ConfirmPassword: InputType(
+        label = R.string.confirm_password_label,
+        icon = Icons.Default.Lock,
+    )
+
+    object Gender: InputType(
+        label = R.string.gender_label,
+        icon = Icons.Default.Female,
     )
 }

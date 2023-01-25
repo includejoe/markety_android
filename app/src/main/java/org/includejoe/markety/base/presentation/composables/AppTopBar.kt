@@ -44,8 +44,8 @@ fun AppTopBar(
         )
 
         Icon(
-            painter = if(currentRoute == NavigationItem.MESSAGES.route) painterResource(id = NavigationItem.MESSAGES.isSelectedIconId)
-            else painterResource(id = NavigationItem.MESSAGES.iconId),
+            imageVector = if(currentRoute == NavigationItem.MESSAGES.route) NavigationItem.MESSAGES.isSelectedIcon
+            else NavigationItem.MESSAGES.icon,
             contentDescription = stringResource(id = NavigationItem.MESSAGES.title),
             modifier = Modifier
                 .padding(end = 15.dp)

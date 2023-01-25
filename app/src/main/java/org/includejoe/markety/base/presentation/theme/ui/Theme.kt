@@ -6,8 +6,10 @@ import androidx.compose.material.ProvideTextStyle
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = darkColors(
     primary = Primary,
@@ -41,6 +43,16 @@ fun MarketyTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composabl
         DarkColorPalette
     } else {
         LightColorPalette
+    }
+
+    val isDarkTheme = darkTheme
+
+    val systemUiController = rememberSystemUiController()
+
+    SideEffect {
+        systemUiController.setSystemBarsColor(
+            color = if(darkTheme) DarkBg500 else Primary
+        )
     }
 
     MaterialTheme(

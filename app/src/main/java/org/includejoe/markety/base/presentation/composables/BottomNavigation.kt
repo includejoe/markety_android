@@ -32,12 +32,13 @@ fun BottomNavigation(
         val navItems = NavigationItem.values().dropLast(1)
         for (item in navItems) {
             Icon(
-                painter = if(item == selectedItem) painterResource(id = item.isSelectedIconId)
-                else painterResource(id = item.iconId),
+                imageVector = if(item == selectedItem) item.isSelectedIcon
+                else item.icon,
                 contentDescription = stringResource(id = item.title),
                 modifier = Modifier
                     .padding(horizontal = 15.dp)
-                    .size(if(item == NavigationItem.CREATEPOST) 28.dp else 23.dp)
+                    .size(if(item == NavigationItem.CREATEPOST) 35.dp else 30.dp)
+                    .size(30.dp)
                     .clickable {
                     navController.navigate(item.route)
                 },

@@ -1,16 +1,16 @@
 package org.includejoe.markety.feature_authentication.domain.model
 
 data class Register(
+    val email: String,
+    val username: String,
+    val firstName: String,
+    val lastName: String,
+    val phone: String,
+    val gender: String,
+    val dob: String,
+    val location: String,
+    val isVendor: Boolean,
     val busCategory: String,
     val busName: String,
-    val dob: String,
-    val email: String,
-    val firstName: String,
-    val gender: String,
-    val isVendor: Boolean,
-    val lastName: String,
-    val location: String,
     val password: String,
-    val phone: String,
-    val username: String
 )

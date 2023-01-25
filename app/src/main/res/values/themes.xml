@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Theme.Markety" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:statusBarColor">@color/dark_bg500</item>
     </style>
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">

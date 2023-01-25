@@ -3,6 +3,7 @@
     <color name="primary">#FF735CF6</color>
     <color name="secondary">#FFE8249A</color>
     <color name="dark_bg">#FF131428</color>
+    <color name="dark_bg500">#FF181B35</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

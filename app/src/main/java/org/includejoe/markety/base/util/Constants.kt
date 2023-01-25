@@ -1,7 +1,7 @@
 package org.includejoe.markety.base.util
 
 object Constants {
-    const val BASE_URL = "https://marketyapi.up.railway.app/api/v1/"
+    const val MARKETY_BASE_URL = "https://marketyapi.up.railway.app/api/v1/"
 
     const val LOGIN_VALIDATE = "login"
     const val REGISTER_VALIDATE = "register"
@@ -11,4 +11,6 @@ object Constants {
     const val REFRESH_TOKEN_KEY = "refresh_token"
     const val ENCRYPTED_SHARED_PREFS = "encrypted_shared_prefs"
     const val USER_AUTHENTICATED = "is_user_authenticated"
+
+    const val GOOGLE_MAPS_API_KEY = "AIzaSyACARrKET7OBzoC6oE4gl_cnH9ocdrQCb8"
 }

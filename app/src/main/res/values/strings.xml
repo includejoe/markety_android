@@ -4,8 +4,18 @@
 
     <!-- Errors -->
     <string name="unexpected_error">An unexpected error occurred</string>
+    <string name="something_wrong">Oops! Something went wrong</string>
     <string name="internet_error">Could not reach server, check your internet connection</string>
     <string name="blank_username">Username can\'t be blank</string>
+    <string name="blank_firstname">First Name can\'t be blank</string>
+    <string name="blank_lastname">Last Name can\'t be blank</string>
+    <string name="blank_location">Location can\'t be blank</string>
+    <string name="blank_email">Email can\'t be blank</string>
+    <string name="blank_phone">Phone can\'t be blank</string>
+    <string name="blank_gender">Gender can\'t be blank</string>
+    <string name="blank_dob">Date of birth can\'t be blank</string>
+    <string name="invalid_email">Email must be a valid email</string>
+    <string name="match_passwords">Passwords must match</string>
     <string name="invalid_username">
         Username can only contain letters, numbers, underscores and full stops. Username can\'t end with a full stop either
     </string>
@@ -19,9 +29,18 @@
     <!-- Labels -->
     <string name="username_label">Username</string>
     <string name="password_label">Password</string>
+    <string name="firstname_label">First Name</string>
+    <string name="lastname_label">Last Name</string>
+    <string name="gender_label">Gender</string>
+    <string name="dob_label">Date of Birth</string>
+    <string name="email_label">Email</string>
+    <string name="phone_label">Phone</string>
+    <string name="location_label">Location</string>
+    <string name="confirm_password_label">Confirm Password</string>
 
     <!-- Buttons -->
     <string name="login_btn">LOGIN</string>
+    <string name="next_btn">NEXT</string>
 
     <!-- Login Screen -->
     <string name="no_account">Don\'t have an account?</string>

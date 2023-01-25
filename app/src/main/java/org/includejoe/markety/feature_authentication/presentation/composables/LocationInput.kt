@@ -1,11 +1,14 @@
 package org.includejoe.markety.feature_authentication.presentation.composables
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,11 +22,12 @@ import androidx.compose.ui.unit.dp
 import org.includejoe.markety.base.presentation.theme.ui.DarkGray
 import org.includejoe.markety.base.presentation.theme.ui.LightGray
 import org.includejoe.markety.feature_authentication.presentation.LoginViewModel
+import org.includejoe.markety.feature_authentication.presentation.RegisterViewModel
 import org.includejoe.markety.feature_authentication.util.InputType
 import org.includejoe.markety.feature_authentication.util.LoginState
 
 @Composable
-fun TextInput(
+fun LocationInput(
     value: String,
     error: Any?,
     onValueChange: (String) -> Unit,
@@ -31,8 +35,17 @@ fun TextInput(
     focusRequester: FocusRequester? = null,
     keyboardActions: KeyboardActions,
     keyboardOptions: KeyboardOptions,
-    visualTransformation: VisualTransformation = VisualTransformation.None
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    viewModel: RegisterViewModel
 ) {
+
+    var expanded by remember {
+        mutableStateOf(false)
+    }
+
+    val interactionSource = remember {
+        MutableInteractionSource()
+    }
 
     TextField(
         value = value,
@@ -50,6 +63,15 @@ fun TextInput(
             contentDescription = null,
             tint = MaterialTheme.colors.primary
         ) },
+        trailingIcon = {
+           IconButton(onClick = { expanded = !expanded }) {
+                Icon(
+                    imageVector = Icons.Rounded.KeyboardArrowDown,
+                    contentDescription = "expand",
+                    tint = MaterialTheme.colors.onSurface
+                )
+           }
+        },
         placeholder = {
             Text(
                 text = stringResource(inputType.label),
@@ -67,5 +89,4 @@ fun TextInput(
         visualTransformation = visualTransformation,
         keyboardActions = keyboardActions
     )
-
 }
