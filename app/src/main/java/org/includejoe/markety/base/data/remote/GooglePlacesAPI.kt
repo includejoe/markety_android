@@ -9,7 +9,7 @@ interface GooglePlacesAPI {
     @GET("maps/api/place/autocomplete/json")
     suspend fun getPredictions(
         @Query("key") key: String = Constants.GOOGLE_MAPS_API_KEY,
-        @Query("types") types: String = "address",
+        @Query("types") types: String = "geocode",
         @Query("input") input: String
     ): GooglePredictionsDTO
 

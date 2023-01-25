@@ -11,12 +11,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.includejoe.markety.base.domain.model.GooglePrediction
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.feature_authentication.presentation.RegisterViewModel
-
 
 @Composable
 fun LocationPredictionView(

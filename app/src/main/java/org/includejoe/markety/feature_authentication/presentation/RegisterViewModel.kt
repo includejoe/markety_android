@@ -29,7 +29,6 @@ class RegisterViewModel @Inject constructor(
     val countriesList = getCountriesList()
     var currentCountryPhone by mutableStateOf<Country?>(Country("gh", "233", "Ghana"))
 
-
     fun onEvent(event: FormEvent) {
         when(event) {
             is FormEvent.UsernameChanged -> {

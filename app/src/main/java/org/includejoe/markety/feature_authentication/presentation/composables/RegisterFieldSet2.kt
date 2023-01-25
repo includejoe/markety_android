@@ -64,7 +64,7 @@ fun RegisterFieldSet2(
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
 
-        TextInput(
+        AutoCompleteLocationInput(
             value = state.value.location,
             error = state.value.locationError,
             onValueChange = {viewModel.onEvent(FormEvent.LocationChanged(it))},
@@ -73,7 +73,8 @@ fun RegisterFieldSet2(
                 passwordFR.requestFocus()
             }),
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-            focusRequester = locationFR
+            focusRequester = locationFR,
+            viewModel = viewModel
         )
 
         if(state.value.locationError != null) {
