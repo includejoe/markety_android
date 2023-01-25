@@ -26,6 +26,7 @@ import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.base.util.Screens
 import org.includejoe.markety.feature_authentication.presentation.composables.RegisterFieldSet1
 import org.includejoe.markety.feature_authentication.presentation.composables.RegisterFieldSet2
+import org.includejoe.markety.feature_authentication.presentation.composables.RegisterFieldSet3
 import org.includejoe.markety.feature_authentication.util.FormEvent
 
 @Composable
@@ -95,6 +96,7 @@ fun RegisterScreen(
             when (state.value.currentFieldSet) {
                 1 -> RegisterFieldSet1(viewModel = viewModel)
                 2 -> RegisterFieldSet2(viewModel = viewModel)
+                3 -> RegisterFieldSet3(viewModel = viewModel)
             }
 
             Divider(

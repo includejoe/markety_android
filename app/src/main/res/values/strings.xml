@@ -38,6 +38,11 @@
     <string name="location_label">Location</string>
     <string name="confirm_password_label">Confirm Password</string>
 
+    <!-- Gender -->
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+
     <!-- Buttons -->
     <string name="login_btn">LOGIN</string>
     <string name="next_btn">NEXT</string>

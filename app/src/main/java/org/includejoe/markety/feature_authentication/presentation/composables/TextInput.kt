@@ -24,6 +24,7 @@ import org.includejoe.markety.feature_authentication.util.LoginState
 
 @Composable
 fun TextInput(
+    modifier: Modifier = Modifier,
     value: String,
     error: Any?,
     onValueChange: (String) -> Unit,
@@ -31,7 +32,8 @@ fun TextInput(
     focusRequester: FocusRequester? = null,
     keyboardActions: KeyboardActions,
     keyboardOptions: KeyboardOptions,
-    visualTransformation: VisualTransformation = VisualTransformation.None
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    isEnabled: Boolean = true
 ) {
 
     TextField(
@@ -40,7 +42,7 @@ fun TextInput(
             onValueChange(it)
         },
         isError = error != null,
-        modifier = Modifier
+        modifier = modifier
             .clip(MaterialTheme.shapes.medium)
             .fillMaxWidth()
             .height(50.dp)
@@ -65,7 +67,7 @@ fun TextInput(
         singleLine = true,
         keyboardOptions = keyboardOptions,
         visualTransformation = visualTransformation,
-        keyboardActions = keyboardActions
+        keyboardActions = keyboardActions,
+        enabled = isEnabled
     )
-
 }

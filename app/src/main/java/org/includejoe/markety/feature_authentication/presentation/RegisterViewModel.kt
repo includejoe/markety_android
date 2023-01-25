@@ -47,6 +47,10 @@ class RegisterViewModel @Inject constructor(
                 _state.value = _state.value.copy(dob = event.dob)
             }
 
+            is FormEvent.GenderChanged -> {
+                _state.value = _state.value.copy(gender = event.gender)
+            }
+
             is FormEvent.EmailChanged -> {
                 _state.value = _state.value.copy(email = event.email)
             }

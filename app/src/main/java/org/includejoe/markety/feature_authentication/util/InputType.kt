@@ -36,7 +36,7 @@ sealed class InputType(
 
     object Dob: InputType(
         label = R.string.dob_label,
-        icon = Icons.Default.CalendarViewDay,
+        icon = Icons.Default.DateRange,
     )
 
     object Phone: InputType(
@@ -56,6 +56,6 @@ sealed class InputType(
 
     object Gender: InputType(
         label = R.string.gender_label,
-        icon = Icons.Default.Female,
+        icon = Icons.Default.Person,
     )
 }
