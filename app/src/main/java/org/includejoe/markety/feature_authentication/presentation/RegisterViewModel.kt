@@ -1,5 +1,6 @@
 package org.includejoe.markety.feature_authentication.presentation
 
+import android.util.Log
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -72,6 +73,10 @@ class RegisterViewModel @Inject constructor(
                 getPlacesPredictions()
             }
 
+            is FormEvent.IsVendorChanged -> {
+                _state.value = _state.value.copy(isVendor = event.isVendor)
+            }
+
             is FormEvent.BusCategoryChanged -> {
                 _state.value = _state.value.copy(busCategory = event.busCategory)
             }
@@ -106,13 +111,15 @@ class RegisterViewModel @Inject constructor(
 
                     is Response.Success -> {
                         _state.value = _state.value.copy(
-                            googlePlacesPredictions = result.data
+                            googlePlacesPredictions = result.data,
+                            isGooglePlacesPredictionsLoading = false
                         )
                     }
 
                     is Response.Error -> {
                         _state.value = _state.value.copy(
-                            googlePlacesPredictionsError = R.string.something_wrong
+                            googlePlacesPredictionsError = R.string.something_wrong,
+                            isGooglePlacesPredictionsLoading = false
                         )
                     }
                 }
@@ -161,41 +168,43 @@ class RegisterViewModel @Inject constructor(
             return
         }
 
-        viewModelScope.launch {
-            authUseCases.register(
-                username = _state.value.username,
-                password = _state.value.password,
-                firstName = _state.value.firstName,
-                lastName = _state.value.lastName,
-                phone = currentCountryPhone!!.code + _state.value.phone,
-                email = _state.value.email,
-                gender = _state.value.gender,
-                dob = _state.value.dob,
-                location = _state.value.location,
-                isVendor = _state.value.isVendor,
-                busName = _state.value.busName,
-                busCategory = _state.value.busCategory,
-            ).collectLatest { result ->
-                when(result) {
-                    is Response.Loading -> {
-                        _state.value = RegisterState(isSubmitting = true)
-                    }
+        Log.d("submit_data", _state.value.toString())
 
-                    is Response.Success -> {
-                        _state.value = RegisterState(
-                            data = result.data,
-                            submissionSuccess = true
-                        )
-                    }
-
-                    is Response.Error -> {
-                        _state.value = RegisterState(
-                            submissionError =  result.message ?: R.string.unexpected_error
-                        )
-                    }
-                }
-            }
-        }
+//        viewModelScope.launch {
+//            authUseCases.register(
+//                username = _state.value.username,
+//                password = _state.value.password,
+//                firstName = _state.value.firstName,
+//                lastName = _state.value.lastName,
+//                phone = currentCountryPhone!!.code + _state.value.phone,
+//                email = _state.value.email,
+//                gender = _state.value.gender,
+//                dob = _state.value.dob,
+//                location = _state.value.location,
+//                isVendor = _state.value.isVendor,
+//                busName = _state.value.busName,
+//                busCategory = _state.value.busCategory,
+//            ).collectLatest { result ->
+//                when(result) {
+//                    is Response.Loading -> {
+//                        _state.value = RegisterState(isSubmitting = true)
+//                    }
+//
+//                    is Response.Success -> {
+//                        _state.value = RegisterState(
+//                            data = result.data,
+//                            submissionSuccess = true
+//                        )
+//                    }
+//
+//                    is Response.Error -> {
+//                        _state.value = RegisterState(
+//                            submissionError =  result.message ?: R.string.unexpected_error
+//                        )
+//                    }
+//                }
+//            }
+//        }
     }
 
     private fun next(currentFieldSet: Int) {
@@ -267,6 +276,23 @@ class RegisterViewModel @Inject constructor(
             3 -> {
                 val dobResult = validators.dob(_state.value.dob)
                 val genderResult = validators.gender(_state.value.gender)
+
+                val hasError = listOf(
+                    dobResult,
+                    genderResult
+                ).any { !it.successful }
+
+                if(hasError) {
+                    _state.value = _state.value.copy(
+                        dobError = dobResult.errorMessage,
+                        genderError = genderResult.errorMessage
+                    )
+                    return
+                }
+                _state.value = _state.value.copy(
+                    dobError = null,
+                    genderError = null
+                )
 
             }
         }

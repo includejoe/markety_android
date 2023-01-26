@@ -13,6 +13,7 @@ sealed class FormEvent {
     data class BusCategoryChanged(val busCategory: String): FormEvent()
     data class DobChanged(val dob: String): FormEvent()
     data class GenderChanged(val gender: String): FormEvent()
+    data class IsVendorChanged(val isVendor: Boolean): FormEvent()
 
     object Next: FormEvent()
     object Previous: FormEvent()

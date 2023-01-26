@@ -37,6 +37,26 @@
     <string name="phone_label">Phone</string>
     <string name="location_label">Location</string>
     <string name="confirm_password_label">Confirm Password</string>
+    <string name="bus_name_label">Business Name</string>
+    <string name="bus_category_label">Business Category</string>
+
+    <!-- Categories -->
+    <string-array name="categories">
+        <item name="vehicles">Vehicles</item>
+        <item name="property">Property</item>
+        <item name="phones">Mobile Phones &amp; Tablets</item>
+        <item name="electronics">Electronics</item>
+        <item name="home">Home, Furniture &amp; Appliances</item>
+        <item name="health">Health &amp; Beauty</item>
+        <item name="fashion">Fashion</item>
+        <item name="sports">Sports, Arts &amp; Outdoors</item>
+        <item name="service">Services</item>
+        <item name="babies">Babies &amp; Kids</item>
+        <item name="animals">Animals &amp; Pets</item>
+        <item name="agriculture">Agriculture</item>
+        <item name="food">Food</item>
+        <item name="construction">Repair &amp; Construction</item>
+    </string-array>
 
     <!-- Gender -->
     <string name="male">Male</string>
@@ -46,6 +66,7 @@
     <!-- Buttons -->
     <string name="login_btn">LOGIN</string>
     <string name="next_btn">NEXT</string>
+    <string name="complete_btn">COMPLETE</string>
 
     <!-- Login Screen -->
     <string name="no_account">Don\'t have an account?</string>
@@ -53,6 +74,7 @@
 
     <!-- Register Screen -->
     <string name="yes_account">Already have an account?</string>
+    <string name="is_vendor">Register as a vendor</string>
 
 
     <!-- Bottom Navigation -->

@@ -17,7 +17,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
 import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.composables.MButton
@@ -35,9 +34,6 @@ fun RegisterFieldSet3(
     val state = viewModel.state
     val context = LocalContext.current
 
-    val genderFR = FocusRequester()
-    val focusManager = LocalFocusManager.current
-
     Column(
         modifier = modifier.fillMaxWidth(),
     ) {
@@ -53,10 +49,6 @@ fun RegisterFieldSet3(
             error = state.value.dobError,
             onValueChange = { viewModel.onEvent(FormEvent.DobChanged(it)) },
             inputType = InputType.Dob,
-            keyboardActions = KeyboardActions(onNext = {
-                genderFR.requestFocus()
-            }),
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             isEnabled = false,
         )
 
@@ -76,10 +68,6 @@ fun RegisterFieldSet3(
             error = state.value.genderError,
             onValueChange = { viewModel.onEvent(FormEvent.GenderChanged(it)) },
             inputType = InputType.Gender,
-            keyboardActions = KeyboardActions(onNext = {
-                genderFR.requestFocus()
-            }),
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
         )
 
         if (state.value.genderError != null) {
@@ -92,12 +80,27 @@ fun RegisterFieldSet3(
         }
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
+        
+        IsVendorCheckBox(viewModel = viewModel)
 
-        MButton(
-            onClick = {
-                viewModel.onEvent(FormEvent.Next)
-            },
-            text = stringResource(id = R.string.next_btn)
-        )
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
+
+        if(viewModel.state.value.isVendor) {
+            MButton(
+                onClick = {
+                    viewModel.onEvent(FormEvent.Next)
+                },
+                text = stringResource(id = R.string.next_btn)
+            )
+        } else {
+            MButton(
+                onClick = {
+                    viewModel.onEvent(FormEvent.Submit)
+                },
+                text = stringResource(id = R.string.complete_btn)
+            )
+        }
+
+
     }
 }

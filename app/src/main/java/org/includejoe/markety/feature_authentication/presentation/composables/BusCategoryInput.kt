@@ -20,17 +20,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusOrder
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.theme.ui.DarkGray
 import org.includejoe.markety.base.presentation.theme.ui.LightGray
 import org.includejoe.markety.feature_authentication.presentation.RegisterViewModel
 import org.includejoe.markety.feature_authentication.util.InputType
+import java.util.Locale.Category
 
 @Composable
-fun AutoCompleteLocationInput(
+fun BusCategoryInput(
     value: String,
     error: Any?,
     onValueChange: (String) -> Unit,
@@ -41,6 +44,11 @@ fun AutoCompleteLocationInput(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     viewModel: RegisterViewModel
 ){
+    val context = LocalContext.current
+
+    val categories = context.resources.getStringArray(R.array.categories)
+
+
     var expanded by remember {
         mutableStateOf(false)
     }
@@ -135,15 +143,18 @@ fun AutoCompleteLocationInput(
                         .heightIn(max = 150.dp)
                         .background(MaterialTheme.colors.surface)
                 ) {
-                    val predictions = viewModel.state.value.googlePlacesPredictions?.predictions
-                    if(!predictions.isNullOrEmpty()) {
-                        items(predictions) {
-                            Location(location = it.description) { location ->
-                                expanded = false
-                                onValueChange(location)
-                            }
-                        }
-                    }
+//                    if(viewModel.state.value.busCategory.isNotEmpty()) {
+//                        items(
+//                            categories.filter {
+////                                it.lowercase()
+////                                    .contains(viewModel.state.value.busCategory.lowercase()) || it.lowercase()
+//                            }.sorted()
+//                        ) {
+//                            Category(category = it) { category ->
+//
+//                            }
+//                        }
+//                    }
                 }
             }
         }
@@ -151,19 +162,18 @@ fun AutoCompleteLocationInput(
 }
 
 @Composable
-fun Location(
-    location: String,
+fun Category(
+    category: String,
     onSelect: (String) -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                onSelect(location)
+                onSelect(category)
             }
             .padding(10.dp)
     ) {
-        Text(text = location, color = MaterialTheme.colors.onSurface)
+        Text(text = category, color = MaterialTheme.colors.onSurface)
     }
-
 }

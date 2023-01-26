@@ -30,8 +30,8 @@ fun TextInput(
     onValueChange: (String) -> Unit,
     inputType: InputType,
     focusRequester: FocusRequester? = null,
-    keyboardActions: KeyboardActions,
-    keyboardOptions: KeyboardOptions,
+    keyboardActions: KeyboardActions = KeyboardActions(),
+    keyboardOptions: KeyboardOptions = KeyboardOptions(),
     visualTransformation: VisualTransformation = VisualTransformation.None,
     isEnabled: Boolean = true
 ) {

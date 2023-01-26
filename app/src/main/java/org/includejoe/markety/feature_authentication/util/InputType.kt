@@ -58,4 +58,14 @@ sealed class InputType(
         label = R.string.gender_label,
         icon = Icons.Default.Person,
     )
+
+    object BusName: InputType(
+        label = R.string.bus_name_label,
+        icon = Icons.Default.Business,
+    )
+
+    object BusCategory: InputType(
+        label = R.string.bus_category_label,
+        icon = Icons.Default.Category,
+    )
 }

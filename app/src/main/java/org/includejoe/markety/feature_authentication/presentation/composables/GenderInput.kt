@@ -33,8 +33,6 @@ fun GenderInput(
     onValueChange: (String) -> Unit,
     inputType: InputType,
     focusRequester: FocusRequester? = null,
-    keyboardActions: KeyboardActions,
-    keyboardOptions: KeyboardOptions,
     visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
 
@@ -77,9 +75,7 @@ fun GenderInput(
             ),
             textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
             singleLine = true,
-            keyboardOptions = keyboardOptions,
             visualTransformation = visualTransformation,
-            keyboardActions = keyboardActions,
             enabled = false
         )
 

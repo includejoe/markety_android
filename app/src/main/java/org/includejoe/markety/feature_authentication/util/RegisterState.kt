@@ -39,10 +39,10 @@ data class RegisterState(
     var isVendor: Boolean = false,
     val isVendorError: Int? = null,
 
-    var busName: String? = null,
+    var busName: String = "",
     val busNameError: Int? = null,
 
-    var busCategory: String? = null,
+    var busCategory: String = "",
     val busCategoryError: Int? = null,
 
     var googlePlacesPredictions: GooglePredictionsDTO? = null,
