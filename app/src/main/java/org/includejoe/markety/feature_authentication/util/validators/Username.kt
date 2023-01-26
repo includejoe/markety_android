@@ -19,6 +19,13 @@ class ValidateUsername {
 
         when(type) {
             Constants.REGISTER_VALIDATE -> {
+                if(username.length < 3){
+                    return ValidationResult(
+                        successful = false,
+                        errorMessage = R.string.min_username
+                    )
+                }
+
                 val isValid = username.matches(Constants.USERNAME_REGEX.toRegex())
                 if(!isValid) {
                     return ValidationResult(
@@ -26,6 +33,8 @@ class ValidateUsername {
                         errorMessage = R.string.invalid_username
                     )
                 }
+
+
             }
         }
 

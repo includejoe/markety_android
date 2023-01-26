@@ -10,5 +10,7 @@ data class FormValidators(
     val phone: ValidatePhone,
     val password: ValidatePassword,
     val confirmPassword: ValidateConfirmPassword,
-    val location: ValidateLocation
+    val location: ValidateLocation,
+    val busName: ValidateBusName,
+    val busCategory: ValidateBusCategory
 )

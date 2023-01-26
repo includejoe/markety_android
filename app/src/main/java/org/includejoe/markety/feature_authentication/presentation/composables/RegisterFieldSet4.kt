@@ -56,15 +56,13 @@ fun RegisterFieldSet4(
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
 
         BusCategoryInput(
-            value = state.value.lastName,
-            error = state.value.lastNameError,
-            onValueChange = {viewModel.onEvent(FormEvent.LastNameChanged(it))},
-            inputType = InputType.LastName,
+            value = state.value.busCategory,
+            error = state.value.busCategoryError,
+            onValueChange = {viewModel.onEvent(FormEvent.BusCategoryChanged(it))},
+            inputType = InputType.BusCategory,
             keyboardActions = KeyboardActions(onDone = {
                 focusManager.clearFocus()
-            }),
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-            viewModel = viewModel
+            })
         )
 
         if(state.value.busCategoryError != null) {

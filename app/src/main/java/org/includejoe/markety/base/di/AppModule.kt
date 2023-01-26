@@ -56,6 +56,8 @@ object AppModule {
         password = ValidatePassword(),
         confirmPassword = ValidateConfirmPassword(),
         location = ValidateLocation(),
+        busCategory = ValidateBusCategory(),
+        busName = ValidateBusName()
     )
 
     @Provides

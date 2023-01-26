@@ -2,29 +2,34 @@
     <string name="app_name">Markety</string>
     <string name="markety">markety</string>
 
+
     <!-- Errors -->
     <string name="unexpected_error">An unexpected error occurred</string>
     <string name="something_wrong">Oops! Something went wrong</string>
     <string name="internet_error">Could not reach server, check your internet connection</string>
-    <string name="blank_username">Username can\'t be blank</string>
-    <string name="blank_firstname">First Name can\'t be blank</string>
-    <string name="blank_lastname">Last Name can\'t be blank</string>
-    <string name="blank_location">Location can\'t be blank</string>
-    <string name="blank_email">Email can\'t be blank</string>
-    <string name="blank_phone">Phone can\'t be blank</string>
-    <string name="blank_gender">Gender can\'t be blank</string>
-    <string name="blank_dob">Date of birth can\'t be blank</string>
+    <string name="invalid_phone">Invalid phone number</string>
     <string name="invalid_email">Email must be a valid email</string>
     <string name="match_passwords">Passwords must match</string>
     <string name="invalid_username">
         Username can only contain letters, numbers, underscores and full stops. Username can\'t end with a full stop either
     </string>
     <string name="invalid_credentials">Invalid Credentials</string>
-
-
-    <string name="blank_password">Password can\'t be blank</string>
+    <string name="min_username">Username must contain at least 3 characters</string>
     <string name="min_password">Password must consist of at least 8 characters</string>
     <string name="invalid_password">Password must contain at least one letter and digit</string>
+    <!-- blank errors -->
+    <string name="blank_username">Username can\'t be blank</string>
+    <string name="blank_firstname">First Name can\'t be blank</string>
+    <string name="blank_lastname">Last Name can\'t be blank</string>
+    <string name="blank_location">Location can\'t be blank</string>
+    <string name="blank_email">Email can\'t be blank</string>
+    <string name="blank_phone">Phone can\'t be blank</string>
+    <string name="blank_password">Password can\'t be blank</string>
+    <string name="blank_gender">Gender can\'t be blank</string>
+    <string name="blank_dob">Date of birth can\'t be blank</string>
+    <string name="blank_bus_name">Business Name can\'t be blank</string>
+    <string name="blank_bus_category">Business Category can\'t be blank</string>
+
 
     <!-- Labels -->
     <string name="username_label">Username</string>
@@ -39,6 +44,7 @@
     <string name="confirm_password_label">Confirm Password</string>
     <string name="bus_name_label">Business Name</string>
     <string name="bus_category_label">Business Category</string>
+
 
     <!-- Categories -->
     <string-array name="categories">
@@ -58,19 +64,23 @@
         <item name="construction">Repair &amp; Construction</item>
     </string-array>
 
+
     <!-- Gender -->
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="other">Other</string>
+
 
     <!-- Buttons -->
     <string name="login_btn">LOGIN</string>
     <string name="next_btn">NEXT</string>
     <string name="complete_btn">COMPLETE</string>
 
+
     <!-- Login Screen -->
     <string name="no_account">Don\'t have an account?</string>
     <string name="register">REGISTER</string>
+
 
     <!-- Register Screen -->
     <string name="yes_account">Already have an account?</string>
@@ -83,5 +93,4 @@
     <string name="post">Post</string>
     <string name="notifications">Notifications</string>
     <string name="profile">Profile</string>
-
 </resources>

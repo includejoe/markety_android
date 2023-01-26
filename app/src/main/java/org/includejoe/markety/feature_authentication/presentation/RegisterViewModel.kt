@@ -128,45 +128,40 @@ class RegisterViewModel @Inject constructor(
     }
 
     private fun submit() {
-        val usernameResult = validators.username(_state.value.username, type = Constants.REGISTER_VALIDATE)
-        val passwordResult = validators.password(_state.value.password, type = Constants.REGISTER_VALIDATE)
-        val confirmPasswordResult = validators.confirmPassword(_state.value.password, _state.value.confirmPassword)
-        val emailResult = validators.email(_state.value.email)
-        val firstNameResult = validators.firstName(_state.value.firstName)
-        val lastNameResult = validators.lastName(_state.value.lastName)
-        val locationResult = validators.location(_state.value.location)
-        val dobResult = validators.dob(_state.value.dob)
-        val genderResult = validators.gender(_state.value.gender)
-        val phoneResult = validators.phone(_state.value.phone)
+        if(_state.value.isVendor) {
+            val busNameResult = validators.busName(_state.value.busName)
+            val busCategoryResult = validators.busCategory(_state.value.busCategory)
 
-        val hasError = listOf(
-            usernameResult,
-            passwordResult,
-            confirmPasswordResult,
-            emailResult,
-            firstNameResult,
-            lastNameResult,
-            locationResult,
-            dobResult,
-            genderResult,
-            phoneResult
-        ).any { !it.successful }
+            val hasError = listOf(
+                busNameResult,
+                busCategoryResult
+            ).any { !it.successful }
 
-        if(hasError) {
-            _state.value = _state.value.copy(
-                usernameError = usernameResult.errorMessage,
-                passwordError = passwordResult.errorMessage,
-                confirmPasswordError = confirmPasswordResult.errorMessage,
-                emailError = emailResult.errorMessage,
-                firstNameError = firstNameResult.errorMessage,
-                lastNameError = lastNameResult.errorMessage,
-                locationError = locationResult.errorMessage,
-                dobError = dobResult.errorMessage,
-                genderError = genderResult.errorMessage,
-                phoneError = phoneResult.errorMessage
-            )
-            return
+            if(hasError) {
+                _state.value = _state.value.copy(
+                    busNameError = busNameResult.errorMessage,
+                    busCategoryError = busCategoryResult.errorMessage,
+                )
+                return
+            }
+        } else {
+            val dobResult = validators.dob(_state.value.dob)
+            val genderResult = validators.gender(_state.value.gender)
+
+            val hasError = listOf(
+                dobResult,
+                genderResult
+            ).any { !it.successful }
+
+            if(hasError) {
+                _state.value = _state.value.copy(
+                    dobError = dobResult.errorMessage,
+                    genderError = genderResult.errorMessage
+                )
+                return
+            }
         }
+
 
         Log.d("submit_data", _state.value.toString())
 
@@ -293,7 +288,6 @@ class RegisterViewModel @Inject constructor(
                     dobError = null,
                     genderError = null
                 )
-
             }
         }
 
