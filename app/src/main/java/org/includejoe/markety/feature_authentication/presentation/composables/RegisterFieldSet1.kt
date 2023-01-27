@@ -80,7 +80,7 @@ fun RegisterFieldSet1(
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
 
-        TextInput(
+        UsernameInput(
             value = state.value.username,
             error = state.value.usernameError,
             onValueChange = {viewModel.onEvent(FormEvent.UsernameChanged(it))},
@@ -89,7 +89,8 @@ fun RegisterFieldSet1(
                 emailFR.requestFocus()
             }),
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-            focusRequester = usernameFR
+            focusRequester = usernameFR,
+            viewModel = viewModel
         )
 
         if(state.value.usernameError != null) {

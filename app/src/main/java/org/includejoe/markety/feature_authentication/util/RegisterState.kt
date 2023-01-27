@@ -7,6 +7,10 @@ data class RegisterState(
     var username: String = "",
     val usernameError: Int? = null,
 
+    var isUsernameAvailable: Boolean? = false,
+    var checkingUsername: Boolean = false,
+    val checkUsernameError: Int? = null,
+
     var email: String = "",
     val emailError: Int? = null,
 

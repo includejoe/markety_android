@@ -1,11 +1,16 @@
 package org.includejoe.markety.feature_authentication.presentation.composables
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Error
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,11 +23,11 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import org.includejoe.markety.base.presentation.theme.ui.DarkGray
 import org.includejoe.markety.base.presentation.theme.ui.LightGray
+import org.includejoe.markety.feature_authentication.presentation.RegisterViewModel
 import org.includejoe.markety.feature_authentication.util.InputType
 
-
 @Composable
-fun TextInput(
+fun UsernameInput(
     modifier: Modifier = Modifier,
     value: String,
     error: Any?,
@@ -32,9 +37,9 @@ fun TextInput(
     keyboardActions: KeyboardActions = KeyboardActions(),
     keyboardOptions: KeyboardOptions = KeyboardOptions(),
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    isEnabled: Boolean = true
+    isEnabled: Boolean = true,
+    viewModel: RegisterViewModel
 ) {
-
     TextField(
         value = value,
         onValueChange = {
@@ -51,6 +56,30 @@ fun TextInput(
             contentDescription = null,
             tint = MaterialTheme.colors.primary
         ) },
+        trailingIcon = {
+            if(viewModel.state.value.username.isEmpty()) {
+                // display nothing if username value is empty
+                Box() {}
+            }else if(viewModel.state.value.checkingUsername){
+                CircularProgressIndicator(
+                    color = MaterialTheme.colors.onSurface,
+                    strokeWidth = 2.dp,
+                    modifier = Modifier.size(15.dp)
+                )
+            } else if(viewModel.state.value.isUsernameAvailable == true){
+                Icon(
+                    imageVector = Icons.Default.CheckCircle,
+                    contentDescription = null,
+                    tint = Color.Green
+                )
+            } else {
+                Icon(
+                    imageVector = Icons.Default.Error,
+                    contentDescription = null,
+                    tint = MaterialTheme.colors.error
+                )
+            }
+        },
         placeholder = {
             Text(
                 text = stringResource(inputType.label),

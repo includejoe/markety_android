@@ -34,6 +34,7 @@ class RegisterViewModel @Inject constructor(
         when(event) {
             is FormEvent.UsernameChanged -> {
                 _state.value = _state.value.copy(username = event.username)
+                checkUsername()
             }
 
             is FormEvent.PasswordChanged -> {
@@ -95,6 +96,34 @@ class RegisterViewModel @Inject constructor(
 
             is FormEvent.Submit -> {
                 submit()
+            }
+        }
+    }
+
+    private fun checkUsername() {
+        viewModelScope.launch {
+            authUseCases.checkUsername(_state.value.username).collectLatest { result ->
+                when(result) {
+                    is Response.Loading -> {
+                        _state.value = _state.value.copy(
+                            checkingUsername = true
+                        )
+                    }
+
+                    is Response.Success -> {
+                        _state.value = _state.value.copy(
+                            isUsernameAvailable = result.data?.available,
+                            checkingUsername = false
+                        )
+                    }
+
+                    is Response.Error -> {
+                        _state.value = _state.value.copy(
+                            checkUsernameError = R.string.something_wrong,
+                            checkingUsername = false
+                        )
+                    }
+                }
             }
         }
     }

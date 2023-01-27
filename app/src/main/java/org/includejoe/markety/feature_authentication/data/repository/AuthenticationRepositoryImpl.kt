@@ -1,10 +1,9 @@
 package org.includejoe.markety.feature_authentication.data.repository
 
-
 import org.includejoe.markety.base.data.remote.MarketyAPI
+import org.includejoe.markety.feature_authentication.data.remote.dto.CheckUsernameDTO
 import org.includejoe.markety.feature_authentication.data.remote.dto.LoginDTO
 import org.includejoe.markety.feature_authentication.data.remote.dto.RegisterDTO
-import org.includejoe.markety.feature_authentication.data.remote.dto.TokensDTO
 import org.includejoe.markety.feature_authentication.domain.model.Login
 import org.includejoe.markety.feature_authentication.domain.model.RefreshTokenRequest
 import org.includejoe.markety.feature_authentication.domain.model.RefreshTokenResponse
@@ -30,6 +29,10 @@ class AuthenticationRepositoryImpl @Inject constructor(
         busCategory: String?
     ): RegisterDTO {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun checkUsername(username: String): CheckUsernameDTO {
+        return api.checkUsername(username = username)
     }
 
     override suspend fun login(username: String, password: String): LoginDTO {

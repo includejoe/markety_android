@@ -62,7 +62,8 @@ fun RegisterFieldSet4(
             inputType = InputType.BusCategory,
             keyboardActions = KeyboardActions(onDone = {
                 focusManager.clearFocus()
-            })
+            }),
+            focusRequester = busCategoryFR
         )
 
         if(state.value.busCategoryError != null) {

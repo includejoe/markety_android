@@ -15,10 +15,7 @@ import org.includejoe.markety.base.util.Constants
 import org.includejoe.markety.base.util.TokenManager
 import org.includejoe.markety.feature_authentication.data.repository.AuthenticationRepositoryImpl
 import org.includejoe.markety.feature_authentication.domain.repository.AuthenticationRepository
-import org.includejoe.markety.feature_authentication.domain.use_case.AuthenticationUseCases
-import org.includejoe.markety.feature_authentication.domain.use_case.GetNewAccessTokenUseCase
-import org.includejoe.markety.feature_authentication.domain.use_case.LoginUseCase
-import org.includejoe.markety.feature_authentication.domain.use_case.RegisterUseCase
+import org.includejoe.markety.feature_authentication.domain.use_case.*
 import org.includejoe.markety.feature_authentication.util.validators.*
 import retrofit2.Retrofit
 import retrofit2.Retrofit.Builder
@@ -97,7 +94,6 @@ object AppModule {
         return  GooglePlacesRepository(api)
     }
 
-
     // Use Cases
     @Provides
     @Singleton
@@ -107,6 +103,7 @@ object AppModule {
     ) = AuthenticationUseCases(
         login = LoginUseCase(repository = repository),
         register = RegisterUseCase(repository = repository),
+        checkUsername = CheckUsernameUseCase(repository = repository),
         getNewAccessTokenUseCase = GetNewAccessTokenUseCase(
             repository = repository,
             tokenManager = tokenManager
