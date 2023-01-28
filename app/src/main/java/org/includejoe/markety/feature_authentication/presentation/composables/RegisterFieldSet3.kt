@@ -35,6 +35,7 @@ fun RegisterFieldSet3(
 
     Column(
         modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TextInput(
             modifier = Modifier.clickable {

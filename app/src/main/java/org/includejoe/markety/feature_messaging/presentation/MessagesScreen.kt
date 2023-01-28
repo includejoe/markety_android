@@ -23,7 +23,7 @@ fun MessagesScreen(
     ) {
         AppTopBar(navController = navController)
         Column(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(1f).fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

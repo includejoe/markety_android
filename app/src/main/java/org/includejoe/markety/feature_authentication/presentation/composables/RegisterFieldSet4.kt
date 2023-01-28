@@ -32,6 +32,7 @@ fun RegisterFieldSet4(
 
     Column(
         modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TextInput(
             value = state.value.busName,

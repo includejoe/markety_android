@@ -1,5 +1,6 @@
 package org.includejoe.markety.feature_authentication.domain.use_case
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.includejoe.markety.R
@@ -21,6 +22,7 @@ class CheckUsernameUseCase @Inject constructor(
            val data = repository.checkUsername(username)
            emit(Response.Success<CheckUsernameDTO>(data))
        } catch (e: HttpException) {
+           val errorMessage = e.response()?.errorBody()?.string()
            emit(Response.Error<CheckUsernameDTO>(R.string.unexpected_error))
        } catch(e: IOException) {
            emit(Response.Error<CheckUsernameDTO>(R.string.internet_error))

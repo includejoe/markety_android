@@ -10,8 +10,6 @@ class DatePicker(
     var date: String,
     val setDate: (String) -> Unit
 ) {
-    private var dateFormat = "dd-MM-yyyy"
-
     fun showDatePickerDialog() {
         val calendar = getCalender()
         DatePickerDialog(
@@ -33,7 +31,7 @@ class DatePicker(
     }
 
     private fun getLastPickedDateCalendar(): Calendar {
-        val dateFormat = SimpleDateFormat(dateFormat, Locale.UK)
+        val dateFormat = Constants.APP_DATE_FORMAT
         val calendar = Calendar.getInstance()
         calendar.time = dateFormat.parse(date) as Date
         return calendar
@@ -42,7 +40,7 @@ class DatePicker(
     private fun getPickedDateAsString(year: Int, month: Int, day: Int): String {
         val calendar = Calendar.getInstance()
         calendar.set(year, month, day)
-        val dateFormat = SimpleDateFormat(dateFormat, Locale.UK)
+        val dateFormat = Constants.APP_DATE_FORMAT
         return dateFormat.format(calendar.time)
     }
 }

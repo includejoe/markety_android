@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -31,7 +32,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         setContent {
-            MarketyTheme(darkTheme = true) {
+            val mainViewModel = viewModel<MainViewModel>()
+
+            MarketyTheme(darkTheme = mainViewModel.isDarkThemeState.value) {
                 Surface(color = MaterialTheme.colors.background) {
                     val navController = rememberNavController()
                     val startDestination = if (tokenManager.readIsAuthenticated()) {
@@ -69,7 +72,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(route = Screens.ProfileScreen.route) {
-                            ProfileScreen(navController = navController)
+                            ProfileScreen(navController = navController, mainViewModel=mainViewModel)
                         }
 
                         composable(route = Screens.MessagesScreen.route) {

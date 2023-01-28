@@ -2,10 +2,13 @@ package org.includejoe.markety.feature_authentication.presentation
 
 import android.util.Log
 import androidx.compose.runtime.*
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.includejoe.markety.base.util.Constants
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.includejoe.markety.R
@@ -160,7 +163,6 @@ class RegisterViewModel @Inject constructor(
     }
 
     private fun submit() {
-        Log.d("register", "registering...")
         if(_state.value.isVendor) {
             val busNameResult = validators.busName(_state.value.busName)
             val busCategoryResult = validators.busCategory(_state.value.busCategory)
@@ -194,14 +196,13 @@ class RegisterViewModel @Inject constructor(
                 return
             }
 
-            // set busName and busCategory to empty strings if user is signing up as a no vendor
+            // set busName and busCategory to empty strings if user is signing up as a non vendor
             _state.value = _state.value.copy(
                 busName = "",
                 busCategory = ""
             )
         }
 
-//        Log.d("submit_data", _state.value.toString())
 
         viewModelScope.launch {
             authUseCases.register(
@@ -212,7 +213,7 @@ class RegisterViewModel @Inject constructor(
                 phone = currentCountryPhone!!.code + _state.value.phone,
                 email = _state.value.email,
                 gender = _state.value.gender,
-                dob = _state.value.dob,
+                dob = Constants.API_DATE_FORMAT.format(Constants.APP_DATE_FORMAT.parse(_state.value.dob)!!),
                 location = _state.value.location,
                 isVendor = _state.value.isVendor,
                 busName = _state.value.busName.ifEmpty { null },
@@ -220,11 +221,13 @@ class RegisterViewModel @Inject constructor(
             ).collectLatest { result ->
                 when(result) {
                     is Response.Loading -> {
-                        _state.value = RegisterState(isSubmitting = true)
+                        _state.value = _state.value.copy(
+                            isSubmitting = true
+                        )
                     }
 
                     is Response.Success -> {
-                        _state.value = RegisterState(
+                        _state.value = _state.value.copy(
                             data = result.data,
                             submissionSuccess = true,
                             currentDisplay = 5
@@ -232,7 +235,7 @@ class RegisterViewModel @Inject constructor(
                     }
 
                     is Response.Error -> {
-                        _state.value = RegisterState(
+                        _state.value = _state.value.copy(
                             submissionError =  result.message ?: R.string.unexpected_error,
                             currentDisplay = 5
                         )

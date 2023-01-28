@@ -40,7 +40,8 @@ fun ErrorDisplay(
 
         Text(
             text = stringResource(id = R.string.unsuccessful_registration),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colors.onBackground
         )
 
         Spacer(modifier = modifier.height(MaterialTheme.spacing.sm))

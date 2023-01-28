@@ -32,8 +32,8 @@ private val LightColorPalette = lightColors(
     onPrimary = TextWhite,
     onSecondary = TextWhite,
     onBackground = TextDark,
-    surface = DarkBg500,
-    onSurface = TextWhite,
+    surface = Color(0xFFD9D9d9),
+    onSurface = TextDark,
     error = Error700
 )
 

@@ -109,7 +109,8 @@ fun GenderPickerDialog(
                     ) {
                         Icon(
                             imageVector = gender.icon,
-                            contentDescription = stringResource(id = gender.label)
+                            contentDescription = stringResource(id = gender.label),
+                            tint = MaterialTheme.colors.onBackground
                         )
                         Text(
                             modifier = Modifier
@@ -119,7 +120,8 @@ fun GenderPickerDialog(
                                 }
                                 .fillMaxWidth()
                                 .padding(10.dp),
-                            text = stringResource(id = gender.label)
+                            text = stringResource(id = gender.label),
+                            color = MaterialTheme.colors.onBackground
                         )
                     }
                 }

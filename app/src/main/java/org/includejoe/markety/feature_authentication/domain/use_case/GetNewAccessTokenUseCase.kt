@@ -1,5 +1,6 @@
 package org.includejoe.markety.feature_authentication.domain.use_case
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.includejoe.markety.R
@@ -22,6 +23,8 @@ class GetNewAccessTokenUseCase @Inject constructor(
             val data = repository.getNewAccessToken(tokenManager.readRefreshToken()!!)
             emit(Response.Success<RefreshTokenResponse>(data))
         } catch (e: HttpException){
+            val errorMessage = e.response()?.errorBody()?.string()
+            Log.d("http_error", errorMessage!!)
             emit(Response.Error<RefreshTokenResponse>(R.string.unexpected_error))
         } catch(e: IOException) {
             emit(Response.Error<RefreshTokenResponse>(R.string.internet_error))
