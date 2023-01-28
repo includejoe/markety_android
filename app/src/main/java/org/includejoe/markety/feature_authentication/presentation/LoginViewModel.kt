@@ -51,7 +51,7 @@ class LoginViewModel @Inject constructor(
                 _state.value = _state.value.copy(password = event.password)
             }
 
-            is FormEvent.Submit -> {
+            is FormEvent.Login -> {
                 submit()
             }
             else -> {}

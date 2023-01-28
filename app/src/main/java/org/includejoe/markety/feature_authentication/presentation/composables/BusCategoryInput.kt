@@ -30,8 +30,6 @@ fun BusCategoryInput(
     error: Any?,
     onValueChange: (String) -> Unit,
     inputType: InputType,
-    focusRequester: FocusRequester? = null,
-    keyboardActions: KeyboardActions,
     visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
 
@@ -50,7 +48,6 @@ fun BusCategoryInput(
                 .clip(MaterialTheme.shapes.medium)
                 .fillMaxWidth()
                 .height(50.dp)
-                .focusRequester(focusRequester ?: FocusRequester())
                 .clickable {
                     showDialog = true
                 },
@@ -75,7 +72,6 @@ fun BusCategoryInput(
             textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
             singleLine = true,
             visualTransformation = visualTransformation,
-            keyboardActions = keyboardActions,
             enabled = false
         )
 

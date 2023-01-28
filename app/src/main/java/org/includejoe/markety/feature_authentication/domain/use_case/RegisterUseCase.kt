@@ -1,5 +1,6 @@
 package org.includejoe.markety.feature_authentication.domain.use_case
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.includejoe.markety.R
@@ -46,6 +47,7 @@ class RegisterUseCase @Inject constructor(
             )
             emit(Response.Success<RegisterDTO>(data))
         } catch (e: HttpException) {
+            Log.d("register_error", e.toString())
             when(e.code()) {
                 400 -> {
                     emit(Response.Error<RegisterDTO>(R.string.invalid_credentials))

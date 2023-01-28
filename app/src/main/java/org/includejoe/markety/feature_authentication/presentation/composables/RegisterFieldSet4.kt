@@ -3,6 +3,7 @@ package org.includejoe.markety.feature_authentication.presentation.composables
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -13,6 +14,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.composables.MButton
@@ -26,8 +28,6 @@ fun RegisterFieldSet4(
     modifier: Modifier = Modifier,
     viewModel: RegisterViewModel,
 ) {
-    val busCategoryFR = FocusRequester()
-    val focusManager = LocalFocusManager.current
     val state = viewModel.state
 
     Column(
@@ -38,9 +38,6 @@ fun RegisterFieldSet4(
             error = state.value.busNameError,
             onValueChange = {viewModel.onEvent(FormEvent.BusNameChanged(it))},
             inputType = InputType.BusName,
-            keyboardActions = KeyboardActions(onNext = {
-                busCategoryFR.requestFocus()
-            }),
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
 
@@ -60,10 +57,6 @@ fun RegisterFieldSet4(
             error = state.value.busCategoryError,
             onValueChange = {viewModel.onEvent(FormEvent.BusCategoryChanged(it))},
             inputType = InputType.BusCategory,
-            keyboardActions = KeyboardActions(onDone = {
-                focusManager.clearFocus()
-            }),
-            focusRequester = busCategoryFR
         )
 
         if(state.value.busCategoryError != null) {
@@ -77,11 +70,18 @@ fun RegisterFieldSet4(
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
 
-        MButton(
-            onClick = {
-                viewModel.onEvent(FormEvent.Submit)
-            },
-            text = stringResource(id = R.string.complete_btn)
-        )
+        if(state.value.isSubmitting) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(25.dp),
+                color = MaterialTheme.colors.primary
+            )
+        } else {
+            MButton(
+                onClick = {
+                    viewModel.onEvent(FormEvent.Register)
+                },
+                text = stringResource(id = R.string.complete_btn)
+            )
+        }
     }
 }

@@ -9,8 +9,10 @@ object Constants {
 
     const val ACCESS_TOKEN_KEY = "access_token"
     const val REFRESH_TOKEN_KEY = "refresh_token"
-    const val ENCRYPTED_SHARED_PREFS = "encrypted_shared_prefs"
+    const val GOOGLE_MAPS_API_KEY = "AIzaSyACARrKET7OBzoC6oE4gl_cnH9ocdrQCb8"
+
     const val USER_AUTHENTICATED = "is_user_authenticated"
 
-    const val GOOGLE_MAPS_API_KEY = "AIzaSyACARrKET7OBzoC6oE4gl_cnH9ocdrQCb8"
+    const val ENCRYPTED_SHARED_PREFS = "encrypted_shared_prefs"
+    const val USER_SHARED_PREFS = "user_shared_prefs"
 }

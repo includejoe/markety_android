@@ -17,5 +17,6 @@ sealed class FormEvent {
 
     object Next: FormEvent()
     object Previous: FormEvent()
-    object Submit: FormEvent()
+    object Login: FormEvent()
+    object Register: FormEvent()
 }

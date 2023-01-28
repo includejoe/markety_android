@@ -7,6 +7,7 @@ import org.includejoe.markety.feature_authentication.data.remote.dto.RegisterDTO
 import org.includejoe.markety.feature_authentication.domain.model.Login
 import org.includejoe.markety.feature_authentication.domain.model.RefreshTokenRequest
 import org.includejoe.markety.feature_authentication.domain.model.RefreshTokenResponse
+import org.includejoe.markety.feature_authentication.domain.model.Register
 import org.includejoe.markety.feature_authentication.domain.repository.AuthenticationRepository
 import javax.inject.Inject
 
@@ -28,7 +29,22 @@ class AuthenticationRepositoryImpl @Inject constructor(
         busName: String?,
         busCategory: String?
     ): RegisterDTO {
-        TODO("Not yet implemented")
+        return api.register(
+            Register(
+                email = email,
+                password = password,
+                username = username,
+                firstName = firstName,
+                lastName = lastName,
+                phone = phone,
+                gender = gender,
+                dob = dob,
+                location = location,
+                isVendor = isVendor,
+                busName = busName,
+                busCategory = busCategory
+            )
+        )
     }
 
     override suspend fun checkUsername(username: String): CheckUsernameDTO {

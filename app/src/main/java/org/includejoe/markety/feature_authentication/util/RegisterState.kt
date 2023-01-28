@@ -9,7 +9,6 @@ data class RegisterState(
 
     var isUsernameAvailable: Boolean? = false,
     var checkingUsername: Boolean = false,
-    val checkUsernameError: Int? = null,
 
     var email: String = "",
     val emailError: Int? = null,
@@ -59,5 +58,5 @@ data class RegisterState(
 
     val data: RegisterDTO? = null,
 
-    var currentFieldSet: Int = 1
+    var currentDisplay: Int = 1
 )

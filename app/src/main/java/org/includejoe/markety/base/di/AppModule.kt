@@ -28,17 +28,23 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideSharedPreferences(
+    fun provideEncryptedSharedPrefs(
         @ApplicationContext context: Context
     ): SharedPreferences = context.getSharedPreferences(Constants.ENCRYPTED_SHARED_PREFS, Context.MODE_PRIVATE)
+
+//    @Provides
+//    @Singleton
+//    fun provideUserSharedPrefs(
+//        @ApplicationContext context: Context
+//    ): SharedPreferences = context.getSharedPreferences(Constants.USER_SHARED_PREFS, Context.MODE_PRIVATE)
 
     @Provides
     @Singleton
     fun provideTokenManager(
         @ApplicationContext context: Context,
-        sharedPreferences: SharedPreferences
+        encryptedSharedPrefs: SharedPreferences
     ): TokenManager =
-        TokenManager(context = context, sharedPreferences = sharedPreferences)
+        TokenManager(context = context, encryptedSharedPrefs = encryptedSharedPrefs)
 
     @Provides
     @Singleton

@@ -1,12 +1,10 @@
 package org.includejoe.markety.feature_authentication.presentation.composables
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.composables.MButton
@@ -93,12 +92,19 @@ fun RegisterFieldSet3(
                 text = stringResource(id = R.string.next_btn)
             )
         } else {
-            MButton(
-                onClick = {
-                    viewModel.onEvent(FormEvent.Submit)
-                },
-                text = stringResource(id = R.string.complete_btn)
-            )
+            if(state.value.isSubmitting) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(25.dp),
+                    color = MaterialTheme.colors.primary
+                )
+            } else {
+                MButton(
+                    onClick = {
+                        viewModel.onEvent(FormEvent.Register)
+                    },
+                    text = stringResource(id = R.string.complete_btn)
+                )
+            }
         }
 
 

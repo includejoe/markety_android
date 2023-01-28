@@ -87,16 +87,17 @@ class RegisterViewModel @Inject constructor(
             }
 
             is FormEvent.Next -> {
-                next(currentFieldSet = _state.value.currentFieldSet)
+                next(currentFieldSet = _state.value.currentDisplay)
             }
 
             is FormEvent.Previous -> {
-                _state.value = _state.value.copy(currentFieldSet = _state.value.currentFieldSet - 1)
+                _state.value = _state.value.copy(currentDisplay = _state.value.currentDisplay - 1)
             }
 
-            is FormEvent.Submit -> {
+            is FormEvent.Register -> {
                 submit()
             }
+            else -> {}
         }
     }
 
@@ -113,14 +114,16 @@ class RegisterViewModel @Inject constructor(
                     is Response.Success -> {
                         _state.value = _state.value.copy(
                             isUsernameAvailable = result.data?.available,
+                            usernameError = null,
                             checkingUsername = false
                         )
                     }
 
                     is Response.Error -> {
                         _state.value = _state.value.copy(
-                            checkUsernameError = R.string.something_wrong,
-                            checkingUsername = false
+                            isUsernameAvailable = false,
+                            checkingUsername = false,
+                            usernameError = R.string.unavailable_username
                         )
                     }
                 }
@@ -157,6 +160,7 @@ class RegisterViewModel @Inject constructor(
     }
 
     private fun submit() {
+        Log.d("register", "registering...")
         if(_state.value.isVendor) {
             val busNameResult = validators.busName(_state.value.busName)
             val busCategoryResult = validators.busCategory(_state.value.busCategory)
@@ -189,46 +193,53 @@ class RegisterViewModel @Inject constructor(
                 )
                 return
             }
+
+            // set busName and busCategory to empty strings if user is signing up as a no vendor
+            _state.value = _state.value.copy(
+                busName = "",
+                busCategory = ""
+            )
         }
 
+//        Log.d("submit_data", _state.value.toString())
 
-        Log.d("submit_data", _state.value.toString())
+        viewModelScope.launch {
+            authUseCases.register(
+                username = _state.value.username,
+                password = _state.value.password,
+                firstName = _state.value.firstName,
+                lastName = _state.value.lastName,
+                phone = currentCountryPhone!!.code + _state.value.phone,
+                email = _state.value.email,
+                gender = _state.value.gender,
+                dob = _state.value.dob,
+                location = _state.value.location,
+                isVendor = _state.value.isVendor,
+                busName = _state.value.busName.ifEmpty { null },
+                busCategory = _state.value.busCategory.ifEmpty { null },
+            ).collectLatest { result ->
+                when(result) {
+                    is Response.Loading -> {
+                        _state.value = RegisterState(isSubmitting = true)
+                    }
 
-//        viewModelScope.launch {
-//            authUseCases.register(
-//                username = _state.value.username,
-//                password = _state.value.password,
-//                firstName = _state.value.firstName,
-//                lastName = _state.value.lastName,
-//                phone = currentCountryPhone!!.code + _state.value.phone,
-//                email = _state.value.email,
-//                gender = _state.value.gender,
-//                dob = _state.value.dob,
-//                location = _state.value.location,
-//                isVendor = _state.value.isVendor,
-//                busName = _state.value.busName,
-//                busCategory = _state.value.busCategory,
-//            ).collectLatest { result ->
-//                when(result) {
-//                    is Response.Loading -> {
-//                        _state.value = RegisterState(isSubmitting = true)
-//                    }
-//
-//                    is Response.Success -> {
-//                        _state.value = RegisterState(
-//                            data = result.data,
-//                            submissionSuccess = true
-//                        )
-//                    }
-//
-//                    is Response.Error -> {
-//                        _state.value = RegisterState(
-//                            submissionError =  result.message ?: R.string.unexpected_error
-//                        )
-//                    }
-//                }
-//            }
-//        }
+                    is Response.Success -> {
+                        _state.value = RegisterState(
+                            data = result.data,
+                            submissionSuccess = true,
+                            currentDisplay = 5
+                        )
+                    }
+
+                    is Response.Error -> {
+                        _state.value = RegisterState(
+                            submissionError =  result.message ?: R.string.unexpected_error,
+                            currentDisplay = 5
+                        )
+                    }
+                }
+            }
+        }
     }
 
     private fun next(currentFieldSet: Int) {
@@ -254,6 +265,11 @@ class RegisterViewModel @Inject constructor(
                         lastNameError = lastNameResult.errorMessage,
                         emailError = emailResult.errorMessage
                     )
+                    return
+                }
+
+                // needed to check if username is available error
+                if(_state.value.usernameError !== null) {
                     return
                 }
 
@@ -320,7 +336,7 @@ class RegisterViewModel @Inject constructor(
             }
         }
 
-        _state.value = _state.value.copy(currentFieldSet = _state.value.currentFieldSet + 1)
+        _state.value = _state.value.copy(currentDisplay = _state.value.currentDisplay + 1)
 
     }
 }

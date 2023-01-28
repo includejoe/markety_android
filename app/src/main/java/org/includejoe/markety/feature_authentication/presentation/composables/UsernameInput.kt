@@ -23,6 +23,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import org.includejoe.markety.base.presentation.theme.ui.DarkGray
 import org.includejoe.markety.base.presentation.theme.ui.LightGray
+import org.includejoe.markety.base.presentation.theme.ui.Successful
 import org.includejoe.markety.feature_authentication.presentation.RegisterViewModel
 import org.includejoe.markety.feature_authentication.util.InputType
 
@@ -70,7 +71,7 @@ fun UsernameInput(
                 Icon(
                     imageVector = Icons.Default.CheckCircle,
                     contentDescription = null,
-                    tint = Color.Green
+                    tint = Successful
                 )
             } else {
                 Icon(

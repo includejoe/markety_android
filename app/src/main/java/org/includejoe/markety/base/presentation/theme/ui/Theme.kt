@@ -21,7 +21,7 @@ private val DarkColorPalette = darkColors(
     onBackground = TextWhite,
     surface = Color.White,
     onSurface = TextDark,
-    error = Error500
+    error = Error500,
 )
 
 private val LightColorPalette = lightColors(
@@ -45,13 +45,11 @@ fun MarketyTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composabl
         LightColorPalette
     }
 
-    val isDarkTheme = darkTheme
-
     val systemUiController = rememberSystemUiController()
 
     SideEffect {
         systemUiController.setSystemBarsColor(
-            color = if(darkTheme) DarkBg500 else Primary
+            color = if(darkTheme) DarkBg500 else Color.White
         )
     }
 

@@ -15,6 +15,7 @@
     </string>
     <string name="invalid_credentials">Invalid Credentials</string>
     <string name="min_username">Username must contain at least 3 characters</string>
+    <string name="unavailable_username">This username is unavailable</string>
     <string name="min_password">Password must consist of at least 8 characters</string>
     <string name="invalid_password">Password must contain at least one letter and digit</string>
     <!-- blank errors -->
@@ -51,7 +52,7 @@
         <item name="vehicles">Vehicles</item>
         <item name="property">Property</item>
         <item name="phones">Mobile Phones &amp; Tablets</item>
-        <item name="electronics">Electronics</item>
+        <item name="electronics">Computers &amp; Electronics</item>
         <item name="home">Home, Furniture &amp; Appliances</item>
         <item name="health">Health &amp; Beauty</item>
         <item name="fashion">Fashion</item>
@@ -74,6 +75,7 @@
     <!-- Buttons -->
     <string name="login_btn">LOGIN</string>
     <string name="next_btn">NEXT</string>
+    <string name="return_btn">RETURN</string>
     <string name="complete_btn">COMPLETE</string>
 
 
@@ -85,6 +87,10 @@
     <!-- Register Screen -->
     <string name="yes_account">Already have an account?</string>
     <string name="is_vendor">Register as a vendor</string>
+    <string name="successful_registration">Your account has been created successfully</string>
+    <string name="unsuccessful_registration">
+        Something went wrong and your account could not be created. Try again later!
+    </string>
 
 
     <!-- Bottom Navigation -->

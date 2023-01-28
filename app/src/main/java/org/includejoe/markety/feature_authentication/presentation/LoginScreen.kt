@@ -143,7 +143,7 @@ fun LoginScreen(
             )
         } else {
             MButton(
-                onClick = { viewModel.onEvent(FormEvent.Submit) },
+                onClick = { viewModel.onEvent(FormEvent.Login) },
                 text = stringResource(id = R.string.login_btn)
             )
         }
