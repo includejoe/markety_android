@@ -23,8 +23,7 @@ class LoginUseCase @Inject constructor(
             val data = repository.login(username, password)
             emit(Response.Success<LoginDTO>(data))
         } catch (e: HttpException) {
-            val errorMessage = e.response()?.errorBody()?.string()
-            Log.d("http_error", errorMessage!!)
+            val errorString = e.response()?.errorBody()?.string()
             when(e.code()) {
                 400 -> {
                     emit(Response.Error<LoginDTO>(R.string.invalid_credentials))

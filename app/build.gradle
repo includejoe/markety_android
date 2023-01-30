@@ -108,7 +108,11 @@ dependencies {
     // System UI Controller
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.21.5-rc"
 
+    // Kotlin Bom - Handle Duplicate Class Errors
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
+
+    // Data Store Preferences
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 }
 
 kapt {
