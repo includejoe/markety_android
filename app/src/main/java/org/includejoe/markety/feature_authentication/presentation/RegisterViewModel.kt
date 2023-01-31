@@ -1,18 +1,14 @@
 package org.includejoe.markety.feature_authentication.presentation
 
-import android.util.Log
 import androidx.compose.runtime.*
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.includejoe.markety.base.util.Constants
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.includejoe.markety.R
-import org.includejoe.markety.base.domain.use_cases.GetGooglePlacesPredictions
+import org.includejoe.markety.base.domain.use_cases.GetGooglePlacesPredictionsUseCase
 import org.includejoe.markety.base.util.Country
 import org.includejoe.markety.base.util.Response
 import org.includejoe.markety.base.util.getCountriesList
@@ -25,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val authUseCases: AuthenticationUseCases,
-    private val getGooglePlacesUseCase: GetGooglePlacesPredictions,
+    private val getGooglePlacesUseCase: GetGooglePlacesPredictionsUseCase,
     private val validators: FormValidators,
 ): ViewModel() {
     private val _state = mutableStateOf(RegisterState())

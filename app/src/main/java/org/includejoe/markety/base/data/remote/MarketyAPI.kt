@@ -9,6 +9,7 @@ import org.includejoe.markety.feature_authentication.domain.model.RefreshTokenRe
 import org.includejoe.markety.feature_authentication.domain.model.Register
 import org.includejoe.markety.feature_post.data.remote.dto.PostDTO
 import org.includejoe.markety.feature_post.domain.model.CreatePost
+import org.includejoe.markety.feature_user.data.remote.dto.UserDTO
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -29,6 +30,12 @@ interface MarketyAPI  {
 
     @POST("token/refresh/")
     suspend fun getNewAccessToken(@Body refreshTokenRequest: RefreshTokenRequest): RefreshTokenResponse
+
+    // USER
+    @GET("user/")
+    suspend fun getUser(
+        @Header("Authorization") authHeader: String
+    ): UserDTO
 
     // POSTS
     @GET("posts/")

@@ -5,13 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.runtime.State
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.includejoe.markety.base.presentation.theme.ui.MarketyTheme
+import org.includejoe.markety.base.domain.AppState
 import org.includejoe.markety.base.util.Screens
 import org.includejoe.markety.base.util.TokenManager
 import org.includejoe.markety.feature_authentication.presentation.LoginScreen
@@ -27,17 +28,16 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Inject lateinit var tokenManager: TokenManager
+    @Inject lateinit var appState: State<AppState>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         setContent {
-            val mainViewModel = viewModel<MainViewModel>()
-
-            MarketyTheme(darkTheme = mainViewModel.isDarkThemeState.value) {
+            MarketyTheme(darkTheme = appState.value.isDarkTheme) {
                 Surface(color = MaterialTheme.colors.background) {
                     val navController = rememberNavController()
-                    val startDestination = if (tokenManager.readIsAuthenticated()) {
+                    val startDestination = if (appState.value.isAuthenticated) {
                         Screens.HomeScreen.route
                     } else {
                         Screens.LoginScreen.route
@@ -72,7 +72,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(route = Screens.ProfileScreen.route) {
-                            ProfileScreen(navController = navController, mainViewModel=mainViewModel)
+                            ProfileScreen(navController = navController /*, mainViewModel=mainViewModel */)
                         }
 
                         composable(route = Screens.MessagesScreen.route) {

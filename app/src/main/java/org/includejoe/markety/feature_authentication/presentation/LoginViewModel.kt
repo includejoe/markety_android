@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.includejoe.markety.R
+import org.includejoe.markety.base.domain.AppState
 import org.includejoe.markety.base.util.Constants
 import org.includejoe.markety.base.util.Response
 import org.includejoe.markety.base.util.TokenManager
@@ -21,7 +22,8 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val authUseCases: AuthenticationUseCases,
     private val validators: FormValidators,
-    private val tokenManager: TokenManager
+    private val tokenManager: TokenManager,
+    private val appState: State<AppState>
 ): ViewModel() {
     private val _state = mutableStateOf(LoginState())
     val state: State<LoginState> = _state
@@ -29,16 +31,17 @@ class LoginViewModel @Inject constructor(
     private var accessToken: String? = null
     private var refreshToken: String? = null
 
+
     init {
-        if(refreshToken == null) {
-            refreshToken = tokenManager.readRefreshToken()
-        }
-
-        if(accessToken == null) {
-            accessToken = tokenManager.readAccessToken()
-        }
-
-        tokenManager.setIsAuthenticated(isAuthenticated = refreshToken != null)
+//        if(refreshToken == null) {
+//            refreshToken = tokenManager.readRefreshToken()
+//        }
+//
+//        if(accessToken == null) {
+//            accessToken = tokenManager.readAccessToken()
+//        }
+//
+//        tokenManager.setIsAuthenticated(isAuthenticated = refreshToken != null)
     }
 
     fun onEvent(event: FormEvent) {
@@ -58,12 +61,12 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun setAuthenticationStatusAndJWT(accessToken: String?, refreshToken: String?) {
-        this.accessToken = accessToken
-        this.refreshToken = refreshToken
-        tokenManager.setIsAuthenticated(isAuthenticated = refreshToken != null)
-        tokenManager.saveOrRemoveTokens(accessToken, refreshToken)
-    }
+//    private fun setAuthenticationStatusAndJWT(accessToken: String?, refreshToken: String?) {
+//        this.accessToken = accessToken
+//        this.refreshToken = refreshToken
+//        tokenManager.setIsAuthenticated(isAuthenticated = refreshToken != null)
+//        tokenManager.saveOrRemoveTokens(accessToken, refreshToken)
+//    }
 
     private fun submit() {
         val usernameResult = validators.username(_state.value.username, type = Constants.LOGIN_VALIDATE)
@@ -94,10 +97,8 @@ class LoginViewModel @Inject constructor(
 
                     is Response.Success -> {
                         _state.value = LoginState(data = result.data, submissionSuccess = true)
-                        setAuthenticationStatusAndJWT(
-                            accessToken = result.data?.tokens?.access,
-                            refreshToken = result.data?.tokens?.refresh
-                        )
+                        tokenManager.saveToken(result.data?.jwt)
+                        tokenManager.readToken()
                     }
 
                     is Response.Error -> {

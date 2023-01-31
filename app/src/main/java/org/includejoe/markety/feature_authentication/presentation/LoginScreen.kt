@@ -34,6 +34,9 @@ import org.includejoe.markety.feature_authentication.presentation.composables.Te
 import org.includejoe.markety.feature_authentication.util.InputType
 import org.includejoe.markety.feature_authentication.util.FormEvent
 
+// TODO: remove keyboard on login and on navigation to register screen
+
+
 @Composable
 fun LoginScreen(
     navController: NavHostController,

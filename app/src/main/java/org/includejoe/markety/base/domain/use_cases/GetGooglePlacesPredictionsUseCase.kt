@@ -6,12 +6,11 @@ import org.includejoe.markety.R
 import org.includejoe.markety.base.data.remote.dto.GooglePredictionsDTO
 import org.includejoe.markety.base.data.repository.GooglePlacesRepository
 import org.includejoe.markety.base.util.Response
-import org.includejoe.markety.feature_authentication.domain.model.RefreshTokenResponse
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class GetGooglePlacesPredictions @Inject constructor(
+class GetGooglePlacesPredictionsUseCase @Inject constructor(
     private val repository: GooglePlacesRepository
 ) {
     operator fun invoke(input: String): Flow<Response<GooglePredictionsDTO>> = flow {

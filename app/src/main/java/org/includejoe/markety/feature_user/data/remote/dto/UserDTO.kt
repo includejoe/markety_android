@@ -1,10 +1,9 @@
 package org.includejoe.markety.feature_user.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
-import org.includejoe.markety.feature_authentication.data.remote.dto.TokensDTO
+
 data class UserDTO(
     val bio: String?,
-    val blocked_users: List<String>,
     @SerializedName("bus_category")
     val busCategory: String?,
     @SerializedName("bus_name")
@@ -20,6 +19,7 @@ data class UserDTO(
     @SerializedName("first_name")
     val firstName: String,
     val followers: List<String>,
+    val following: List<String>,
     val gender: String,
     val id: String,
     @SerializedName("is_active")
@@ -35,7 +35,5 @@ data class UserDTO(
     val posts: List<String>,
     @SerializedName("profile_image")
     val profileImage: String?,
-    val tokens: TokensDTO,
-    val updated_at: String,
     val username: String
 )

@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import org.includejoe.markety.base.MainViewModel
+//import org.includejoe.markety.base.MainViewModel
 import org.includejoe.markety.base.presentation.composables.AppTopBar
 import org.includejoe.markety.base.presentation.composables.BottomNavigation
 import org.includejoe.markety.base.presentation.theme.ui.spacing
@@ -19,7 +19,7 @@ import org.includejoe.markety.base.util.NavigationItem
 @Composable
 fun ProfileScreen(
     navController: NavHostController,
-    mainViewModel: MainViewModel,
+//    mainViewModel: MainViewModel,
     viewModel: UserViewModel = hiltViewModel()
 ){
     Column(
@@ -37,7 +37,7 @@ fun ProfileScreen(
             Text(text = "PROFILE SCREEN", color = MaterialTheme.colors.onBackground)
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
             TextButton(
-                onClick = { mainViewModel.toggleTheme() },
+                onClick = { /* mainViewModel.toggleTheme() */ },
                 modifier = Modifier.background(MaterialTheme.colors.secondary)
             ) {
                 Text(text = "Toggle Theme", color = MaterialTheme.colors.onBackground)

@@ -4,5 +4,4 @@ data class AuthenticationUseCases(
     val login: LoginUseCase,
     val register: RegisterUseCase,
     val checkUsername: CheckUsernameUseCase,
-    val getNewAccessTokenUseCase: GetNewAccessTokenUseCase
 )

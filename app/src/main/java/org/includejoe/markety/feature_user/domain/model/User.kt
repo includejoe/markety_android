@@ -1,30 +1,30 @@
 package org.includejoe.markety.feature_user.domain.model
 
-import org.includejoe.markety.feature_authentication.data.remote.dto.TokensDTO
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class User(
-    val bio: String?,
-    val blocked_users: List<String>,
-    val busCategory: String?,
-    val busName: String?,
-    val busWebsite: String?,
-    val coverImage: String?,
-    val createdAt: String,
-    val dob: String,
-    val email: String,
-    val firstName: String,
-    val followers: List<String>,
-    val gender: String,
-    val id: String,
-    val isActive: Boolean,
-    val isVendor: Boolean,
-    val isVerified: Boolean,
-    val lastName: String,
-    val location: String,
-    val phone: String,
-    val posts: List<String>,
-    val profileImage: String?,
-    val tokens: TokensDTO,
-    val updated_at: String,
-    val username: String
+    val bio: String? = null,
+    val busCategory: String? = null,
+    val busName: String? = null,
+    val busWebsite: String? = null,
+    val coverImage: String? = null,
+    val createdAt: String? = null,
+    val dob: String? = null,
+    val email: String? = null,
+    val firstName: String? = null,
+    val followers: List<String>? = null,
+    val following: List<String>? = null,
+    val gender: String? = null,
+    val id: String? = null,
+    val isActive: Boolean? = null,
+    val isVendor: Boolean? = null,
+    val isVerified: Boolean? = null,
+    val lastName: String? = null,
+    val location: String? = null,
+    val phone: String? = null,
+    val posts: List<String>? = null,
+    val profileImage: String? = null,
+    val updated_at: String? = null,
+    val username: String? = null
 )
