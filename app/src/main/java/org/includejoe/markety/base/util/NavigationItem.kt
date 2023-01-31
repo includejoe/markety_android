@@ -46,6 +46,12 @@ enum class NavigationItem (
         icon = Icons.Outlined.Email,
         isSelectedIcon = Icons.Filled.Email,
         route = Screens.MessagesScreen.route,
-        title = R.string.profile
+        title = R.string.messages
+    ),
+    SETTINGS(
+        icon = Icons.Outlined.Menu,
+        isSelectedIcon = Icons.Filled.Menu,
+        route = Screens.SettingsScreen.route,
+        title = R.string.settings
     )
 }

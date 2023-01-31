@@ -93,10 +93,12 @@
     </string>
 
 
-    <!-- Bottom Navigation -->
+    <!-- Navigation -->
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="post">Post</string>
     <string name="notifications">Notifications</string>
     <string name="profile">Profile</string>
+    <string name="messages">Messages</string>
+    <string name="settings">Settings</string>
 </resources>

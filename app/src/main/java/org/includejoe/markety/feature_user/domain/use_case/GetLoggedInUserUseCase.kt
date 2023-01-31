@@ -13,12 +13,11 @@ import javax.inject.Inject
 
 class GetLoggedInUserUseCase @Inject constructor(
     private val repository: UserRepository,
-    private val tokenManager: TokenManager
 ) {
-    operator fun invoke(): Flow<Response<UserDTO>> = flow {
+    operator fun invoke(jwt: String?): Flow<Response<UserDTO>> = flow {
         try {
             emit(Response.Loading<UserDTO>())
-            val data = repository.getLoggedInUser("Bearer ${tokenManager.readToken()}")
+            val data = repository.getLoggedInUser("Bearer $jwt")
             emit(Response.Success<UserDTO>(data))
         } catch (e: HttpException) {
             val errorMessage = e.response()?.errorBody()?.string()

@@ -1,6 +1,7 @@
 package org.includejoe.markety.feature_user.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
+import org.includejoe.markety.feature_user.domain.model.User
 
 data class UserDTO(
     val bio: String?,
@@ -22,8 +23,6 @@ data class UserDTO(
     val following: List<String>,
     val gender: String,
     val id: String,
-    @SerializedName("is_active")
-    val isActive: Boolean,
     @SerializedName("is_vendor")
     val isVendor: Boolean,
     @SerializedName("is_verified")
@@ -37,3 +36,29 @@ data class UserDTO(
     val profileImage: String?,
     val username: String
 )
+
+fun UserDTO.toUser(): User {
+    return User(
+        id =id,
+        email = email,
+        username = username,
+        bio = bio,
+        busCategory = busCategory,
+        busName = busName,
+        busWebsite = busWebsite,
+        coverImage = coverImage,
+        createdAt = createdAt,
+        dob = dob,
+        firstName = firstName,
+        lastName = lastName,
+        followers = followers,
+        following = following,
+        gender = gender,
+        isVendor = isVendor,
+        isVerified = isVerified,
+        location = location,
+        phone = phone,
+        posts = posts,
+        profileImage = profileImage,
+    )
+}

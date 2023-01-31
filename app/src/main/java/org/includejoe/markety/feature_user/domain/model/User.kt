@@ -25,6 +25,5 @@ data class User(
     val phone: String? = null,
     val posts: List<String>? = null,
     val profileImage: String? = null,
-    val updated_at: String? = null,
     val username: String? = null
 )

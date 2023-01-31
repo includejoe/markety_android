@@ -1,12 +1,10 @@
-package org.includejoe.markety.base.presentation.composables
+package org.includejoe.markety.feature_settings.presentation.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,13 +13,12 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.includejoe.markety.R
 import org.includejoe.markety.base.util.NavigationItem
 
 @Composable
-fun AppTopBar(
+fun SettingsTopBar(
     navController: NavController
 ) {
     val currentRoute = navController.currentDestination?.route

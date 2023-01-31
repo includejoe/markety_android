@@ -24,8 +24,12 @@ import org.includejoe.markety.feature_authentication.data.repository.Authenticat
 import org.includejoe.markety.feature_authentication.domain.repository.AuthenticationRepository
 import org.includejoe.markety.feature_authentication.domain.use_case.*
 import org.includejoe.markety.feature_authentication.util.validators.*
+import org.includejoe.markety.feature_user.data.repository.UserRepositoryImpl
 import org.includejoe.markety.feature_user.domain.model.User
 import org.includejoe.markety.feature_user.domain.model.UserSerializer
+import org.includejoe.markety.feature_user.domain.repository.UserRepository
+import org.includejoe.markety.feature_user.domain.use_case.GetLoggedInUserUseCase
+import org.includejoe.markety.feature_user.domain.use_case.UserUseCases
 import retrofit2.Retrofit
 import retrofit2.Retrofit.Builder
 import retrofit2.converter.gson.GsonConverterFactory
@@ -136,6 +140,13 @@ object AppModule {
         return GooglePlacesRepository(api)
     }
 
+
+    @Provides
+    @Singleton
+    fun provideUserRepository(api: MarketyAPI): UserRepository {
+        return UserRepositoryImpl(api)
+    }
+
     // Authentication Use Cases
     @Provides
     @Singleton
@@ -153,5 +164,17 @@ object AppModule {
     fun provideGetGooglePlacesPredictionsUseCase(
         repository: GooglePlacesRepository
     ) = GetGooglePlacesPredictionsUseCase(repository)
+
+    // User Use Cases
+    @Provides
+    @Singleton
+    fun provideUserUseCases(
+        tokenManager: TokenManager,
+        repository: UserRepository
+    ) = UserUseCases(
+        getLoggedInUserUseCase = GetLoggedInUserUseCase(
+            repository = repository
+        )
+    )
 
 }

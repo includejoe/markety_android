@@ -1,4 +1,4 @@
-package org.includejoe.markety.feature_search.presentation
+package org.includejoe.markety.feature_settings.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,29 +9,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import org.includejoe.markety.base.presentation.composables.AppTopBar
 import org.includejoe.markety.base.presentation.composables.BottomNavigation
 import org.includejoe.markety.base.util.NavigationItem
-import org.includejoe.markety.feature_search.presentation.composables.SearchTopBar
 
 @Composable
-fun SearchScreen(
+fun SettingsScreen(
     navController: NavHostController
 ){
     Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        SearchTopBar(navController = navController)
+        AppTopBar(navController = navController)
         Column(
             modifier = Modifier.weight(1f).fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "SEARCH SCREEN", color = MaterialTheme.colors.onBackground)
+            Text(text = "SETTINGS SCREEN", color = MaterialTheme.colors.onBackground)
         }
-        BottomNavigation(
-            selectedItem = NavigationItem.SEARCH,
-            navController = navController
-        )
     }
 }

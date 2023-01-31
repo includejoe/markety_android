@@ -28,7 +28,7 @@ fun BottomNavigation(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        val navItems = NavigationItem.values().dropLast(1)
+        val navItems = NavigationItem.values().sliceArray(0..4)
         for (item in navItems) {
             Icon(
                 imageVector = if(item == selectedItem) item.isSelectedIcon

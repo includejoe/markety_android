@@ -22,6 +22,7 @@ import org.includejoe.markety.feature_notification.presentation.NotificationsScr
 import org.includejoe.markety.feature_post.presentation.CreatePostScreen
 import org.includejoe.markety.feature_post.presentation.HomeScreen
 import org.includejoe.markety.feature_search.presentation.SearchScreen
+import org.includejoe.markety.feature_settings.presentation.SettingsScreen
 import org.includejoe.markety.feature_user.presentation.ProfileScreen
 import javax.inject.Inject
 
@@ -72,7 +73,11 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(route = Screens.ProfileScreen.route) {
-                            ProfileScreen(navController = navController /*, mainViewModel=mainViewModel */)
+                            ProfileScreen(navController = navController)
+                        }
+
+                        composable(route = Screens.SettingsScreen.route) {
+                            SettingsScreen(navController = navController)
                         }
 
                         composable(route = Screens.MessagesScreen.route) {

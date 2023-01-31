@@ -11,9 +11,11 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -34,9 +36,7 @@ import org.includejoe.markety.feature_authentication.presentation.composables.Te
 import org.includejoe.markety.feature_authentication.util.InputType
 import org.includejoe.markety.feature_authentication.util.FormEvent
 
-// TODO: remove keyboard on login and on navigation to register screen
-
-
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LoginScreen(
     navController: NavHostController,
@@ -45,6 +45,8 @@ fun LoginScreen(
     val state = viewModel.state
     val passwordFR = FocusRequester()
     val focusManager = LocalFocusManager.current
+    // Experimental API
+    val keyBoardController = LocalSoftwareKeyboardController.current
 
     if(state.value.submissionError != null) {
         when(state.value.submissionError) {
@@ -146,7 +148,10 @@ fun LoginScreen(
             )
         } else {
             MButton(
-                onClick = { viewModel.onEvent(FormEvent.Login) },
+                onClick = {
+                    viewModel.onEvent(FormEvent.Login)
+                    keyBoardController?.hide()
+                },
                 text = stringResource(id = R.string.login_btn)
             )
         }
@@ -175,6 +180,7 @@ fun LoginScreen(
                 color = MaterialTheme.colors.secondary,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.clickable {
+                    keyBoardController?.hide()
                     navController.navigate(Screens.RegisterScreen.route) {
                         popUpTo(Screens.LoginScreen.route) {
                             inclusive = true
