@@ -16,6 +16,8 @@ data class Register(
     val location: String,
     @SerializedName("is_vendor")
     val isVendor: Boolean,
+    @SerializedName("bus_category")
     val busCategory: String?,
+    @SerializedName("bus_name")
     val busName: String?,
 )

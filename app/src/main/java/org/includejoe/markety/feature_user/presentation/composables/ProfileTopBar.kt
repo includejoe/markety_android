@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.base.util.NavigationItem
 import org.includejoe.markety.feature_user.domain.model.User
 import org.includejoe.markety.feature_user.util.UserViewModelState
@@ -32,7 +33,7 @@ fun ProfileTopBar(
             .shadow(5.dp)
             .height(50.dp)
             .background(MaterialTheme.colors.primaryVariant)
-            .padding(horizontal = 15.dp),
+            .padding(horizontal = MaterialTheme.spacing.sm),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {

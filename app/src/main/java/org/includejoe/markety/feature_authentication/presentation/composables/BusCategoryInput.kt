@@ -103,7 +103,7 @@ fun BusCategoryPickerDialog(
                         color = MaterialTheme.colors.background
                     )
             ) {
-                for(category in categories) {
+                for(category in categories.sorted()) {
                     item{
                         Text(
                             modifier = Modifier

@@ -23,6 +23,7 @@ class LoginViewModel @Inject constructor(
     private val authUseCases: AuthenticationUseCases,
     private val validators: FormValidators,
     private val tokenManager: TokenManager,
+    private val appState: State<AppState>
 ): ViewModel() {
     private val _state = mutableStateOf(LoginState())
     val state: State<LoginState> = _state
@@ -74,6 +75,7 @@ class LoginViewModel @Inject constructor(
                     is Response.Success -> {
                         _state.value = LoginState(data = result.data, submissionSuccess = true)
                         tokenManager.login(result.data?.jwt)
+                        appState.value.loggedInUser = result.data?.username
                     }
 
                     is Response.Error -> {

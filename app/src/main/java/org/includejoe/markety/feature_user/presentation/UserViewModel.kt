@@ -21,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val tokenManager: TokenManager,
-    private val appState: State<AppState>,
+    val appState: State<AppState>,
     private val userUseCases: UserUseCases,
     private val userDataStore: DataStore<User>
 ): ViewModel() {
@@ -40,7 +40,7 @@ class UserViewModel @Inject constructor(
         appState.value.isDarkTheme = !appState.value.isDarkTheme
     }
 
-    private fun getLoggedInUser() {
+    fun getLoggedInUser() {
         viewModelScope.launch {
             userUseCases.getLoggedInUserUseCase(tokenManager.readToken()).collectLatest { result ->
                 when(result) {
@@ -57,6 +57,7 @@ class UserViewModel @Inject constructor(
                         _state.value = _state.value.copy(
                             data = result.data?.toUser(),
                             getLoggedInUserSuccess = true,
+                            isLoading = false,
                             getUserLoggedInError = null
                         )
                     }
@@ -64,6 +65,7 @@ class UserViewModel @Inject constructor(
                     is Response.Error -> {
                         _state.value = _state.value.copy(
                             getUserLoggedInError = result.message ?: R.string.unexpected_error,
+                            isLoading = false,
                             getLoggedInUserSuccess = false,
                             data = null
                         )

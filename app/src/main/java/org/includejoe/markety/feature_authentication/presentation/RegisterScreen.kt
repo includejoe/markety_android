@@ -119,11 +119,7 @@ fun RegisterScreen(
             }
 
             if(state.value.currentDisplay < 5) {
-                Divider(
-                    color = MaterialTheme.colors.surface.copy(alpha = 1f),
-                    thickness = 1.dp,
-                    modifier = Modifier.padding(top = 38.dp)
-                )
+                CustomDivider()
 
                 Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
 

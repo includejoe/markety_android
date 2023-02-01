@@ -32,6 +32,7 @@ import org.includejoe.markety.feature_authentication.presentation.composables.Pa
 import org.includejoe.markety.base.presentation.composables.Toast
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.base.util.Screens
+import org.includejoe.markety.feature_authentication.presentation.composables.CustomDivider
 import org.includejoe.markety.feature_authentication.presentation.composables.TextInput
 import org.includejoe.markety.feature_authentication.util.InputType
 import org.includejoe.markety.feature_authentication.util.FormEvent
@@ -156,11 +157,7 @@ fun LoginScreen(
             )
         }
 
-        Divider(
-            color = MaterialTheme.colors.surface.copy(alpha = 1f),
-            thickness = 1.dp,
-            modifier = Modifier.padding(top = 38.dp)
-        )
+        CustomDivider()
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
 

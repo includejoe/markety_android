@@ -54,8 +54,8 @@
         <item name="phones">Mobile Phones &amp; Tablets</item>
         <item name="electronics">Computers &amp; Electronics</item>
         <item name="home">Home, Furniture &amp; Appliances</item>
-        <item name="health">Health &amp; Beauty</item>
-        <item name="fashion">Fashion</item>
+        <item name="health">Health</item>
+        <item name="fashion">Fashion &amp; Beauty</item>
         <item name="sports">Sports, Arts &amp; Outdoors</item>
         <item name="service">Services</item>
         <item name="babies">Babies &amp; Kids</item>
@@ -80,11 +80,15 @@
     <string name="follow_btn">Follow</string>
     <string name="unfollow_btn">Unfollow</string>
     <string name="edit_btn">Edit Profile</string>
+    <string name="try_again_btn">Try Again</string>
 
 
     <!-- Login Screen -->
     <string name="no_account">Don\'t have an account?</string>
     <string name="register">REGISTER</string>
+
+    <!-- Profile Screen -->
+    <string name="joined_date">Joined %s</string>
 
 
     <!-- Register Screen -->
