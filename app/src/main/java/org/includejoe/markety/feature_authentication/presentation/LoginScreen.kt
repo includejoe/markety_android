@@ -157,7 +157,7 @@ fun LoginScreen(
         }
 
         Divider(
-            color = MaterialTheme.colors.surface.copy(alpha = 0.3f),
+            color = MaterialTheme.colors.surface.copy(alpha = 1f),
             thickness = 1.dp,
             modifier = Modifier.padding(top = 38.dp)
         )

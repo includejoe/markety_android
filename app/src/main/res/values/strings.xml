@@ -77,6 +77,9 @@
     <string name="next_btn">NEXT</string>
     <string name="return_btn">RETURN</string>
     <string name="complete_btn">COMPLETE</string>
+    <string name="follow_btn">Follow</string>
+    <string name="unfollow_btn">Unfollow</string>
+    <string name="edit_btn">Edit Profile</string>
 
 
     <!-- Login Screen -->

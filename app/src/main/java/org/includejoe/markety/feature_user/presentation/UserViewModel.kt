@@ -56,13 +56,16 @@ class UserViewModel @Inject constructor(
 //                        }
                         _state.value = _state.value.copy(
                             data = result.data?.toUser(),
-                            getLoggedInUserSuccess = true
+                            getLoggedInUserSuccess = true,
+                            getUserLoggedInError = null
                         )
                     }
 
                     is Response.Error -> {
                         _state.value = _state.value.copy(
-                            error = result.message ?: R.string.unexpected_error
+                            getUserLoggedInError = result.message ?: R.string.unexpected_error,
+                            getLoggedInUserSuccess = false,
+                            data = null
                         )
                     }
                 }
