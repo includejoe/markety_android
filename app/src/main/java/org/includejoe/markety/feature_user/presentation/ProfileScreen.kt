@@ -198,6 +198,7 @@ private fun Details(
         .fillMaxWidth()
         .wrapContentHeight()
     ) {
+        // First & Last Name or Business Name
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -231,6 +232,7 @@ private fun Details(
             }
         }
 
+        // Username
         Row(modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = "@${state.value.data?.username}",
@@ -241,6 +243,7 @@ private fun Details(
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.sm))
 
+        // Bio
         if (state.value.data?.bio !== null) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
@@ -252,6 +255,7 @@ private fun Details(
         }
 
         Row(modifier = Modifier.fillMaxWidth()) {
+            // Location
             Row(
                 modifier = Modifier.wrapContentHeight(),
                 verticalAlignment = Alignment.CenterVertically
@@ -271,6 +275,47 @@ private fun Details(
 
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.md))
 
+            // Category
+            if(isVendor) {
+                Row(
+                    modifier = Modifier.wrapContentHeight(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Category,
+                        modifier = Modifier.size(iconSize),
+                        contentDescription = "category icon",
+                        tint = MaterialTheme.colors.onBackground.copy(alpha = 0.7f)
+                    )
+                    Spacer(modifier = Modifier.width(3.dp))
+                    Text(
+                        text = state.value.data?.busCategory ?: "",
+                        fontSize = MaterialTheme.typography.body1.fontSize
+                    )
+                }
+            }
+        }
+
+        Row(modifier = Modifier.fillMaxWidth()) {
+            // Business Website
+            if(isVendor && state.value.data?.busWebsite !== null) {
+                Row(
+                    modifier = Modifier.wrapContentHeight(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Link,
+                        modifier = Modifier.size(iconSize),
+                        contentDescription = "website icon",
+                        tint = MaterialTheme.colors.onBackground.copy(alpha = 0.7f)
+                    )
+                    Spacer(modifier = Modifier.width(3.dp))
+                    BusWebsiteLink(link = state.value.data?.busWebsite!!)
+                }
+                Spacer(modifier = Modifier.width(MaterialTheme.spacing.md))
+            }
+
+            // Joined Date
             Row(
                 modifier = Modifier.wrapContentHeight(),
                 verticalAlignment = Alignment.CenterVertically
@@ -286,44 +331,6 @@ private fun Details(
             }
         }
 
-        if(isVendor) {
-            Row(modifier = Modifier.fillMaxWidth()) {
-                if (state.value.data?.busWebsite !== null) {
-                    Row(
-                        modifier = Modifier.wrapContentHeight(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Link,
-                            modifier = Modifier.size(iconSize),
-                            contentDescription = "link icon",
-                            tint = MaterialTheme.colors.onBackground.copy(alpha = 0.7f)
-                        )
-                        Spacer(modifier = Modifier.width(3.dp))
-                        BusWebsiteLink(link = state.value.data?.busWebsite!!)
-                    }
-                }
-
-                Spacer(modifier = Modifier.width(MaterialTheme.spacing.md))
-
-                Row(
-                    modifier = Modifier.wrapContentHeight(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Category,
-                        modifier = Modifier.size(iconSize),
-                        contentDescription = "location icon",
-                        tint = MaterialTheme.colors.onBackground.copy(alpha = 0.7f)
-                    )
-                    Spacer(modifier = Modifier.width(3.dp))
-                    Text(
-                        text = state.value.data?.busCategory ?: "",
-                        fontSize = MaterialTheme.typography.body1.fontSize
-                    )
-                }
-            }
-        }
     }
 }
 

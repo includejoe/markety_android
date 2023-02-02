@@ -8,22 +8,24 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import org.includejoe.markety.base.presentation.composables.AppTopBar
-import org.includejoe.markety.base.presentation.composables.BottomNavigation
-import org.includejoe.markety.base.util.NavigationItem
+import org.includejoe.markety.feature_settings.presentation.composables.SettingsTopBar
 
 @Composable
 fun SettingsScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: SettingsViewModel = hiltViewModel(),
 ){
     Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        AppTopBar(navController = navController)
+        SettingsTopBar(navController = navController)
         Column(
-            modifier = Modifier.weight(1f).fillMaxSize(),
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

@@ -2,7 +2,6 @@ package org.includejoe.markety.feature_user.presentation
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.datastore.core.DataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,10 +9,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.includejoe.markety.R
 import org.includejoe.markety.base.domain.AppState
+import org.includejoe.markety.base.domain.repository.UserPreferencesRepository
 import org.includejoe.markety.base.util.Response
 import org.includejoe.markety.base.util.TokenManager
 import org.includejoe.markety.feature_user.data.remote.dto.toUser
-import org.includejoe.markety.feature_user.domain.model.User
 import org.includejoe.markety.feature_user.domain.use_case.UserUseCases
 import org.includejoe.markety.feature_user.util.UserViewModelState
 import javax.inject.Inject
@@ -23,21 +22,15 @@ class UserViewModel @Inject constructor(
     private val tokenManager: TokenManager,
     val appState: State<AppState>,
     private val userUseCases: UserUseCases,
-    private val userDataStore: DataStore<User>
+    private val userPreferencesRepository: UserPreferencesRepository
 ): ViewModel() {
     private val _state = mutableStateOf(UserViewModelState())
     val state: State<UserViewModelState> = _state
 
     init {
         getLoggedInUser()
-    }
+        getLoggedInUsername()
 
-    fun logOut() {
-        tokenManager.logOut()
-    }
-
-    fun toggleTheme() {
-        appState.value.isDarkTheme = !appState.value.isDarkTheme
     }
 
     fun getLoggedInUser() {
@@ -51,9 +44,6 @@ class UserViewModel @Inject constructor(
                     }
 
                     is Response.Success -> {
-//                        userDataStore.updateData {
-//                            result.data?.toUser()!!
-//                        }
                         _state.value = _state.value.copy(
                             data = result.data?.toUser(),
                             getLoggedInUserSuccess = true,
@@ -72,6 +62,12 @@ class UserViewModel @Inject constructor(
                     }
                 }
             }
+        }
+    }
+    private fun getLoggedInUsername() {
+        viewModelScope.launch {
+            val username = userPreferencesRepository.getLoggedInUser()
+            appState.value.loggedInUser = username
         }
     }
 }

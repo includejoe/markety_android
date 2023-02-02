@@ -17,7 +17,7 @@ object Constants {
     const val JWT_KEY = "jwt"
     const val GOOGLE_MAPS_API_KEY = "AIzaSyACARrKET7OBzoC6oE4gl_cnH9ocdrQCb8"
 
-    const val USER_DATASTORE_FILE_NAME = "user.json"
+    const val DATASTORE_USER_PREFERENCES = "user_preferences"
     const val ENCRYPTED_SHARED_PREFS = "encrypted_shared_prefs"
 
     val APP_DATE_FORMAT = SimpleDateFormat("dd-MM-yyyy", Locale.UK)

@@ -3,30 +3,28 @@ package org.includejoe.markety.base.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.datastore.core.DataStore
-import androidx.datastore.core.DataStoreFactory
-import androidx.datastore.dataStoreFile
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.includejoe.markety.base.data.remote.GooglePlacesAPI
 import org.includejoe.markety.base.data.remote.MarketyAPI
 import org.includejoe.markety.base.data.repository.GooglePlacesRepository
-import org.includejoe.markety.base.domain.use_cases.GetGooglePlacesPredictionsUseCase
 import org.includejoe.markety.base.domain.AppState
+import org.includejoe.markety.base.domain.repository.UserPreferencesRepository
+import org.includejoe.markety.base.domain.use_cases.GetGooglePlacesPredictionsUseCase
 import org.includejoe.markety.base.util.Constants
-import org.includejoe.markety.base.util.CryptoManager
 import org.includejoe.markety.base.util.TokenManager
 import org.includejoe.markety.feature_authentication.data.repository.AuthenticationRepositoryImpl
 import org.includejoe.markety.feature_authentication.domain.repository.AuthenticationRepository
 import org.includejoe.markety.feature_authentication.domain.use_case.*
 import org.includejoe.markety.feature_authentication.util.validators.*
 import org.includejoe.markety.feature_user.data.repository.UserRepositoryImpl
-import org.includejoe.markety.feature_user.domain.model.User
-import org.includejoe.markety.feature_user.domain.model.UserSerializer
 import org.includejoe.markety.feature_user.domain.repository.UserRepository
 import org.includejoe.markety.feature_user.domain.use_case.GetLoggedInUserUseCase
 import org.includejoe.markety.feature_user.domain.use_case.UserUseCases
@@ -35,30 +33,36 @@ import retrofit2.Retrofit.Builder
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+val Context.userPreferences: DataStore<Preferences> by preferencesDataStore(
+    name = Constants.DATASTORE_USER_PREFERENCES
+)
+
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    // User Preferences DataStore
+    @Provides
+    @Singleton
+    fun provideUserPreferencesDataStore(
+        @ApplicationContext context: Context
+    ): DataStore<Preferences> {
+        return context.userPreferences
+    }
+
+    // User Preferences Repository
+    @Provides
+    @Singleton
+    fun provideUserPreferencesRepository(
+        userPreferences: DataStore<Preferences>
+    ): UserPreferencesRepository = UserPreferencesRepository(
+        userPreferences = userPreferences
+    )
+
     // Application State
     @Provides
     @Singleton
     fun provideAppState(): State<AppState> = mutableStateOf(AppState())
-
-    // Crypto Manager
-    @Provides
-    @Singleton
-    fun provideCryptoManager(): CryptoManager = CryptoManager()
-
-    // User Data Store
-    @Provides
-    @Singleton
-    fun provideUserDataStore(
-        @ApplicationContext context: Context,
-        cryptoManager: CryptoManager
-    ): DataStore<User> =
-        DataStoreFactory.create(
-            serializer = UserSerializer(cryptoManager),
-            produceFile = {context.dataStoreFile(Constants.USER_DATASTORE_FILE_NAME)}
-        )
 
     // Encrypted Shared Preferences
     @Provides

@@ -1,4 +1,4 @@
-package org.includejoe.markety.base.presentation.composables
+package org.includejoe.markety.feature_post.presentation.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

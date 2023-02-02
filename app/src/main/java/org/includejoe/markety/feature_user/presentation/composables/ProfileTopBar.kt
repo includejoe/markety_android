@@ -2,12 +2,14 @@ package org.includejoe.markety.feature_user.presentation.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -44,16 +46,17 @@ fun ProfileTopBar(
         )
 
         Icon(
-            imageVector = if(currentRoute == NavigationItem.SETTINGS.route) NavigationItem.SETTINGS.isSelectedIcon
-            else NavigationItem.SETTINGS.icon,
+            imageVector = NavigationItem.SETTINGS.icon,
             contentDescription = stringResource(id = NavigationItem.SETTINGS.title),
             modifier = Modifier
                 .size(30.dp)
-                .clickable {
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null
+                ) {
                     navController.navigate(NavigationItem.SETTINGS.route)
                 },
-            tint = if(currentRoute == NavigationItem.SETTINGS.route) MaterialTheme.colors.primary
-            else MaterialTheme.colors.onBackground
+            tint = MaterialTheme.colors.onBackground
         )
     }
 }

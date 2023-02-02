@@ -38,6 +38,7 @@ class MainActivity : ComponentActivity() {
             MarketyTheme(darkTheme = appState.value.isDarkTheme) {
                 Surface(color = MaterialTheme.colors.background,) {
                     val navController = rememberNavController()
+
                     val startDestination = if (appState.value.isAuthenticated) {
                         Screens.HomeScreen.route
                     } else {
@@ -85,7 +86,6 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 }
-
             }
         }
     }
