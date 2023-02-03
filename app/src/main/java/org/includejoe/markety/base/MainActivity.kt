@@ -35,9 +35,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-        lifecycleScope.launchWhenCreated {
-            checkTheme()
-        }
+        lifecycleScope.launchWhenCreated { checkTheme() }
         setContent {
             MarketyTheme(darkTheme = baseApp.isDarkTheme.value) {
                 Surface(color = MaterialTheme.colors.background) {

@@ -8,12 +8,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.includejoe.markety.base.BaseApplication
 import org.includejoe.markety.base.domain.repository.UserPreferencesRepository
+import org.includejoe.markety.base.util.TokenManager
 import org.includejoe.markety.feature_settings.util.SettingsState
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val userPreferencesRepository: UserPreferencesRepository,
+    private val tokenManager: TokenManager,
     var baseApp: BaseApplication
 ): ViewModel() {
     private val _state = mutableStateOf(SettingsState())
@@ -23,6 +25,13 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             baseApp.isDarkTheme.value = !baseApp.isDarkTheme.value
             userPreferencesRepository.setIsDarkTheme(baseApp.isDarkTheme.value)
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            tokenManager.logOut()
+            userPreferencesRepository.clearPreferences()
         }
     }
 }

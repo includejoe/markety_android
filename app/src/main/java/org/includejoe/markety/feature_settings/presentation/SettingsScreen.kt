@@ -33,17 +33,20 @@ fun SettingsScreen(
                 .padding(MaterialTheme.spacing.sm)
                 .verticalScroll(rememberScrollState())
         ) {
-            ThemeItem(
+            ToggleTheme(
                 checkedValue = viewModel.baseApp.isDarkTheme.value,
                 onCheckedChange = { viewModel.toggleTheme() }
             )
-            ItemDisplay(item = SettingsItem.LOGOUT)
+            Logout() {
+                viewModel.logout()
+                navController.popBackStack()
+            }
         }
     }
 }
 
 @Composable
-private fun ThemeItem(
+private fun ToggleTheme(
     checkedValue: Boolean,
     onCheckedChange: () -> Unit
 ) {
@@ -81,26 +84,26 @@ private fun ThemeItem(
 }
 
 @Composable
-private fun ItemDisplay(
-    item: SettingsItem,
+private fun Logout(
+    onClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(45.dp)
-            .clickable {},
+            .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row {
             Icon(
-                imageVector = item.icon,
-                contentDescription = stringResource(id = item.label),
+                imageVector = SettingsItem.LOGOUT.icon,
+                contentDescription = stringResource(id = SettingsItem.LOGOUT.label),
                 tint = MaterialTheme.colors.onBackground
             )
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.md))
             Text(
-                text = stringResource(id = item.label),
+                text = stringResource(id = SettingsItem.LOGOUT.label),
                 color = MaterialTheme.colors.onBackground,
                 fontSize = MaterialTheme.typography.body1.fontSize
             )

@@ -14,23 +14,18 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import org.includejoe.markety.R
 
-//private fun avatarColor(): Int {
-//    return if (appState.value.isDarkTheme) {
-//        R.drawable.ic_avatar_white
-//    } else {
-//        R.drawable.ic_avatar_dark
-//    }
-//}
-
-
 @Composable
 fun Avatar(
     modifier: Modifier = Modifier,
-    src: String? = null
+    src: String? = null,
+    isDarkTheme: Boolean
 ) {
     Image(
         painter = if(src !== null) rememberAsyncImagePainter(src)
-        else painterResource(id = R.drawable.ic_avatar_dark),
+        else painterResource(
+            id = if(isDarkTheme) R.drawable.ic_avatar_white else
+                R.drawable.ic_avatar_dark
+        ),
         modifier = modifier
             .size(80.dp)
             .clip(shape = RoundedCornerShape(40.dp))

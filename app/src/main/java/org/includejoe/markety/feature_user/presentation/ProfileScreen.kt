@@ -147,7 +147,8 @@ fun ProfileScreen(
                             modifier = Modifier
                                 .padding(start = MaterialTheme.spacing.sm)
                                 .size(80.dp),
-                            src = state.value.data!!.profileImage
+                            src = state.value.data!!.profileImage,
+                            isDarkTheme = viewModel.baseApp.isDarkTheme.value
                         )
 
                         if(viewModel.baseApp.loggedInUser.value == state.value.data!!.username) {
