@@ -5,14 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.State
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.includejoe.markety.base.presentation.theme.ui.MarketyTheme
-import org.includejoe.markety.base.domain.AppState
+import org.includejoe.markety.base.domain.repository.UserPreferencesRepository
 import org.includejoe.markety.base.util.Screens
 import org.includejoe.markety.base.util.TokenManager
 import org.includejoe.markety.feature_authentication.presentation.LoginScreen
@@ -29,17 +29,21 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Inject lateinit var tokenManager: TokenManager
-    @Inject lateinit var appState: State<AppState>
+    @Inject lateinit var baseApp: BaseApplication
+    @Inject lateinit var userPreferencesRepository: UserPreferencesRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
+        lifecycleScope.launchWhenCreated {
+            checkTheme()
+        }
         setContent {
-            MarketyTheme(darkTheme = appState.value.isDarkTheme) {
-                Surface(color = MaterialTheme.colors.background,) {
+            MarketyTheme(darkTheme = baseApp.isDarkTheme.value) {
+                Surface(color = MaterialTheme.colors.background) {
                     val navController = rememberNavController()
 
-                    val startDestination = if (appState.value.isAuthenticated) {
+                    val startDestination = if (baseApp.isAuthenticated.value) {
                         Screens.HomeScreen.route
                     } else {
                         Screens.LoginScreen.route
@@ -87,6 +91,14 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
+        }
+    }
+
+    private suspend fun checkTheme() {
+        if(userPreferencesRepository.getIsDarkTheme() !== null) {
+            baseApp.isDarkTheme.value = if(userPreferencesRepository.getIsDarkTheme()!!)
+                userPreferencesRepository.getIsDarkTheme()!!
+            else false
         }
     }
 }

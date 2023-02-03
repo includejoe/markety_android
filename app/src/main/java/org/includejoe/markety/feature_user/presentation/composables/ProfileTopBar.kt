@@ -28,7 +28,6 @@ fun ProfileTopBar(
     navController: NavController,
     username: String = ""
 ) {
-    val currentRoute = navController.currentDestination?.route
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -42,14 +41,15 @@ fun ProfileTopBar(
         Text(
             text = username,
             fontSize = 16.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colors.onBackground
         )
 
         Icon(
             imageVector = NavigationItem.SETTINGS.icon,
             contentDescription = stringResource(id = NavigationItem.SETTINGS.title),
             modifier = Modifier
-                .size(30.dp)
+                .size(26.dp)
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null

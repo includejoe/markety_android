@@ -1,18 +1,14 @@
 package org.includejoe.markety.feature_authentication.presentation
 
-
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import org.includejoe.markety.R
-import org.includejoe.markety.base.domain.AppState
+import org.includejoe.markety.base.BaseApplication
 import org.includejoe.markety.base.domain.repository.UserPreferencesRepository
 import org.includejoe.markety.base.util.Constants
 import org.includejoe.markety.base.util.Response
@@ -27,7 +23,7 @@ class LoginViewModel @Inject constructor(
     private val authUseCases: AuthenticationUseCases,
     private val validators: FormValidators,
     private val tokenManager: TokenManager,
-    private val appState: State<AppState>,
+    private val baseApp: BaseApplication,
     private val userPreferencesRepository: UserPreferencesRepository
 ): ViewModel() {
     private val _state = mutableStateOf(LoginState())
@@ -96,7 +92,7 @@ class LoginViewModel @Inject constructor(
     private fun setLoggedInUser(username: String) {
         viewModelScope.launch {
             userPreferencesRepository.setLoggedInUser(username)
-            appState.value.loggedInUser = username
+            baseApp.loggedInUser.value = username
         }
     }
 }

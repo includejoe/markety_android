@@ -24,7 +24,7 @@ enum class NavigationItem (
         route = Screens.SearchScreen.route,
         title = R.string.search
     ),
-    CREATEPOST(
+    CREATE_POST(
         icon = Icons.Outlined.AddBox,
         isSelectedIcon = Icons.Filled.AddBox,
         route = Screens.CreatePostScreen.route,
@@ -49,8 +49,8 @@ enum class NavigationItem (
         title = R.string.messages
     ),
     SETTINGS(
-        icon = Icons.Outlined.Menu,
-        isSelectedIcon = Icons.Filled.Menu,
+        icon = Icons.Outlined.MoreVert,
+        isSelectedIcon = Icons.Filled.MoreVert,
         route = Screens.SettingsScreen.route,
         title = R.string.settings
     )

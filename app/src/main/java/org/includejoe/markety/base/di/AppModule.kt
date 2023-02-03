@@ -6,16 +6,14 @@ import androidx.datastore.core.DataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import org.includejoe.markety.base.BaseApplication
 import org.includejoe.markety.base.data.remote.GooglePlacesAPI
 import org.includejoe.markety.base.data.remote.MarketyAPI
 import org.includejoe.markety.base.data.repository.GooglePlacesRepository
-import org.includejoe.markety.base.domain.AppState
 import org.includejoe.markety.base.domain.repository.UserPreferencesRepository
 import org.includejoe.markety.base.domain.use_cases.GetGooglePlacesPredictionsUseCase
 import org.includejoe.markety.base.util.Constants
@@ -40,6 +38,12 @@ val Context.userPreferences: DataStore<Preferences> by preferencesDataStore(
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+    // Base Application
+    @Singleton
+    @Provides
+    fun provideApplication(@ApplicationContext app: Context): BaseApplication {
+        return app as BaseApplication
+    }
 
     // User Preferences DataStore
     @Provides
@@ -59,11 +63,6 @@ object AppModule {
         userPreferences = userPreferences
     )
 
-    // Application State
-    @Provides
-    @Singleton
-    fun provideAppState(): State<AppState> = mutableStateOf(AppState())
-
     // Encrypted Shared Preferences
     @Provides
     @Singleton
@@ -78,12 +77,12 @@ object AppModule {
     fun provideTokenManager(
         @ApplicationContext context: Context,
         encryptedSharedPrefs: SharedPreferences,
-        appState: State<AppState>
+        baseApp: BaseApplication
     ): TokenManager =
         TokenManager(
             context = context,
             encryptedSharedPrefs = encryptedSharedPrefs,
-            appState = appState
+            baseApp = baseApp
         )
 
     // Form Validators

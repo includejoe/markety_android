@@ -31,11 +31,11 @@ import androidx.constraintlayout.compose.ConstraintSet
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
-import org.includejoe.markety.base.presentation.composables.Avatar
 import org.includejoe.markety.base.presentation.composables.BottomNavigation
 import org.includejoe.markety.base.util.NavigationItem
 import org.includejoe.markety.feature_user.presentation.composables.ProfileTopBar
 import org.includejoe.markety.R
+import org.includejoe.markety.base.presentation.composables.Avatar
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.feature_user.presentation.composables.FollowOrEditButton
 import org.includejoe.markety.feature_user.util.UserViewModelState
@@ -71,7 +71,11 @@ fun ProfileScreen(
         }
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+        .fillMaxSize()
+        .verticalScroll(rememberScrollState())
+    ) {
         if(state.value.isLoading) {
             Column(
                 modifier = Modifier
@@ -146,7 +150,7 @@ fun ProfileScreen(
                             src = state.value.data!!.profileImage
                         )
 
-                        if(viewModel.appState.value.loggedInUser == state.value.data!!.username) {
+                        if(viewModel.baseApp.loggedInUser.value == state.value.data!!.username) {
                             FollowOrEditButton(text = R.string.edit_btn) {}
                         } else {
                             FollowOrEditButton(text = R.string.follow_btn) {}
@@ -269,7 +273,8 @@ private fun Details(
                 Spacer(modifier = Modifier.width(3.dp))
                 Text(
                     text = state.value.data?.location ?: "",
-                    fontSize = MaterialTheme.typography.body1.fontSize
+                    fontSize = MaterialTheme.typography.body1.fontSize,
+                    color = MaterialTheme.colors.onBackground
                 )
             }
 
@@ -290,7 +295,8 @@ private fun Details(
                     Spacer(modifier = Modifier.width(3.dp))
                     Text(
                         text = state.value.data?.busCategory ?: "",
-                        fontSize = MaterialTheme.typography.body1.fontSize
+                        fontSize = MaterialTheme.typography.body1.fontSize,
+                        color = MaterialTheme.colors.onBackground
                     )
                 }
             }

@@ -1,14 +1,8 @@
 package org.includejoe.markety.base.domain.repository
 
-import androidx.compose.runtime.State
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.map
-import org.includejoe.markety.base.domain.AppState
-import java.io.IOException
 import javax.inject.Inject
 
 class UserPreferencesRepository @Inject constructor(

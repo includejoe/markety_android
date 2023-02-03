@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".base.MarketyApp"
+        android:name=".base.BaseApplication"
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"

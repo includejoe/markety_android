@@ -30,7 +30,7 @@ fun CreatePostScreen(
             Text(text = "CREATE POST SCREEN", color = MaterialTheme.colors.onBackground)
         }
         BottomNavigation(
-            selectedItem = NavigationItem.CREATEPOST,
+            selectedItem = NavigationItem.CREATE_POST,
             navController = navController
         )
     }

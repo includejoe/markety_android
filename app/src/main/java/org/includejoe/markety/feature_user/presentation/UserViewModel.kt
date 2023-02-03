@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.includejoe.markety.R
-import org.includejoe.markety.base.domain.AppState
+import org.includejoe.markety.base.BaseApplication
 import org.includejoe.markety.base.domain.repository.UserPreferencesRepository
 import org.includejoe.markety.base.util.Response
 import org.includejoe.markety.base.util.TokenManager
@@ -20,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val tokenManager: TokenManager,
-    val appState: State<AppState>,
+//    val appState: State<AppState>,
+    val baseApp: BaseApplication,
     private val userUseCases: UserUseCases,
     private val userPreferencesRepository: UserPreferencesRepository
 ): ViewModel() {
@@ -67,7 +68,7 @@ class UserViewModel @Inject constructor(
     private fun getLoggedInUsername() {
         viewModelScope.launch {
             val username = userPreferencesRepository.getLoggedInUser()
-            appState.value.loggedInUser = username
+            baseApp.loggedInUser.value = username
         }
     }
 }

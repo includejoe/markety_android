@@ -2,23 +2,18 @@ package org.includejoe.markety.base.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
-import androidx.compose.runtime.State
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import io.github.nefilim.kjwt.JWT
-import org.includejoe.markety.base.domain.AppState
+import org.includejoe.markety.base.BaseApplication
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
 
 class TokenManager @Inject constructor(
     context: Context,
     private var encryptedSharedPrefs: SharedPreferences,
-    private val appState: State<AppState>
+    private val baseApp: BaseApplication
 ) {
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.UK)
     private val currentDate = Date()
@@ -51,9 +46,9 @@ class TokenManager @Inject constructor(
             // Check if JWT hasn't expired
             if(expiresAtDate.before(currentDate)) {
                 removeToken()
-                appState.value.isAuthenticated = false
+                baseApp.isAuthenticated.value = false
             } else {
-                appState.value.isAuthenticated = true
+                baseApp.isAuthenticated.value = true
             }
         }
     }
@@ -62,7 +57,7 @@ class TokenManager @Inject constructor(
 
     fun login(jwt: String?) {
         saveToken(jwt)
-        appState.value.isAuthenticated = true
+        baseApp.isAuthenticated.value = true
     }
 
     fun readToken(): String? {
@@ -71,7 +66,7 @@ class TokenManager @Inject constructor(
 
     fun logOut() {
         removeToken()
-        appState.value.isAuthenticated = false
+        baseApp.isAuthenticated.value = false
     }
 
 

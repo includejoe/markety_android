@@ -39,6 +39,7 @@ fun SettingsTopBar(
         Icon(
             imageVector = Icons.Default.ArrowBack,
             contentDescription = "arrow back",
+            tint = MaterialTheme.colors.onBackground,
             modifier = Modifier
                 .size(23.dp)
                 .clickable(
