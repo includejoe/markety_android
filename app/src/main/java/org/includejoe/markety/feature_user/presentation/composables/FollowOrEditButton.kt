@@ -10,7 +10,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 
 @Composable
@@ -32,11 +31,10 @@ fun FollowOrEditButton(
         contentPadding = PaddingValues(
             vertical = 0.dp,
             horizontal = 5.dp
-        )
+        ),
     ) {
         Text(
             text = stringResource(id = text),
-            fontSize = 12.sp,
             color = MaterialTheme.colors.onPrimary,
             style = MaterialTheme.typography.body1
         )

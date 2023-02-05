@@ -1,48 +1,30 @@
 package org.includejoe.markety.feature_user.presentation
 
 import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Category
-import androidx.compose.material.icons.outlined.DateRange
-import androidx.compose.material.icons.outlined.Link
-import androidx.compose.material.icons.outlined.LocationOn
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import coil.compose.rememberAsyncImagePainter
 import org.includejoe.markety.base.presentation.composables.BottomNavigation
 import org.includejoe.markety.base.util.NavigationItem
-import org.includejoe.markety.feature_user.presentation.composables.ProfileTopBar
 import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.composables.Avatar
 import org.includejoe.markety.base.presentation.theme.ui.spacing
-import org.includejoe.markety.feature_user.presentation.composables.CoverImage
-import org.includejoe.markety.feature_user.presentation.composables.Details
-import org.includejoe.markety.feature_user.presentation.composables.FollowOrEditButton
-import org.includejoe.markety.feature_user.util.UserViewModelState
-import java.text.SimpleDateFormat
-import java.util.*
+import org.includejoe.markety.feature_user.presentation.composables.*
+
 
 @Composable
 fun ProfileScreen(
@@ -50,6 +32,7 @@ fun ProfileScreen(
     viewModel: LoggedInUserViewModel = hiltViewModel()
 ){
     val state = viewModel.state
+    var selectedTabIndex by remember { mutableStateOf(0) }
     val constraints = ConstraintSet {
         val avatar = createRefFor("avatar")
         val coverImage = createRefFor("coverImage")
@@ -75,8 +58,8 @@ fun ProfileScreen(
 
     Column(
         modifier = Modifier
-        .fillMaxSize()
-        .verticalScroll(rememberScrollState())
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
     ) {
         if(state.value.isLoading) {
             Column(
@@ -173,6 +156,25 @@ fun ProfileScreen(
                             .weight(1f)
                     ) {
                         Details(state = state, isVendor = state.value.data?.isVendor!!)
+                        Spacer(modifier = Modifier.height(MaterialTheme.spacing.sm))
+                        TabView(
+                            tabModels = listOf(
+                                R.string.posts,
+                                R.string.catalog,
+                                R.string.reviews
+                            )
+                        ) { selectedTabIndex = it }
+                        when(selectedTabIndex) {
+                            0 -> {
+                                PostsTabView()
+                            }
+                            1 -> {
+                                CatalogTabView()
+                            }
+                            2 -> {
+                                ReviewsTabView()
+                            }
+                        }
                     }
                 }
             }
@@ -180,6 +182,45 @@ fun ProfileScreen(
         BottomNavigation(
             selectedItem = NavigationItem.PROFILE,
             navController = navController
+        )
+    }
+}
+
+@Composable
+private fun ProfileTopBar(
+    navController: NavController,
+    username: String = ""
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .shadow(5.dp)
+            .height(50.dp)
+            .background(MaterialTheme.colors.primaryVariant)
+            .padding(horizontal = MaterialTheme.spacing.sm),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = username,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colors.onBackground,
+            style = MaterialTheme.typography.body1
+        )
+
+        Icon(
+            imageVector = NavigationItem.SETTINGS.icon,
+            contentDescription = stringResource(id = NavigationItem.SETTINGS.title),
+            modifier = Modifier
+                .size(26.dp)
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null
+                ) {
+                    navController.navigate(NavigationItem.SETTINGS.route)
+                },
+            tint = MaterialTheme.colors.onBackground
         )
     }
 }

@@ -90,6 +90,9 @@
 
     <!-- Profile Screen -->
     <string name="joined_date">Joined %s</string>
+    <string name="posts">Posts</string>
+    <string name="catalog">Catalog</string>
+    <string name="reviews">Reviews</string>
 
 
     <!-- Settings Screen -->

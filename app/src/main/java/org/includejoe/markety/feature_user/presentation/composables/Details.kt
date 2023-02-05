@@ -72,7 +72,7 @@ fun Details(
             Text(
                 text = "@${state.value.data?.username}",
                 color = MaterialTheme.colors.onBackground.copy(alpha = 0.7f),
-                fontSize = 12.sp,
+                fontSize = 13.sp,
                 style = MaterialTheme.typography.body1
             )
         }
