@@ -27,7 +27,11 @@ fun CreatePostScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "CREATE POST SCREEN", color = MaterialTheme.colors.onBackground)
+            Text(
+                text = "CREATE POST SCREEN",
+                color = MaterialTheme.colors.onBackground,
+                style = MaterialTheme.typography.h2,
+            )
         }
         BottomNavigation(
             selectedItem = NavigationItem.CREATE_POST,

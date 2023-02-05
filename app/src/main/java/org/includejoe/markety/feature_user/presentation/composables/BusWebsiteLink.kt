@@ -24,6 +24,7 @@ fun BusWebsiteLink(
             SpanStyle(
                 color = MaterialTheme.colors.secondary,
                 textDecoration = TextDecoration.Underline,
+                fontSize = MaterialTheme.typography.body1.fontSize,
                 fontStyle = FontStyle.Italic,
             ),
             start = start,

@@ -32,7 +32,15 @@ interface MarketyAPI  {
         @Header("Authorization") authHeader: String
     ): UserDTO
 
+
+
     // POSTS
+    @GET("posts/user/{username}")
+    suspend fun getUserPosts(
+        @Header("Authorization") authHeader: String,
+        @Path("username") username: String
+    ): List<PostDTO>
+
     @GET("posts/")
     suspend fun getPosts(): PostDTO
 

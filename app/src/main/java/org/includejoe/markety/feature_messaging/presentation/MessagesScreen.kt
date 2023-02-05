@@ -27,7 +27,11 @@ fun MessagesScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "MESSAGES SCREEN", color = MaterialTheme.colors.onBackground)
+            Text(
+                text = "MESSAGES SCREEN",
+                color = MaterialTheme.colors.onBackground,
+                style = MaterialTheme.typography.h2,
+            )
         }
         BottomNavigation(
             selectedItem = NavigationItem.MESSAGES,

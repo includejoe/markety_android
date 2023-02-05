@@ -90,9 +90,12 @@
 
     <!-- Profile Screen -->
     <string name="joined_date">Joined %s</string>
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
     <string name="posts">Posts</string>
     <string name="catalog">Catalog</string>
     <string name="reviews">Reviews</string>
+    <string name="no_posts">No Posts Yet</string>
 
 
     <!-- Settings Screen -->

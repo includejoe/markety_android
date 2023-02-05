@@ -27,7 +27,11 @@ fun HomeScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "HOME SCREEN", color = MaterialTheme.colors.onBackground)
+            Text(
+                text = "HOME SCREEN",
+                color = MaterialTheme.colors.onBackground,
+                style = MaterialTheme.typography.h2,
+            )
         }
         BottomNavigation(
             selectedItem = NavigationItem.HOME,

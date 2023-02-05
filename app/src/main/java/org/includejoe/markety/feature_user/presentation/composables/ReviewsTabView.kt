@@ -16,6 +16,10 @@ fun ReviewsTabView() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "REVIEWS TAB VIEW", style = MaterialTheme.typography.h2)
+        Text(
+            text = "REVIEWS TAB VIEW",
+            style = MaterialTheme.typography.h2,
+            color = MaterialTheme.colors.onBackground
+        )
     }
 }

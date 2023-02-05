@@ -15,6 +15,7 @@ import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -72,7 +73,6 @@ fun Details(
             Text(
                 text = "@${state.value.data?.username}",
                 color = MaterialTheme.colors.onBackground.copy(alpha = 0.7f),
-                fontSize = 13.sp,
                 style = MaterialTheme.typography.body1
             )
         }
@@ -169,5 +169,56 @@ fun Details(
             }
         }
 
+        // Followers, Following & Posts
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Row() {
+                Text(
+                    text = state.value.data?.following?.size.toString(),
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.onBackground,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.width(3.dp))
+                Text(
+                    text = stringResource(id = R.string.following),
+                    color = MaterialTheme.colors.onBackground,
+                    style = MaterialTheme.typography.body1
+                )
+            }
+
+            Spacer(modifier = Modifier.width(MaterialTheme.spacing.md))
+
+            Row() {
+                Text(
+                    text = state.value.data?.followers?.size.toString(),
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.onBackground,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.width(3.dp))
+                Text(
+                    text = stringResource(id = R.string.followers),
+                    color = MaterialTheme.colors.onBackground,
+                    style = MaterialTheme.typography.body1
+                )
+            }
+
+            Spacer(modifier = Modifier.width(MaterialTheme.spacing.md))
+
+            Row() {
+                Text(
+                    text = state.value.data?.posts?.size.toString(),
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.onBackground,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.width(3.dp))
+                Text(
+                    text = stringResource(id = R.string.posts),
+                    color = MaterialTheme.colors.onBackground,
+                    style = MaterialTheme.typography.body1
+                )
+            }
+        }
     }
 }

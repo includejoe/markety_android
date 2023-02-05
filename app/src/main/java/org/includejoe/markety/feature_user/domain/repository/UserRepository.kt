@@ -1,9 +1,14 @@
 package org.includejoe.markety.feature_user.domain.repository
 
+import org.includejoe.markety.feature_post.data.remote.dto.PostDTO
 import org.includejoe.markety.feature_user.data.remote.dto.UserDTO
 
 interface UserRepository {
     suspend fun getLoggedInUser(authHeader: String): UserDTO
+
+    suspend fun getUser(authHeader: String): UserDTO
+
+    suspend fun getUserPosts(authHeader: String, username: String): List<PostDTO>
 
     suspend fun updateUser(
         bio: String? = null,

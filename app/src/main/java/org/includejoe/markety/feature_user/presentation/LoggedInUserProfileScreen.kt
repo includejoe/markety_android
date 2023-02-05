@@ -117,6 +117,7 @@ fun ProfileScreen(
                     .fillMaxSize()
                     .weight(1f)) {
                     ProfileTopBar(
+                        isLoggedInUser = true,
                         navController = navController,
                         username = state.value.data?.username!!
                     )
@@ -166,7 +167,10 @@ fun ProfileScreen(
                         ) { selectedTabIndex = it }
                         when(selectedTabIndex) {
                             0 -> {
-                                PostsTabView()
+                                PostsTabView(
+                                    isLoading = state.value.getUserPostsLoading,
+                                    posts = state.value.userPosts
+                                )
                             }
                             1 -> {
                                 CatalogTabView()
@@ -182,45 +186,6 @@ fun ProfileScreen(
         BottomNavigation(
             selectedItem = NavigationItem.PROFILE,
             navController = navController
-        )
-    }
-}
-
-@Composable
-private fun ProfileTopBar(
-    navController: NavController,
-    username: String = ""
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .shadow(5.dp)
-            .height(50.dp)
-            .background(MaterialTheme.colors.primaryVariant)
-            .padding(horizontal = MaterialTheme.spacing.sm),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = username,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colors.onBackground,
-            style = MaterialTheme.typography.body1
-        )
-
-        Icon(
-            imageVector = NavigationItem.SETTINGS.icon,
-            contentDescription = stringResource(id = NavigationItem.SETTINGS.title),
-            modifier = Modifier
-                .size(26.dp)
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null
-                ) {
-                    navController.navigate(NavigationItem.SETTINGS.route)
-                },
-            tint = MaterialTheme.colors.onBackground
         )
     }
 }

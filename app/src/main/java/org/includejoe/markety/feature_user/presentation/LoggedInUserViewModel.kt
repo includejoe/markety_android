@@ -1,5 +1,6 @@
 package org.includejoe.markety.feature_user.presentation
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -17,7 +18,7 @@ import org.includejoe.markety.feature_user.domain.use_case.UserUseCases
 import org.includejoe.markety.feature_user.util.UserViewModelState
 import javax.inject.Inject
 
-// TODO: Create viewModel for user and logged in usser
+// TODO: Create viewModel for user and logged in user
 
 @HiltViewModel
 class LoggedInUserViewModel @Inject constructor(
@@ -32,7 +33,7 @@ class LoggedInUserViewModel @Inject constructor(
     init {
         getLoggedInUser()
         getLoggedInUsername()
-
+        getUserPosts()
     }
 
     fun getLoggedInUser() {
@@ -70,6 +71,39 @@ class LoggedInUserViewModel @Inject constructor(
         viewModelScope.launch {
             val username = userPreferencesRepository.getLoggedInUser()
             baseApp.loggedInUser.value = username
+        }
+    }
+
+    fun getUserPosts() {
+        viewModelScope.launch {
+            userUseCases.getUserPosts(
+                jwt = tokenManager.readToken(),
+                username = baseApp.loggedInUser.value!!
+            ).collectLatest { result ->
+                when(result) {
+                    is Response.Loading -> {
+                        _state.value = _state.value.copy(
+                            getUserPostsLoading = true
+                        )
+                    }
+
+                    is Response.Success -> {
+                        _state.value = _state.value.copy(
+                            getUserPostsLoading = false,
+                            getUserPostsError = null,
+                            userPosts = result.data
+                        )
+                    }
+
+                    is Response.Error -> {
+                        _state.value = _state.value.copy(
+                            getUserPostsLoading = false,
+                            getUserPostsError = result.message ?: R.string.unexpected_error,
+                            userPosts = null
+                        )
+                    }
+                }
+            }
         }
     }
 }

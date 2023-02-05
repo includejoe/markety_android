@@ -27,7 +27,11 @@ fun SearchScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "SEARCH SCREEN", color = MaterialTheme.colors.onBackground)
+            Text(
+                text = "SEARCH SCREEN",
+                color = MaterialTheme.colors.onBackground,
+                style = MaterialTheme.typography.h2,
+            )
         }
         BottomNavigation(
             selectedItem = NavigationItem.SEARCH,

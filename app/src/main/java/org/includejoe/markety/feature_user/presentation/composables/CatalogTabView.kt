@@ -16,6 +16,10 @@ fun CatalogTabView() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "CATALOG TAB VIEW", style = MaterialTheme.typography.h2)
+        Text(
+            text = "CATALOG TAB VIEW",
+            style = MaterialTheme.typography.h2,
+            color = MaterialTheme.colors.onBackground
+        )
     }
 }

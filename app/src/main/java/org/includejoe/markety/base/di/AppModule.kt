@@ -25,6 +25,7 @@ import org.includejoe.markety.feature_authentication.util.validators.*
 import org.includejoe.markety.feature_user.data.repository.UserRepositoryImpl
 import org.includejoe.markety.feature_user.domain.repository.UserRepository
 import org.includejoe.markety.feature_user.domain.use_case.GetLoggedInUserUseCase
+import org.includejoe.markety.feature_user.domain.use_case.GetUserPosts
 import org.includejoe.markety.feature_user.domain.use_case.UserUseCases
 import retrofit2.Retrofit
 import retrofit2.Retrofit.Builder
@@ -172,12 +173,10 @@ object AppModule {
     @Provides
     @Singleton
     fun provideUserUseCases(
-        tokenManager: TokenManager,
         repository: UserRepository
     ) = UserUseCases(
-        getLoggedInUserUseCase = GetLoggedInUserUseCase(
-            repository = repository
-        )
+        getLoggedInUserUseCase = GetLoggedInUserUseCase(repository),
+        getUserPosts = GetUserPosts(repository)
     )
 
 }

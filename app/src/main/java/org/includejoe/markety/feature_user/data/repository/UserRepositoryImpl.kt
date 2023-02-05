@@ -1,6 +1,7 @@
 package org.includejoe.markety.feature_user.data.repository
 
 import org.includejoe.markety.base.data.remote.MarketyAPI
+import org.includejoe.markety.feature_post.data.remote.dto.PostDTO
 import org.includejoe.markety.feature_user.data.remote.dto.UserDTO
 import org.includejoe.markety.feature_user.domain.repository.UserRepository
 import javax.inject.Inject
@@ -10,6 +11,14 @@ class UserRepositoryImpl @Inject constructor(
 ): UserRepository {
     override suspend fun getLoggedInUser(authHeader: String): UserDTO {
         return api.getUser(authHeader)
+    }
+
+    override suspend fun getUser(authHeader: String): UserDTO {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getUserPosts(authHeader: String, username: String): List<PostDTO> {
+        return api.getUserPosts(authHeader = authHeader, username = username)
     }
 
     override suspend fun updateUser(

@@ -27,7 +27,11 @@ fun NotificationsScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "NOTIFICATIONS SCREEN", color = MaterialTheme.colors.onBackground)
+            Text(
+                text = "NOTIFICATIONS SCREEN",
+                color = MaterialTheme.colors.onBackground,
+                style = MaterialTheme.typography.h2,
+            )
         }
         BottomNavigation(
             selectedItem = NavigationItem.NOTIFICATIONS,
