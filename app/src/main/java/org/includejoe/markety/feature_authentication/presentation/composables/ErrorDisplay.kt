@@ -21,7 +21,6 @@ import org.includejoe.markety.feature_authentication.presentation.RegisterViewMo
 
 @Composable
 fun ErrorDisplay(
-    viewModel: RegisterViewModel,
     navController: NavController,
     modifier: Modifier = Modifier
 ){

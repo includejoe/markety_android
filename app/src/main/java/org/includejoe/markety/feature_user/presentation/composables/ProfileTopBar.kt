@@ -8,7 +8,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,8 +19,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.base.util.NavigationItem
-import org.includejoe.markety.feature_user.domain.model.User
-import org.includejoe.markety.feature_user.util.UserViewModelState
 
 @Composable
 fun ProfileTopBar(

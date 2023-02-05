@@ -17,10 +17,11 @@ import org.includejoe.markety.feature_user.domain.use_case.UserUseCases
 import org.includejoe.markety.feature_user.util.UserViewModelState
 import javax.inject.Inject
 
+// TODO: Create viewModel for user and logged in usser
+
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val tokenManager: TokenManager,
-//    val appState: State<AppState>,
     val baseApp: BaseApplication,
     private val userUseCases: UserUseCases,
     private val userPreferencesRepository: UserPreferencesRepository

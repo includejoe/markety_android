@@ -4,8 +4,6 @@ import org.includejoe.markety.feature_authentication.data.remote.dto.CheckUserna
 import org.includejoe.markety.feature_authentication.data.remote.dto.LoginDTO
 import org.includejoe.markety.feature_authentication.data.remote.dto.RegisterDTO
 import org.includejoe.markety.feature_authentication.domain.model.Login
-import org.includejoe.markety.feature_authentication.domain.model.RefreshTokenRequest
-import org.includejoe.markety.feature_authentication.domain.model.RefreshTokenResponse
 import org.includejoe.markety.feature_authentication.domain.model.Register
 import org.includejoe.markety.feature_post.data.remote.dto.PostDTO
 import org.includejoe.markety.feature_post.domain.model.CreatePost
@@ -27,9 +25,6 @@ interface MarketyAPI  {
 
     @GET("user/check/{username}")
     suspend fun checkUsername(@Path("username") username: String): CheckUsernameDTO
-
-    @POST("token/refresh/")
-    suspend fun getNewAccessToken(@Body refreshTokenRequest: RefreshTokenRequest): RefreshTokenResponse
 
     // USER
     @GET("user/")

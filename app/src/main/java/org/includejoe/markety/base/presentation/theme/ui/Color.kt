@@ -2,6 +2,8 @@ package org.includejoe.markety.base.presentation.theme.ui
 
 import androidx.compose.ui.graphics.Color
 
+// TODO: Name colors after their generic names
+
 // light colors
 val LightBg = Color(0xFFFFFFFF)
 val TextDark = Color(0xFF0A0A0A)

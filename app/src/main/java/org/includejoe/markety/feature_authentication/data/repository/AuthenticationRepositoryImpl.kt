@@ -5,8 +5,6 @@ import org.includejoe.markety.feature_authentication.data.remote.dto.CheckUserna
 import org.includejoe.markety.feature_authentication.data.remote.dto.LoginDTO
 import org.includejoe.markety.feature_authentication.data.remote.dto.RegisterDTO
 import org.includejoe.markety.feature_authentication.domain.model.Login
-import org.includejoe.markety.feature_authentication.domain.model.RefreshTokenRequest
-import org.includejoe.markety.feature_authentication.domain.model.RefreshTokenResponse
 import org.includejoe.markety.feature_authentication.domain.model.Register
 import org.includejoe.markety.feature_authentication.domain.repository.AuthenticationRepository
 import javax.inject.Inject
@@ -53,9 +51,5 @@ class AuthenticationRepositoryImpl @Inject constructor(
 
     override suspend fun login(username: String, password: String): LoginDTO {
         return api.login(Login(username = username, password = password))
-    }
-
-    override suspend fun getNewAccessToken(refreshToken: String): RefreshTokenResponse {
-        return api.getNewAccessToken(RefreshTokenRequest(refresh = refreshToken))
     }
 }

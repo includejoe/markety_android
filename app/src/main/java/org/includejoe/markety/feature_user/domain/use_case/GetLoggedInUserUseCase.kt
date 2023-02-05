@@ -4,7 +4,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.includejoe.markety.R
 import org.includejoe.markety.base.util.Response
-import org.includejoe.markety.base.util.TokenManager
 import org.includejoe.markety.feature_user.data.remote.dto.UserDTO
 import org.includejoe.markety.feature_user.domain.repository.UserRepository
 import retrofit2.HttpException

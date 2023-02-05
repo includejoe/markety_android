@@ -20,7 +20,6 @@ import org.includejoe.markety.base.presentation.theme.ui.DarkGray
 import org.includejoe.markety.base.presentation.theme.ui.LightGray
 import org.includejoe.markety.feature_authentication.util.InputType
 
-
 @Composable
 fun TextInput(
     modifier: Modifier = Modifier,

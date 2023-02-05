@@ -1,6 +1,5 @@
 package org.includejoe.markety.feature_user.presentation.composables
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding

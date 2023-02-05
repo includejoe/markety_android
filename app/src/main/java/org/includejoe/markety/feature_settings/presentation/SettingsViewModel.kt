@@ -30,6 +30,7 @@ class SettingsViewModel @Inject constructor(
 
     fun logout() {
         viewModelScope.launch {
+            // TODO: Make logout request to API
             tokenManager.logOut()
             userPreferencesRepository.clearPreferences()
         }

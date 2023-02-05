@@ -2,7 +2,6 @@ package org.includejoe.markety.base.util
 
 import android.app.DatePickerDialog
 import android.content.Context
-import java.text.SimpleDateFormat
 import java.util.*
 
 class DatePicker(

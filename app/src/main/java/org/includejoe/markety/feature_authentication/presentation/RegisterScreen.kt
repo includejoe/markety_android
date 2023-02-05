@@ -108,15 +108,12 @@ fun RegisterScreen(
                     when(state.value.submissionSuccess) {
                         true -> {
                             Box(modifier = Modifier.weight(1f)){
-                                SuccessDisplay(navController = navController)
+                                SuccessDisplay(navController)
                             }
                         }
                         false -> {
                             Box(modifier = Modifier.weight(1f)){
-                                ErrorDisplay(
-                                    viewModel = viewModel,
-                                    navController = navController
-                                )
+                                ErrorDisplay(navController)
                             }
 
                         }

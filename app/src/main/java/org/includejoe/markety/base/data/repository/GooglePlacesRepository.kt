@@ -2,7 +2,6 @@ package org.includejoe.markety.base.data.repository
 
 import org.includejoe.markety.base.data.remote.GooglePlacesAPI
 import org.includejoe.markety.base.data.remote.dto.GooglePredictionsDTO
-import org.includejoe.markety.base.util.Response
 import javax.inject.Inject
 
 class GooglePlacesRepository @Inject constructor(

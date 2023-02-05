@@ -1,6 +1,5 @@
 package org.includejoe.markety.feature_authentication.domain.use_case
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.includejoe.markety.R

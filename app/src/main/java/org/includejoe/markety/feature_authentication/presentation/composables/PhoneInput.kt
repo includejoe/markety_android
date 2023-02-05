@@ -10,22 +10,17 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusOrder
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import org.includejoe.markety.base.presentation.composables.CountryPickerView
 import org.includejoe.markety.base.presentation.theme.ui.DarkGray
 import org.includejoe.markety.base.presentation.theme.ui.LightGray
-import org.includejoe.markety.feature_authentication.presentation.LoginViewModel
 import org.includejoe.markety.feature_authentication.presentation.RegisterViewModel
 import org.includejoe.markety.feature_authentication.util.InputType
-import org.includejoe.markety.feature_authentication.util.LoginState
-import org.includejoe.markety.feature_authentication.util.RegisterState
 
 @Composable
 fun PhoneInput(
