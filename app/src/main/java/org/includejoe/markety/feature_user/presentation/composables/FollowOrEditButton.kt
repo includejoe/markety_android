@@ -38,6 +38,7 @@ fun FollowOrEditButton(
             text = stringResource(id = text),
             fontSize = 12.sp,
             color = MaterialTheme.colors.onPrimary,
+            style = MaterialTheme.typography.body1
         )
     }
 }

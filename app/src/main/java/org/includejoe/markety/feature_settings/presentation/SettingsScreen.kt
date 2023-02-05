@@ -67,7 +67,7 @@ private fun ToggleTheme(
             Text(
                 text = stringResource(id = SettingsItem.DARK_THEME.label),
                 color = MaterialTheme.colors.onBackground,
-                fontSize = MaterialTheme.typography.body1.fontSize
+                style = MaterialTheme.typography.body1
             )
         }
 
@@ -105,7 +105,7 @@ private fun Logout(
             Text(
                 text = stringResource(id = SettingsItem.LOGOUT.label),
                 color = MaterialTheme.colors.onBackground,
-                fontSize = MaterialTheme.typography.body1.fontSize
+                style = MaterialTheme.typography.body1
             )
         }
     }

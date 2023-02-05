@@ -67,15 +67,17 @@ fun PasswordInput(
         placeholder = {
             Text(
                 text = stringResource(inputType.label),
-                color = if (isSystemInDarkTheme()) DarkGray else LightGray,
+                color = LightGray,
+                style = MaterialTheme.typography.body1
             )
         },
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = MaterialTheme.colors.surface,
+            textColor = MaterialTheme.colors.onSurface,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
-        textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
+        textStyle = MaterialTheme.typography.body1,
         singleLine = true,
         keyboardOptions = keyboardOptions,
         visualTransformation = if(isVisible) VisualTransformation.None

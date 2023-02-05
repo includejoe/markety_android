@@ -4,16 +4,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.sp
 import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.composables.MButton
 import org.includejoe.markety.base.presentation.theme.ui.spacing
@@ -47,12 +44,7 @@ fun RegisterFieldSet1(
         )
 
         if(state.value.firstNameError != null) {
-            Text(
-                text = stringResource(state.value.firstNameError!!),
-                color = MaterialTheme.colors.error,
-                modifier = Modifier.align(Alignment.End),
-                fontSize = 12.sp
-            )
+            ErrorText(text = state.value.firstNameError!!)
         }
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
@@ -70,12 +62,7 @@ fun RegisterFieldSet1(
         )
 
         if(state.value.lastNameError != null) {
-            Text(
-                text = stringResource(state.value.lastNameError!!),
-                color = MaterialTheme.colors.error,
-                modifier = Modifier.align(Alignment.End),
-                fontSize = 12.sp
-            )
+            ErrorText(text = state.value.lastNameError!!)
         }
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
@@ -94,12 +81,7 @@ fun RegisterFieldSet1(
         )
 
         if(state.value.usernameError != null) {
-            Text(
-                text = stringResource(state.value.usernameError!!),
-                color = MaterialTheme.colors.error,
-                modifier = Modifier.align(Alignment.End),
-                fontSize = 12.sp
-            )
+            ErrorText(text = state.value.usernameError!!)
         }
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
@@ -120,17 +102,10 @@ fun RegisterFieldSet1(
         )
 
         if(state.value.emailError != null) {
-            Text(
-                text = stringResource(state.value.emailError!!),
-                color = MaterialTheme.colors.error,
-                modifier = Modifier.align(Alignment.End),
-                fontSize = 12.sp
-            )
+            ErrorText(text = state.value.emailError!!)
         }
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
-
-
 
         MButton(
             onClick = {

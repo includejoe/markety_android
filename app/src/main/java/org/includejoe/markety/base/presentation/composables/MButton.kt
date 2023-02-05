@@ -34,7 +34,7 @@ fun MButton(
             text = text,
             modifier = Modifier.padding(vertical = 8.dp),
             color = textColor,
-            fontSize = 16.sp
+            style = MaterialTheme.typography.button
         )
     }
 }

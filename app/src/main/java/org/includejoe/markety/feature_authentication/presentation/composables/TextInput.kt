@@ -1,6 +1,5 @@
 package org.includejoe.markety.feature_authentication.presentation.composables
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardActions
@@ -13,10 +12,8 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import org.includejoe.markety.base.presentation.theme.ui.DarkGray
 import org.includejoe.markety.base.presentation.theme.ui.LightGray
 import org.includejoe.markety.feature_authentication.util.InputType
 
@@ -53,15 +50,17 @@ fun TextInput(
         placeholder = {
             Text(
                 text = stringResource(inputType.label),
-                color = if (isSystemInDarkTheme()) DarkGray else LightGray,
+                color = LightGray,
+                style = MaterialTheme.typography.body1
             )
         },
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = MaterialTheme.colors.surface,
+            textColor = MaterialTheme.colors.onSurface,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
-        textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
+        textStyle = MaterialTheme.typography.body1,
         singleLine = true,
         keyboardOptions = keyboardOptions,
         visualTransformation = visualTransformation,

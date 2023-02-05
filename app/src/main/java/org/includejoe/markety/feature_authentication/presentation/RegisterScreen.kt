@@ -94,8 +94,7 @@ fun RegisterScreen(
                 Text(
                     text = "REGISTER",
                     color = MaterialTheme.colors.secondary,
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Bold
+                    style = MaterialTheme.typography.h1
                 )
             }
 
@@ -134,13 +133,15 @@ fun RegisterScreen(
                 ) {
                     Text(
                         stringResource(R.string.yes_account),
-                        color = MaterialTheme.colors.onBackground
+                        color = MaterialTheme.colors.onBackground,
+                        style = MaterialTheme.typography.body1
                     )
                     Spacer(modifier = Modifier.width(MaterialTheme.spacing.sm))
                     Text(
                         text = stringResource(R.string.login_btn),
                         color = MaterialTheme.colors.secondary,
                         fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.body1,
                         modifier = Modifier.clickable {
                             navController.navigate(Screens.LoginScreen.route) {
                                 popUpTo(Screens.LoginScreen.route) {

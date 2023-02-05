@@ -2,23 +2,14 @@ package org.includejoe.markety.base.presentation.theme.ui
 
 import androidx.compose.ui.graphics.Color
 
-// TODO: Name colors after their generic names
-
-// light colors
-val LightBg = Color(0xFFFFFFFF)
-val TextDark = Color(0xFF0A0A0A)
-
-// dark colors
-val TextWhite = Color(0xFFEEEEEE)
-val DarkBg200 = Color(0xFF242641)
-val DarkBg500 = Color(0xFF181B35)
-val DarkBg700 = Color(0xFF131428)
-
-// generic colors
-val Primary = Color(0xFF735CF6)
-val Secondary = Color(0xFFE8249A)
-val Error500 = Color(0xFFDA3838)
-val Error700 = Color(0xFF851b1b)
-val Successful = Color(0xFF12B530)
+val White = Color(0xFFFFFFFF)
 val LightGray = Color(0xFFA2A2A2)
+val Blue = Color(0xFF735CF6)
+val Pink = Color(0xFFE8249A)
+val Red500 = Color(0xFFDA3838)
+val Green = Color(0xFF12B530)
 val DarkGray = Color(0xFF303030)
+val Red700 = Color(0xFF851b1b)
+val DarkBlue500 = Color(0xFF181B35)
+val DarkBlue700 = Color(0xFF131428)
+val Black = Color(0xFF0A0A0A)

@@ -40,7 +40,8 @@ fun ErrorDisplay(
         Text(
             text = stringResource(id = R.string.unsuccessful_registration),
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colors.onBackground
+            color = MaterialTheme.colors.onBackground,
+            style = MaterialTheme.typography.body1
         )
 
         Spacer(modifier = modifier.height(MaterialTheme.spacing.sm))
@@ -55,7 +56,7 @@ fun ErrorDisplay(
             Text(
                 text = stringResource(id = R.string.return_btn),
                 color = MaterialTheme.colors.secondary,
-                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.button
             )
         }
     }

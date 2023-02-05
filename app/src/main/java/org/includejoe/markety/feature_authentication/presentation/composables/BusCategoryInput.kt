@@ -2,7 +2,6 @@ package org.includejoe.markety.feature_authentication.presentation.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -17,7 +16,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import org.includejoe.markety.R
-import org.includejoe.markety.base.presentation.theme.ui.DarkGray
 import org.includejoe.markety.base.presentation.theme.ui.LightGray
 import org.includejoe.markety.feature_authentication.util.InputType
 
@@ -58,15 +56,17 @@ fun BusCategoryInput(
             placeholder = {
                 Text(
                     text = stringResource(inputType.label),
-                    color = if (isSystemInDarkTheme()) DarkGray else LightGray,
+                    color = LightGray,
+                    style = MaterialTheme.typography.body1
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = MaterialTheme.colors.surface,
+                textColor = MaterialTheme.colors.onSurface,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             ),
-            textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
+            textStyle = MaterialTheme.typography.body1,
             singleLine = true,
             visualTransformation = visualTransformation,
             enabled = false
@@ -110,7 +110,8 @@ fun BusCategoryPickerDialog(
                                 }
                                 .fillMaxWidth()
                                 .padding(10.dp),
-                            text = category
+                            text = category,
+                            style = MaterialTheme.typography.body1,
                         )
                     }
                 }

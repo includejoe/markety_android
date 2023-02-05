@@ -39,7 +39,8 @@ fun SuccessDisplay(
         Text(
             text = stringResource(id = R.string.successful_registration),
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colors.onBackground
+            color = MaterialTheme.colors.onBackground,
+            style = MaterialTheme.typography.body1
         )
 
         Spacer(modifier = modifier.height(MaterialTheme.spacing.sm))
@@ -55,6 +56,7 @@ fun SuccessDisplay(
                 text = stringResource(id = R.string.login_btn),
                 color = MaterialTheme.colors.secondary,
                 fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.body1
             )
         }
     }

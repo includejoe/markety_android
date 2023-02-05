@@ -39,12 +39,7 @@ fun RegisterFieldSet4(
         )
 
         if(state.value.busNameError != null) {
-            Text(
-                text = stringResource(state.value.busNameError!!),
-                color = MaterialTheme.colors.error,
-                modifier = Modifier.align(Alignment.End),
-                fontSize = 12.sp
-            )
+            ErrorText(text = state.value.busNameError!!)
         }
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
@@ -57,12 +52,7 @@ fun RegisterFieldSet4(
         )
 
         if(state.value.busCategoryError != null) {
-            Text(
-                text = stringResource(state.value.busCategoryError!!),
-                color = MaterialTheme.colors.error,
-                modifier = Modifier.align(Alignment.End),
-                fontSize = 12.sp
-            )
+            ErrorText(text = state.value.busCategoryError!!)
         }
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))

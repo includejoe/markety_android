@@ -22,7 +22,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.navigationBarsWithImePadding
@@ -33,6 +32,7 @@ import org.includejoe.markety.base.presentation.composables.Toast
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.base.util.Screens
 import org.includejoe.markety.feature_authentication.presentation.composables.CustomDivider
+import org.includejoe.markety.feature_authentication.presentation.composables.ErrorText
 import org.includejoe.markety.feature_authentication.presentation.composables.TextInput
 import org.includejoe.markety.feature_authentication.util.InputType
 import org.includejoe.markety.feature_authentication.util.FormEvent
@@ -90,8 +90,7 @@ fun LoginScreen(
         Text(
             text = "LOGIN",
             color = MaterialTheme.colors.secondary,
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold
+            style = MaterialTheme.typography.h1,
         )
 
         TextInput(
@@ -106,12 +105,7 @@ fun LoginScreen(
         )
 
         if (state.value.usernameError != null) {
-            Text(
-                text = stringResource(state.value.usernameError!!),
-                color = MaterialTheme.colors.error,
-                modifier = Modifier.align(Alignment.End),
-                fontSize = 12.sp
-            )
+            ErrorText(text = state.value.usernameError!!)
         }
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
@@ -132,12 +126,7 @@ fun LoginScreen(
         )
 
         if (state.value.passwordError != null) {
-            Text(
-                text = stringResource(state.value.passwordError!!),
-                color = MaterialTheme.colors.error,
-                modifier = Modifier.align(Alignment.End),
-                fontSize = 12.sp
-            )
+            ErrorText(text = state.value.passwordError!!)
         }
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
@@ -169,13 +158,15 @@ fun LoginScreen(
         ) {
             Text(
                 stringResource(R.string.no_account),
-                color = MaterialTheme.colors.onBackground
+                color = MaterialTheme.colors.onBackground,
+                style = MaterialTheme.typography.body1,
             )
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.sm))
             Text(
                 text = stringResource(R.string.register),
                 color = MaterialTheme.colors.secondary,
                 fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.body1,
                 modifier = Modifier.clickable {
                     keyBoardController?.hide()
                     navController.navigate(Screens.RegisterScreen.route) {

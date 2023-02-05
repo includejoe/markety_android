@@ -31,7 +31,8 @@ fun IsVendorCheckBox(
         Spacer(modifier = Modifier.width(8.dp))
         Text(
             text = stringResource(id = R.string.is_vendor),
-            color = MaterialTheme.colors.onBackground
+            color = MaterialTheme.colors.onBackground,
+            style = MaterialTheme.typography.body1
         )
     }
 }

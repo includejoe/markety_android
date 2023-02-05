@@ -2,7 +2,6 @@ package org.includejoe.markety.feature_authentication.presentation.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -17,7 +16,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import org.includejoe.markety.base.presentation.theme.ui.DarkGray
 import org.includejoe.markety.base.presentation.theme.ui.LightGray
 import org.includejoe.markety.base.util.GenderType
 import org.includejoe.markety.feature_authentication.util.InputType
@@ -61,7 +59,8 @@ fun GenderInput(
             placeholder = {
                 Text(
                     text = stringResource(inputType.label),
-                    color = if (isSystemInDarkTheme()) DarkGray else LightGray,
+                    color = LightGray,
+                    style = MaterialTheme.typography.body1
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
@@ -121,7 +120,8 @@ fun GenderPickerDialog(
                                 .fillMaxWidth()
                                 .padding(10.dp),
                             text = stringResource(id = gender.label),
-                            color = MaterialTheme.colors.onBackground
+                            color = MaterialTheme.colors.onBackground,
+                            style = MaterialTheme.typography.body1
                         )
                     }
                 }

@@ -4,14 +4,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.composables.MButton
 import org.includejoe.markety.base.presentation.theme.ui.spacing
@@ -48,12 +46,7 @@ fun RegisterFieldSet3(
         )
 
         if (state.value.dobError != null) {
-            Text(
-                text = stringResource(state.value.dobError!!),
-                color = MaterialTheme.colors.error,
-                modifier = Modifier.align(Alignment.End),
-                fontSize = 12.sp
-            )
+            ErrorText(text = state.value.dobError!!)
         }
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
@@ -66,12 +59,7 @@ fun RegisterFieldSet3(
         )
 
         if (state.value.genderError != null) {
-            Text(
-                text = stringResource(state.value.genderError!!),
-                color = MaterialTheme.colors.error,
-                modifier = Modifier.align(Alignment.End),
-                fontSize = 12.sp
-            )
+            ErrorText(text = state.value.genderError!!)
         }
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))

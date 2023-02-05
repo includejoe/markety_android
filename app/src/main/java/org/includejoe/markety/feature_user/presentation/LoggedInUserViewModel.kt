@@ -20,7 +20,7 @@ import javax.inject.Inject
 // TODO: Create viewModel for user and logged in usser
 
 @HiltViewModel
-class UserViewModel @Inject constructor(
+class LoggedInUserViewModel @Inject constructor(
     private val tokenManager: TokenManager,
     val baseApp: BaseApplication,
     private val userUseCases: UserUseCases,

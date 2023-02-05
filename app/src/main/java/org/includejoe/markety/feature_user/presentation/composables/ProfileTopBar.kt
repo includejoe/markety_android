@@ -39,7 +39,8 @@ fun ProfileTopBar(
             text = username,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colors.onBackground
+            color = MaterialTheme.colors.onBackground,
+            style = MaterialTheme.typography.body1
         )
 
         Icon(

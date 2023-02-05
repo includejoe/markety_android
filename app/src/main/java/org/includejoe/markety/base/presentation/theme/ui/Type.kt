@@ -19,23 +19,23 @@ val poppins = FontFamily(
     )
 )
 
-// TODO: increase body1 fontSize
-// Set of Material typography styles to start with
 val Typography = Typography(
     body1 = TextStyle(
-        color = TextWhite,
         fontFamily = poppins,
         fontWeight = FontWeight.Normal,
-        fontSize = 13.sp
+        fontSize = 15.sp
+    ),
+    button = TextStyle(
+        fontFamily = poppins,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 18.sp
     ),
     h1 = TextStyle(
-        color = TextWhite,
         fontFamily = poppins,
         fontWeight = FontWeight.Bold,
-        fontSize = 22.sp
+        fontSize = 28.sp
     ),
     h2 = TextStyle(
-        color = TextWhite,
         fontFamily = poppins,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp

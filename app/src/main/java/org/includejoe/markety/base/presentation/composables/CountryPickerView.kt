@@ -41,7 +41,8 @@ fun CountryCodePickerDialog(
                                 .fillMaxWidth()
                                 .padding(10.dp),
                             text = "${getFlagEmojiFor(country.nameCode)} ${country.fullName}",
-                            color = MaterialTheme.colors.onBackground
+                            color = MaterialTheme.colors.onBackground,
+                            style = MaterialTheme.typography.body1
                         )
                     }
                 }
