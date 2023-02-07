@@ -11,7 +11,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -46,10 +45,10 @@ fun PostCard(
         modifier = modifier
             .fillMaxWidth()
             .height(600.dp)
-            .padding(bottom = 5.dp)
+            .padding(bottom = 5.dp,)
     ) {
         UserInfo()
-        PostDetails(post)
+        PostDetails(post) { onClick() }
         ImageSlider(
             images = listOf(
                 post.image1,
@@ -69,7 +68,7 @@ private fun UserInfo(
         modifier = Modifier
             .fillMaxWidth()
             .height(50.dp)
-            .padding(horizontal = MaterialTheme.spacing.xs),
+            .padding(horizontal = MaterialTheme.spacing.sm),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -98,26 +97,24 @@ private fun UserInfo(
                 )
             }
         }
-        Icon(
-            imageVector = Icons.Default.MoreVert,
-            contentDescription = "menu",
-            tint = MaterialTheme.colors.onBackground,
-            modifier = Modifier
-                .size(24.dp)
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null
-                ) {}
-        )
     }
 }
 
 @Composable
-private fun PostDetails(post: PostDTO){
+private fun PostDetails(
+    post: PostDTO,
+    onClick: () -> Unit
+){
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = MaterialTheme.spacing.xs),
+            .padding(horizontal = MaterialTheme.spacing.sm)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null
+            ) {
+               onClick()
+            },
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -240,7 +237,7 @@ private fun Actions(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(MaterialTheme.spacing.xs),
+            .padding(MaterialTheme.spacing.sm),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -252,7 +249,7 @@ private fun Actions(
                     contentDescription = "heart icon",
                     tint = MaterialTheme.colors.onBackground
                 )
-                Spacer(modifier = Modifier.width(3.dp))
+                Spacer(modifier = Modifier.width(2.dp))
                 Text(
                     text = post.likes.size.toString(),
                     color = MaterialTheme.colors.onBackground,
@@ -267,7 +264,7 @@ private fun Actions(
                     contentDescription = "comment icon",
                     tint = MaterialTheme.colors.onBackground
                 )
-                Spacer(modifier = Modifier.width(3.dp))
+                Spacer(modifier = Modifier.width(2.dp))
                 Text(
                     text = post.comments.size.toString(),
                     color = MaterialTheme.colors.onBackground,

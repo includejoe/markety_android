@@ -46,7 +46,7 @@ fun HomeTopBar(
             else NavigationItem.MESSAGES.icon,
             contentDescription = stringResource(id = NavigationItem.MESSAGES.title),
             modifier = Modifier
-                .padding(end = MaterialTheme.spacing.xs)
+                .padding(end = MaterialTheme.spacing.sm)
                 .size(23.dp)
                 .clickable {
                     navController.navigate(NavigationItem.MESSAGES.route)

@@ -24,6 +24,7 @@ import org.includejoe.markety.feature_authentication.domain.use_case.*
 import org.includejoe.markety.feature_authentication.util.validators.*
 import org.includejoe.markety.feature_post.data.PostsRepositoryImpl
 import org.includejoe.markety.feature_post.domain.repository.PostRepository
+import org.includejoe.markety.feature_post.domain.use_case.GetPostUseCase
 import org.includejoe.markety.feature_post.domain.use_case.GetPostsUseCase
 import org.includejoe.markety.feature_post.domain.use_case.PostUseCases
 import org.includejoe.markety.feature_user.data.repository.UserRepositoryImpl
@@ -198,6 +199,7 @@ object AppModule {
     fun providePostUseCases(
         repository: PostRepository
     ) = PostUseCases(
-        getPosts = GetPostsUseCase(repository)
+        getPosts = GetPostsUseCase(repository),
+        getPost = GetPostUseCase(repository)
     )
 }

@@ -2,54 +2,61 @@ package org.includejoe.markety.feature_post.presentation
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.includejoe.markety.base.BaseApplication
+import org.includejoe.markety.base.util.Constants
 import org.includejoe.markety.base.util.Response
 import org.includejoe.markety.base.util.TokenManager
 import org.includejoe.markety.feature_post.domain.use_case.PostUseCases
-import org.includejoe.markety.feature_post.util.HomeVMState
+import org.includejoe.markety.feature_post.util.PostDetailVMState
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class PostDetailViewModel @Inject constructor(
     private val postUseCases: PostUseCases,
     private val tokenManager: TokenManager,
-    val baseApp: BaseApplication
+    savedStateHandle: SavedStateHandle
 ): ViewModel() {
-    private val _state = mutableStateOf(HomeVMState())
-    val state: State<HomeVMState> = _state
+
+    private val _state = mutableStateOf(PostDetailVMState())
+    val state: State<PostDetailVMState> = _state
 
     init {
-        getPosts()
+        savedStateHandle.get<String>(Constants.PARAM_POST_ID)?.let { postId ->
+            getPost(postId)
+        }
     }
 
-    private fun getPosts() {
+    private fun getPost(postId: String) {
         viewModelScope.launch {
-            postUseCases.getPosts(tokenManager.readToken()).collectLatest { result ->
+            postUseCases.getPost(
+                postId = postId,
+                jwt = tokenManager.readToken()
+            ).collectLatest { result ->
                 when(result) {
                     is Response.Loading -> {
                         _state.value = _state.value.copy(
-                            postsLoading = true
+                            isLoading = true
                         )
                     }
 
                     is Response.Success -> {
                         _state.value = _state.value.copy(
-                            postsLoading = false,
-                            getPostsError = null,
-                            posts = result.data
+                            isLoading = false,
+                            post = result.data,
+                            error = null
                         )
                     }
 
                     is Response.Error -> {
                         _state.value = _state.value.copy(
-                            postsLoading = false,
-                            getPostsError = result.message,
-                            posts = null
+                            isLoading = false,
+                            post = null,
+                            error = result.message
                         )
                     }
                 }

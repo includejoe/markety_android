@@ -1,7 +1,7 @@
 package org.includejoe.markety.feature_user.domain.model
 
 data class User(
-    val bio: String? = null,
+    val bio: String? = "",
     val busCategory: String? = null,
     val busName: String? = null,
     val busWebsite: String? = null,
@@ -22,5 +22,5 @@ data class User(
     val phone: String? = null,
     val posts: List<String>? = null,
     val profileImage: String? = null,
-    val username: String? = null
+    var username: String? = null
 )

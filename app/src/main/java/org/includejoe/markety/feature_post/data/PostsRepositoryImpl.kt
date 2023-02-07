@@ -22,8 +22,8 @@ class PostsRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getPost(authHeader: String): PostDTO {
-        TODO("Not yet implemented")
+    override suspend fun getPost(authHeader: String, postId: String): PostDTO {
+        return api.getPost(postId = postId, authHeader = authHeader)
     }
 
     override suspend fun getPosts(authHeader: String): List<PostDTO> {
