@@ -15,7 +15,7 @@ interface PostRepository {
         user: String
     ): PostDTO
 
-    suspend fun getPost(): PostDTO
+    suspend fun getPost(authHeader: String): PostDTO
 
-    suspend fun getPosts(): List<PostDTO>
+    suspend fun getPosts(authHeader: String): List<PostDTO>
 }

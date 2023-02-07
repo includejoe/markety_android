@@ -32,7 +32,7 @@ class UserPreferencesRepository @Inject constructor(
 
     suspend fun clearPreferences() {
         userPreferences.edit { preferences ->
-            preferences.clear()
+            preferences[LOGGED_IN_USER] = ""
         }
     }
 

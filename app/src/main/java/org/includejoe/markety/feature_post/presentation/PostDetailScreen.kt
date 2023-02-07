@@ -1,4 +1,4 @@
-package org.includejoe.markety.feature_notification.presentation
+package org.includejoe.markety.feature_post.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,30 +11,30 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import org.includejoe.markety.base.presentation.composables.BottomNavigation
 import org.includejoe.markety.base.util.NavigationItem
-import org.includejoe.markety.feature_notification.presentation.composables.NotificationTopBar
+import org.includejoe.markety.feature_search.presentation.composables.SearchTopBar
 
 @Composable
-fun NotificationsScreen(
+fun PostDetailScreen(
     navController: NavHostController
 ){
     Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        NotificationTopBar(navController = navController)
+        SearchTopBar(navController = navController)
         Column(
             modifier = Modifier.weight(1f).fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "NOTIFICATIONS SCREEN",
+                text = "POST DETAIL SCREEN",
                 color = MaterialTheme.colors.onBackground,
                 style = MaterialTheme.typography.h2,
             )
         }
         BottomNavigation(
-            selectedItem = NavigationItem.NOTIFICATIONS,
+            selectedItem = NavigationItem.SEARCH,
             navController = navController
         )
     }

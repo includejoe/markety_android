@@ -21,6 +21,7 @@ import org.includejoe.markety.feature_messaging.presentation.MessagesScreen
 import org.includejoe.markety.feature_notification.presentation.NotificationsScreen
 import org.includejoe.markety.feature_post.presentation.CreatePostScreen
 import org.includejoe.markety.feature_post.presentation.HomeScreen
+import org.includejoe.markety.feature_post.presentation.PostDetailScreen
 import org.includejoe.markety.feature_search.presentation.SearchScreen
 import org.includejoe.markety.feature_settings.presentation.SettingsScreen
 import org.includejoe.markety.feature_user.presentation.ProfileScreen
@@ -61,6 +62,10 @@ class MainActivity : ComponentActivity() {
 
                         composable(route = Screens.HomeScreen.route) {
                             HomeScreen(navController = navController)
+                        }
+
+                        composable(route = Screens.PostDetailScreen.route + "/{postId}") {
+                            PostDetailScreen(navController = navController)
                         }
 
                         composable(route = Screens.SearchScreen.route) {

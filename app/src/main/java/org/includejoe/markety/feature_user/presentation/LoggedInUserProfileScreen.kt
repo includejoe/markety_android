@@ -140,12 +140,7 @@ fun ProfileScreen(
                             isDarkTheme = viewModel.baseApp.isDarkTheme.value
                         )
 
-                        if(viewModel.baseApp.loggedInUser.value == state.value.data!!.username) {
-                            FollowOrEditButton(text = R.string.edit_btn) {}
-                        } else {
-                            FollowOrEditButton(text = R.string.follow_btn) {}
-                        }
-
+                        FollowOrEditButton(text = R.string.edit_btn) {}
                     }
 
                     Spacer(modifier = Modifier.height(46.dp))

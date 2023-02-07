@@ -81,11 +81,19 @@
     <string name="unfollow_btn">Unfollow</string>
     <string name="edit_btn">Edit Profile</string>
     <string name="try_again_btn">Try Again</string>
+    <string name="yes_btn">Yes</string>
+    <string name="no_btn">No</string>
 
 
     <!-- Login Screen -->
     <string name="no_account">Don\'t have an account?</string>
     <string name="register">REGISTER</string>
+
+    <!-- Home Screen -->
+    <string name="available">AVAILABLE</string>
+    <string name="sold">SOLD</string>
+    <string name="ghc">GHC %s</string>
+
 
 
     <!-- Profile Screen -->
@@ -96,11 +104,13 @@
     <string name="catalog">Catalog</string>
     <string name="reviews">Reviews</string>
     <string name="no_posts">No Posts Yet</string>
+    <string name="my_profile">My Profile</string>
 
 
     <!-- Settings Screen -->
     <string name="logout">Logout</string>
     <string name="dark_theme">Dark Theme</string>
+    <string name="confirm_logout">Are your sure you want to logout ?</string>
 
 
 

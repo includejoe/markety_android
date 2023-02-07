@@ -80,7 +80,7 @@ fun Details(
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.sm))
 
         // Bio
-        if (state.value.data?.bio !== null) {
+        if (!state.value.data?.bio.isNullOrEmpty()) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = state.value.data?.bio!!,

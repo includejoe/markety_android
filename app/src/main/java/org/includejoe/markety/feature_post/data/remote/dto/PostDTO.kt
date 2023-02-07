@@ -8,7 +8,7 @@ data class PostDTO(
     val condition: String,
     @SerializedName("created_at")
     val createdAt: String,
-    val description: Any,
+    val description: String?,
     val id: String,
     val image1: String,
     val image2: String,

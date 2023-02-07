@@ -9,9 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import org.includejoe.markety.feature_post.presentation.composables.AppTopBar
 import org.includejoe.markety.base.presentation.composables.BottomNavigation
 import org.includejoe.markety.base.util.NavigationItem
+import org.includejoe.markety.feature_messaging.presentation.composables.MessagesTopBar
 
 @Composable
 fun MessagesScreen(
@@ -21,7 +21,7 @@ fun MessagesScreen(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        AppTopBar(navController = navController)
+        MessagesTopBar(navController = navController)
         Column(
             modifier = Modifier.weight(1f).fillMaxSize(),
             verticalArrangement = Arrangement.Center,

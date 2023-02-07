@@ -1,4 +1,4 @@
-package org.includejoe.markety.feature_post.presentation.composables
+package org.includejoe.markety.feature_notification.presentation.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,7 +19,7 @@ import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.base.util.NavigationItem
 
 @Composable
-fun HomeTopBar(
+fun NotificationTopBar(
     navController: NavController
 ) {
     val currentRoute = navController.currentDestination?.route

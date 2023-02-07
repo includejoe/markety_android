@@ -10,4 +10,5 @@ sealed class Screens(val route: String) {
     object ProfileScreen: Screens("profile_screen")
     object MessagesScreen: Screens("messages_screen")
     object SettingsScreen: Screens("settings_screen")
+    object PostDetailScreen: Screens("post_detail_screen")
 }

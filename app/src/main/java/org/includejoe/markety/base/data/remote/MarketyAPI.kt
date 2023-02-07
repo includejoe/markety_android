@@ -42,7 +42,9 @@ interface MarketyAPI  {
     ): List<PostDTO>
 
     @GET("posts/")
-    suspend fun getPosts(): PostDTO
+    suspend fun getPosts(
+        @Header("Authorization") authHeader: String
+    ): List<PostDTO>
 
     @POST("posts/create/")
     suspend fun createPost(

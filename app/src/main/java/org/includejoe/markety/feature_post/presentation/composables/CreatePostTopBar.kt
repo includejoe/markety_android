@@ -19,7 +19,7 @@ import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.base.util.NavigationItem
 
 @Composable
-fun HomeTopBar(
+fun CreatePostTopBar(
     navController: NavController
 ) {
     val currentRoute = navController.currentDestination?.route

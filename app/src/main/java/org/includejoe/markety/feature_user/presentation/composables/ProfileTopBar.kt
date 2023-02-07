@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.base.util.NavigationItem
+import org.includejoe.markety.R
 
 @Composable
 fun ProfileTopBar(
@@ -40,7 +41,7 @@ fun ProfileTopBar(
     ) {
         if(isLoggedInUser) {
             Text(
-                text = username ?: "",
+                text = stringResource(id = R.string.my_profile),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colors.onBackground,
