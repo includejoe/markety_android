@@ -22,6 +22,9 @@ import org.includejoe.markety.feature_authentication.data.repository.Authenticat
 import org.includejoe.markety.feature_authentication.domain.repository.AuthenticationRepository
 import org.includejoe.markety.feature_authentication.domain.use_case.*
 import org.includejoe.markety.feature_authentication.util.validators.*
+import org.includejoe.markety.feature_comment.data.repository.CommentRepositoryImpl
+import org.includejoe.markety.feature_comment.domain.repository.CommentRepository
+import org.includejoe.markety.feature_comment.domain.use_case.*
 import org.includejoe.markety.feature_post.data.PostsRepositoryImpl
 import org.includejoe.markety.feature_post.domain.repository.PostRepository
 import org.includejoe.markety.feature_post.domain.use_case.GetPostUseCase
@@ -201,5 +204,27 @@ object AppModule {
     ) = PostUseCases(
         getPosts = GetPostsUseCase(repository),
         getPost = GetPostUseCase(repository)
+    )
+
+    // Comment Repository
+    @Provides
+    @Singleton
+    fun provideCommentRepository(
+        api: MarketyAPI
+    ): CommentRepository {
+        return CommentRepositoryImpl(api)
+    }
+
+    // Comment Use Cases
+    @Provides
+    @Singleton
+    fun provideCommentUseCases(
+        repository: CommentRepository
+    ) = CommentUseCases(
+        createComment = CreateCommentUseCase(repository),
+        replyComment = ReplyCommentUseCase(repository),
+        likeComment = LikeCommentUseCase(repository),
+        getPostComments = GetPostCommentsUseCase(repository),
+        deleteComment = DeleteCommentUseCase(repository)
     )
 }

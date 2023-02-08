@@ -1,6 +1,7 @@
 package org.includejoe.markety.feature_post.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
+import org.includejoe.markety.base.domain.model.UserInfo
 
 data class PostDTO(
     val category: String,
@@ -20,5 +21,6 @@ data class PostDTO(
     val price: String,
     @SerializedName("updated_at")
     val updatedAt: String,
-    val user: String
+    val user: UserInfo
 )
+

@@ -32,9 +32,12 @@ import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.feature_post.data.remote.dto.PostDTO
 import org.includejoe.markety.feature_post.presentation.HomeViewModel
 import org.includejoe.markety.R
+import org.includejoe.markety.base.presentation.composables.BusName
 import org.includejoe.markety.base.presentation.composables.CButton
+import org.includejoe.markety.base.presentation.composables.FirstNameLastName
 import org.includejoe.markety.base.presentation.theme.ui.Green
 import org.includejoe.markety.base.presentation.theme.ui.LightGray
+import org.includejoe.markety.feature_post.data.remote.dto.User
 import java.util.*
 
 @Composable
@@ -49,7 +52,7 @@ fun PostCard(
             .height(600.dp)
             .padding(bottom = 5.dp,)
     ) {
-        UserInfo()
+        UserInfo(user = post.user)
         PostDetails(post) {
             if (onClick != null) {
                 onClick()
@@ -69,6 +72,7 @@ fun PostCard(
 
 @Composable
 private fun UserInfo(
+    user: User,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     Row(
@@ -85,19 +89,21 @@ private fun UserInfo(
         ) {
             Avatar(
                 isDarkTheme = viewModel.baseApp.isDarkTheme.value,
-                modifier = Modifier.size(40.dp)
+                modifier = Modifier.size(40.dp),
+                src = user.profileImage
             )
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.xs))
             Column {
+                if(user.isVendor) {
+                    BusName(name = user.busName!!)
+                } else {
+                    FirstNameLastName(
+                        firstName = user.firstName,
+                        lastName = user.lastName
+                    )
+                }
                 Text(
-                    text = "The Hokage's Store",
-                    color = MaterialTheme.colors.onBackground,
-                    style = MaterialTheme.typography.body1,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = "@hokage",
+                    text = "@${user.username}",
                     color = MaterialTheme.colors.onBackground.copy(alpha = 0.7f),
                     style = MaterialTheme.typography.body1,
                     fontSize = 12.sp,

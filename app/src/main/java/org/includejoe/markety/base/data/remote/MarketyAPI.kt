@@ -5,12 +5,15 @@ import org.includejoe.markety.feature_authentication.data.remote.dto.LoginDTO
 import org.includejoe.markety.feature_authentication.data.remote.dto.RegisterDTO
 import org.includejoe.markety.feature_authentication.domain.model.Login
 import org.includejoe.markety.feature_authentication.domain.model.Register
+import org.includejoe.markety.feature_comment.data.remote.dto.CommentDTO
 import org.includejoe.markety.feature_post.data.remote.dto.PostDTO
 import org.includejoe.markety.feature_post.domain.model.CreatePost
 import org.includejoe.markety.feature_user.data.remote.dto.UserDTO
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -58,4 +61,38 @@ interface MarketyAPI  {
         @Header("Authorization") authHeader: String
     ): PostDTO
 
+
+    // COMMENTS
+    @POST("comments/create/")
+    suspend fun createComment(
+        @Header("Authorization") authHeader: String,
+        postId: String,
+        body: String
+    ): CommentDTO
+
+    @PATCH("comments/reply/{commentId}")
+    suspend fun replyComment(
+        @Header("Authorization") authHeader: String,
+        commentId: String,
+        postId: String,
+        body: String
+    ): CommentDTO
+
+    @PATCH("comments/like/{commentId}")
+    suspend fun likeComment(
+        @Header("Authorization") authHeader: String,
+        @Path("commentId") commentId: String,
+    ): CommentDTO
+
+    @GET("comments/{postId}")
+    suspend fun getPostComments(
+        @Header("Authorization") authHeader: String,
+        @Path("postId") postId: String,
+    ): List<CommentDTO>
+
+    @DELETE("comments/detail/{commentId}")
+    suspend fun deleteComment(
+        @Header("Authorization") authHeader: String,
+        @Path("commentId") commentId: String,
+    )
 }

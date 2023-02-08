@@ -1,6 +1,5 @@
 package org.includejoe.markety.feature_user.presentation.composables
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -14,12 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import org.includejoe.markety.R
+import org.includejoe.markety.base.presentation.composables.BusName
+import org.includejoe.markety.base.presentation.composables.FirstNameLastName
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.feature_user.util.UserViewModelState
 
@@ -41,29 +40,11 @@ fun Details(
                 .wrapContentHeight(),
         ) {
             if (isVendor) {
-                Row(
-                    modifier = Modifier.wrapContentHeight(),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = state.value.data?.busName ?: "",
-                        color = MaterialTheme.colors.onBackground,
-                        fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.body1
-                    )
-                    Spacer(modifier = Modifier.width(3.dp))
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_is_vendor),
-                        modifier = Modifier.size(12.dp),
-                        contentDescription = "location icon",
-                    )
-                }
+                BusName(name = state.value.data?.busName ?: "")
             } else {
-                Text(
-                    text = "${state.value.data?.firstName} ${state.value.data?.lastName}",
-                    color = MaterialTheme.colors.onBackground,
-                    fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.body1
+                FirstNameLastName(
+                    firstName = state.value.data?.firstName!!,
+                    lastName = state.value.data?.lastName!!
                 )
             }
         }
