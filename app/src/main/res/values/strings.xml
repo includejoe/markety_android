@@ -83,6 +83,8 @@
     <string name="try_again_btn">Try Again</string>
     <string name="yes_btn">Yes</string>
     <string name="no_btn">No</string>
+    <string name="cancel_btn">Cancel</string>
+    <string name="comment_btn">Comment</string>
 
 
     <!-- Login Screen -->
@@ -93,6 +95,7 @@
     <string name="available">AVAILABLE</string>
     <string name="sold">SOLD</string>
     <string name="ghc">GHC %s</string>
+    <string name="write_comment">Write a comment…</string>
 
 
 

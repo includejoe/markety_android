@@ -50,17 +50,17 @@ fun ConfirmationDialog(
                 Spacer(modifier = Modifier.height(MaterialTheme.spacing.xs))
 
                 CButton(text = R.string.yes_btn, yes = true) { yes() }
-                CButton(text = R.string.no_btn, yes = false) { no() }
+                CButton(text = R.string.no_btn) { no() }
             }
         }
     }
 }
 
 @Composable
-private fun CButton(
+fun CButton(
     modifier: Modifier = Modifier,
     text: Int,
-    yes: Boolean,
+    yes: Boolean = false,
     onClick: () -> Unit,
 ) {
     Button(
@@ -75,7 +75,7 @@ private fun CButton(
     ) {
         Text(
             text = stringResource(id = text),
-            color = if(yes) MaterialTheme.colors.onPrimary else MaterialTheme.colors.onBackground,
+            color = if(yes) MaterialTheme.colors.onPrimary else MaterialTheme.colors.primary,
             style = MaterialTheme.typography.body1,
             fontWeight = FontWeight.Bold
         )
