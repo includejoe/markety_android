@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -32,15 +33,15 @@ import org.includejoe.markety.feature_post.data.remote.dto.PostDTO
 import org.includejoe.markety.feature_post.presentation.HomeViewModel
 import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.composables.CButton
+import org.includejoe.markety.base.presentation.theme.ui.Green
 import org.includejoe.markety.base.presentation.theme.ui.LightGray
-import org.w3c.dom.Comment
 import java.util.*
 
 @Composable
 fun PostCard(
     modifier: Modifier = Modifier,
     post: PostDTO,
-    onClick: () -> Unit
+    onClick: (() -> Unit)? = null
 ) {
     Column(
         modifier = modifier
@@ -49,7 +50,11 @@ fun PostCard(
             .padding(bottom = 5.dp,)
     ) {
         UserInfo()
-        PostDetails(post) { onClick() }
+        PostDetails(post) {
+            if (onClick != null) {
+                onClick()
+            }
+        }
         ImageSlider(
             images = listOf(
                 post.image1,
@@ -57,7 +62,8 @@ fun PostCard(
                 post.image3,
             )
         )
-        Actions(post)
+        Spacer(modifier = Modifier.height(MaterialTheme.spacing.sm))
+        Actions(post, iconSize = 24.dp)
     }
 }
 
@@ -131,7 +137,7 @@ private fun PostDetails(
             Text(
                 text = stringResource(id = if (post.isSold) R.string.sold else R.string.available),
                 style = MaterialTheme.typography.body1,
-                color = MaterialTheme.colors.primary,
+                color = if(post.isSold) MaterialTheme.colors.error else Green,
                 fontWeight = FontWeight.Bold
             )
         }
@@ -217,7 +223,7 @@ private fun SliderIndicator(
             } else {
                 Box(
                     modifier = Modifier
-                        .size(6.dp)
+                        .size(5.dp)
                         .clip(CircleShape)
                         .background(color = MaterialTheme.colors.primary.copy(alpha = 0.5f))
                 )
@@ -225,143 +231,6 @@ private fun SliderIndicator(
             
             if (index != totalDots - 1) {
                 Spacer(modifier = Modifier.padding(horizontal = 1.dp))
-            }
-        }
-    }
-}
-
-@Composable
-private fun Actions(
-    post: PostDTO
-) {
-    val iconSize = 24.dp
-    var showCommentDialog by remember { mutableStateOf(false) }
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(MaterialTheme.spacing.sm),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Row {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = Icons.Outlined.Favorite,
-                    modifier = Modifier
-                        .size(iconSize)
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null
-                        ) {
-
-                        },
-                    contentDescription = "heart icon",
-                    tint = MaterialTheme.colors.onBackground
-                )
-                Spacer(modifier = Modifier.width(2.dp))
-                Text(
-                    text = post.likes.size.toString(),
-                    color = MaterialTheme.colors.onBackground,
-                    style = MaterialTheme.typography.body1
-                )
-            }
-            Spacer(modifier = Modifier.width(MaterialTheme.spacing.md))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = Icons.Outlined.Comment,
-                    modifier = Modifier
-                        .size(iconSize)
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null
-                        ) { showCommentDialog = true },
-                    contentDescription = "comment icon",
-                    tint = MaterialTheme.colors.onBackground,
-                )
-                Spacer(modifier = Modifier.width(2.dp))
-                Text(
-                    text = post.comments.size.toString(),
-                    color = MaterialTheme.colors.onBackground,
-                    style = MaterialTheme.typography.body1
-                )
-            }
-        }
-        Icon(
-            imageVector = Icons.Outlined.AddShoppingCart,
-            modifier = Modifier.size(iconSize),
-            contentDescription = "save icon",
-            tint = MaterialTheme.colors.onBackground
-        )
-    }
-
-    if(showCommentDialog) {
-        CommentDialog(cancel = { showCommentDialog = false }) {
-
-        }
-    }
-}
-
-@Composable
-private fun CommentDialog(
-    cancel: () -> Unit,
-    submit: () -> Unit,
-) {
-    var value by remember { mutableStateOf("") }
-
-    Dialog(onDismissRequest = cancel) {
-        Box {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp, vertical = 30.dp)
-                    .background(
-                        shape = MaterialTheme.shapes.medium,
-                        color = MaterialTheme.colors.background
-                    )
-                    .padding(10.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                TextField(
-                    value = value,
-                    onValueChange = {
-                        value = it
-                    },
-                    colors = TextFieldDefaults.textFieldColors(
-                        backgroundColor = Color.Transparent,
-                        textColor = MaterialTheme.colors.onBackground
-                    ),
-                    textStyle = MaterialTheme.typography.body1,
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = false,
-                    placeholder = {
-                        Text(
-                            text = stringResource(id = R.string.write_comment),
-                            color = LightGray,
-                            style = MaterialTheme.typography.body1
-                        )
-                    },
-                )
-                Spacer(modifier = Modifier.height(MaterialTheme.spacing.md))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    CButton(
-                        modifier = Modifier.weight(1f),
-                        text = R.string.cancel_btn,
-                    ) {
-                        cancel()
-                    }
-                    Spacer(modifier = Modifier.width(MaterialTheme.spacing.sm))
-                    CButton(
-                        modifier = Modifier.weight(1f),
-                        text = R.string.comment_btn,
-                        yes = true
-                    ) {
-                        submit()
-                    }
-                }
             }
         }
     }

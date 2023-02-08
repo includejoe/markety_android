@@ -97,6 +97,8 @@
     <string name="ghc">GHC %s</string>
     <string name="write_comment">Write a comment…</string>
 
+    <!-- Post Detail Screen -->
+    <string name="comments">Comments</string>
 
 
     <!-- Profile Screen -->

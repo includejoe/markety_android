@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.includejoe.markety.base.BaseApplication
 import org.includejoe.markety.base.util.Constants
 import org.includejoe.markety.base.util.Response
 import org.includejoe.markety.base.util.TokenManager
@@ -19,6 +20,7 @@ import javax.inject.Inject
 class PostDetailViewModel @Inject constructor(
     private val postUseCases: PostUseCases,
     private val tokenManager: TokenManager,
+    val baseApp: BaseApplication,
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
 

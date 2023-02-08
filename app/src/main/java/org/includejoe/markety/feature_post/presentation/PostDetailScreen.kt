@@ -1,24 +1,32 @@
 package org.includejoe.markety.feature_post.presentation
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import org.includejoe.markety.R
+import org.includejoe.markety.base.presentation.composables.Avatar
 import org.includejoe.markety.base.presentation.theme.ui.spacing
+import org.includejoe.markety.feature_post.presentation.composables.Actions
+import org.includejoe.markety.feature_post.presentation.composables.Comment
 import org.includejoe.markety.feature_post.presentation.composables.PostCard
 import org.includejoe.markety.feature_post.presentation.composables.PostDetailTopBar
+import org.w3c.dom.Comment
 
 @Composable
 fun PostDetailScreen(
@@ -94,8 +102,20 @@ fun PostDetailScreen(
                     navController = navController,
                     postName = state.value.post?.name!!
                 )
-                PostCard(post = state.value.post!!) {
-                    
+                LazyColumn() {
+                    item {
+                        PostCard(post = state.value.post!!)
+                        Text(
+                            text = stringResource(id = R.string.comments),
+                            style = MaterialTheme.typography.h2,
+                            color = MaterialTheme.colors.onBackground,
+                            modifier = Modifier.padding(start = MaterialTheme.spacing.sm)
+                        )
+                    }
+
+                    items(10) {
+                        Comment(isDarkTheme = viewModel.baseApp.isDarkTheme.value)
+                    }
                 }
             }
         }
