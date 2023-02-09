@@ -12,19 +12,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import org.includejoe.markety.base.presentation.composables.Avatar
+import org.includejoe.markety.base.presentation.composables.Name
 import org.includejoe.markety.base.presentation.theme.ui.spacing
-import org.includejoe.markety.feature_post.presentation.PostDetailViewModel
+import org.includejoe.markety.feature_comment.data.remote.dto.CommentDTO
 
 @Composable
 fun Comment(
     isDarkTheme: Boolean,
-    // TODO: Remove PostDetailViewModel when CommentDTO is created
-    viewModel: PostDetailViewModel = hiltViewModel()
-//    comment: CommentDTO
+    comment: CommentDTO
 ) {
     Row(
         modifier = Modifier
@@ -32,7 +29,11 @@ fun Comment(
             .padding(MaterialTheme.spacing.sm),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Avatar(isDarkTheme = isDarkTheme, modifier = Modifier.size(60.dp))
+        Avatar(
+            isDarkTheme = isDarkTheme,
+            modifier = Modifier.size(60.dp),
+            src = comment.user.profileImage
+        )
         Spacer(modifier = Modifier.width(MaterialTheme.spacing.xs))
         Column(modifier = Modifier.weight(1f)) {
             Row(
@@ -41,15 +42,15 @@ fun Comment(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Row {
-                    Text(
-                        text = "John Doe",
-                        style = MaterialTheme.typography.body1,
-                        color = MaterialTheme.colors.onBackground,
-                        fontWeight = FontWeight.SemiBold
+                    Name(
+                        isVendor = comment.user.isVendor,
+                        busName = comment.user.busName,
+                        firstName = comment.user.firstName,
+                        lastName = comment.user.lastName
                     )
                     Spacer(modifier = Modifier.width(3.dp))
                     Text(
-                        text = "@johnny",
+                        text = "@${comment.user.username}",
                         style = MaterialTheme.typography.body1,
                         color = MaterialTheme.colors.onBackground.copy(alpha = 0.7f)
                     )
@@ -75,15 +76,14 @@ fun Comment(
             }
 
             Text(
-                text = "This is a sample comment",
+                text = comment.body,
                 style = MaterialTheme.typography.body1,
                 color = MaterialTheme.colors.onBackground
             )
 
             Actions(
-                post = viewModel.state.value.post!!,
+                comment = comment,
                 iconSize = 15.dp,
-                forPost = false
             )
 
         }

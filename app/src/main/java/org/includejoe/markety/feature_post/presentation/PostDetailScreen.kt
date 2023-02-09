@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
@@ -105,16 +106,24 @@ fun PostDetailScreen(
                 LazyColumn() {
                     item {
                         PostCard(post = state.value.post!!)
-                        Text(
-                            text = stringResource(id = R.string.comments),
-                            style = MaterialTheme.typography.h2,
-                            color = MaterialTheme.colors.onBackground,
-                            modifier = Modifier.padding(start = MaterialTheme.spacing.sm)
-                        )
                     }
 
-                    items(10) {
-                        Comment(isDarkTheme = viewModel.baseApp.isDarkTheme.value)
+                    if(state.value.comments !== null && state.value.comments!!.isNotEmpty()) {
+                        item {
+                            Text(
+                                text = stringResource(id = R.string.comments),
+                                style = MaterialTheme.typography.h2,
+                                color = MaterialTheme.colors.onBackground,
+                                modifier = Modifier.padding(start = MaterialTheme.spacing.sm)
+                            )
+                        }
+
+                        items(state.value.comments!!) {comment ->
+                            Comment(
+                                isDarkTheme = viewModel.baseApp.isDarkTheme.value,
+                                comment = comment
+                            )
+                        }
                     }
                 }
             }

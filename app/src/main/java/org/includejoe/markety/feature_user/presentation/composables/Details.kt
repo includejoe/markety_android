@@ -17,8 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.includejoe.markety.R
-import org.includejoe.markety.base.presentation.composables.BusName
-import org.includejoe.markety.base.presentation.composables.FirstNameLastName
+import org.includejoe.markety.base.presentation.composables.Name
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.feature_user.util.UserViewModelState
 
@@ -39,14 +38,12 @@ fun Details(
                 .fillMaxWidth()
                 .wrapContentHeight(),
         ) {
-            if (isVendor) {
-                BusName(name = state.value.data?.busName ?: "")
-            } else {
-                FirstNameLastName(
-                    firstName = state.value.data?.firstName!!,
-                    lastName = state.value.data?.lastName!!
-                )
-            }
+            Name(
+                isVendor = isVendor,
+                busName = state.value.data?.busName,
+                firstName = state.value.data?.firstName!!,
+                lastName = state.value.data?.lastName!!
+            )
         }
 
         // Username

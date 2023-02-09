@@ -8,20 +8,16 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -32,12 +28,9 @@ import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.feature_post.data.remote.dto.PostDTO
 import org.includejoe.markety.feature_post.presentation.HomeViewModel
 import org.includejoe.markety.R
-import org.includejoe.markety.base.presentation.composables.BusName
-import org.includejoe.markety.base.presentation.composables.CButton
-import org.includejoe.markety.base.presentation.composables.FirstNameLastName
+import org.includejoe.markety.base.domain.model.UserInfo
+import org.includejoe.markety.base.presentation.composables.Name
 import org.includejoe.markety.base.presentation.theme.ui.Green
-import org.includejoe.markety.base.presentation.theme.ui.LightGray
-import org.includejoe.markety.feature_post.data.remote.dto.User
 import java.util.*
 
 @Composable
@@ -49,7 +42,6 @@ fun PostCard(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .height(600.dp)
             .padding(bottom = 5.dp,)
     ) {
         UserInfo(user = post.user)
@@ -66,13 +58,13 @@ fun PostCard(
             )
         )
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.sm))
-        Actions(post, iconSize = 24.dp)
+        Actions(post = post, iconSize = 24.dp)
     }
 }
 
 @Composable
 private fun UserInfo(
-    user: User,
+    user: UserInfo,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     Row(
@@ -94,14 +86,12 @@ private fun UserInfo(
             )
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.xs))
             Column {
-                if(user.isVendor) {
-                    BusName(name = user.busName!!)
-                } else {
-                    FirstNameLastName(
-                        firstName = user.firstName,
-                        lastName = user.lastName
-                    )
-                }
+                Name(
+                    isVendor = user.isVendor,
+                    busName = user.busName,
+                    firstName = user.firstName,
+                    lastName = user.lastName
+                )
                 Text(
                     text = "@${user.username}",
                     color = MaterialTheme.colors.onBackground.copy(alpha = 0.7f),
@@ -184,7 +174,7 @@ private fun ImageSlider(
         count = images.size,
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxSize(0.9f)
+            .height(500.dp)
     ) {page ->
         imageUrl.value = images[page]
         Column(

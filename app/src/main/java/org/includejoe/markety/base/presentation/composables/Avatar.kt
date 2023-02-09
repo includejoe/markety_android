@@ -32,7 +32,7 @@ fun Avatar(
             .background(MaterialTheme.colors.background)
             .layoutId("avatar")
             .border(
-                border = BorderStroke(width = 1.dp, color = MaterialTheme.colors.background),
+                border = BorderStroke(width = 2.dp, color = MaterialTheme.colors.background),
                 shape = RoundedCornerShape(40.dp)
             ),
         contentDescription = "avatar",

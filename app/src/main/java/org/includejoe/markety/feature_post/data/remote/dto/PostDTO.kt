@@ -6,7 +6,8 @@ import org.includejoe.markety.base.domain.model.UserInfo
 data class PostDTO(
     val category: String,
     val comments: List<String>,
-    val condition: String,
+    @SerializedName("is_new")
+    val isNew: Boolean,
     @SerializedName("created_at")
     val createdAt: String,
     val description: String?,

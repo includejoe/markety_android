@@ -1,13 +1,16 @@
 package org.includejoe.markety.feature_comment.data.remote.dto
 
+import com.google.gson.annotations.SerializedName
 import org.includejoe.markety.base.domain.model.UserInfo
 
 data class CommentDTO(
     val body: String,
-    val created_at: String,
+    @SerializedName("created_at")
+    val createdAt: String,
     val id: String,
-    val is_reply: Boolean,
-    val likes: List<Any>,
+    @SerializedName("is_reply")
+    val isReply: Boolean,
+    val likes: List<String>,
     val post: String,
     val replies: List<CommentDTO>,
     val user: UserInfo

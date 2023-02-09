@@ -16,15 +16,32 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.includejoe.markety.base.presentation.theme.ui.spacing
+import org.includejoe.markety.feature_comment.data.remote.dto.CommentDTO
 import org.includejoe.markety.feature_post.data.remote.dto.PostDTO
 
 @Composable
 fun Actions(
-    post: PostDTO,
+    post: PostDTO? = null,
+    comment: CommentDTO? = null,
     iconSize: Dp,
-    forPost: Boolean = true
 ) {
     var showCommentDialog by remember { mutableStateOf(false) }
+    fun likeCount(): String {
+        return if(post !== null) {
+            post.likes.size.toString()
+        } else {
+            comment?.likes?.size.toString()
+        }
+    }
+
+    fun commentCount(): String {
+        return if(post !== null) {
+            post.comments.size.toString()
+        } else {
+            comment?.replies?.size.toString()
+        }
+    }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -49,7 +66,7 @@ fun Actions(
                 )
                 Spacer(modifier = Modifier.width(2.dp))
                 Text(
-                    text = post.likes.size.toString(),
+                    text = likeCount(),
                     color = MaterialTheme.colors.onBackground,
                     style = MaterialTheme.typography.body1
                 )
@@ -69,13 +86,13 @@ fun Actions(
                 )
                 Spacer(modifier = Modifier.width(2.dp))
                 Text(
-                    text = post.comments.size.toString(),
+                    text = commentCount(),
                     color = MaterialTheme.colors.onBackground,
                     style = MaterialTheme.typography.body1
                 )
             }
         }
-        if(forPost) {
+        if(post !== null) {
             Icon(
                 imageVector = Icons.Outlined.AddShoppingCart,
                 modifier = Modifier.size(iconSize),
