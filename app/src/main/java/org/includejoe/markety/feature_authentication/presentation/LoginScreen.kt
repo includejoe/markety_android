@@ -27,8 +27,8 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.composables.MButton
+import org.includejoe.markety.base.presentation.composables.ServerError
 import org.includejoe.markety.feature_authentication.presentation.composables.PasswordInput
-import org.includejoe.markety.base.presentation.composables.Toast
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.base.util.Screens
 import org.includejoe.markety.feature_authentication.presentation.composables.CustomDivider
@@ -50,15 +50,7 @@ fun LoginScreen(
     val keyBoardController = LocalSoftwareKeyboardController.current
 
     if(state.value.submissionError != null) {
-        when(state.value.submissionError) {
-            is Int -> {
-                Toast(message = stringResource(state.value.submissionError as Int))
-            }
-
-            is String -> {
-                Toast(message = state.value.submissionError as String)
-            }
-        }
+        ServerError(error = state.value.submissionError!!, toast = true)
     }
 
 

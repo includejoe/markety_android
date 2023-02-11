@@ -1,11 +1,10 @@
 package org.includejoe.markety.feature_user.presentation.composables
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -14,14 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import org.includejoe.markety.feature_post.data.remote.dto.PostDTO
 import org.includejoe.markety.R
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PostsTabView(
     posts: List<PostDTO>?,
@@ -48,7 +45,7 @@ fun PostsTabView(
         }
     } else {
         LazyVerticalGrid(
-            cells = GridCells.Fixed(3),
+            columns = GridCells.Fixed(3),
             modifier = modifier.scale(1.01f)
         ) {
             items(posts.size) {

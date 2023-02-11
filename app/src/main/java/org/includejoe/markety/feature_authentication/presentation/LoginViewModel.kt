@@ -15,7 +15,7 @@ import org.includejoe.markety.base.util.Response
 import org.includejoe.markety.base.util.TokenManager
 import org.includejoe.markety.feature_authentication.domain.use_case.AuthenticationUseCases
 import org.includejoe.markety.feature_authentication.util.*
-import org.includejoe.markety.feature_authentication.util.validators.FormValidators
+import org.includejoe.markety.base.util.validators.FormValidators
 import javax.inject.Inject
 
 @HiltViewModel

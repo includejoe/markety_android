@@ -66,7 +66,7 @@ fun BusCategoryInput(
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             ),
-            textStyle = MaterialTheme.typography.body1,
+            textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
             singleLine = true,
             visualTransformation = visualTransformation,
             enabled = false

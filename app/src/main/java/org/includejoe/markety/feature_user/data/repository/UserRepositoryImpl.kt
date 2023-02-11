@@ -10,11 +10,11 @@ class UserRepositoryImpl @Inject constructor(
     private val api: MarketyAPI
 ): UserRepository {
     override suspend fun getLoggedInUser(authHeader: String): UserDTO {
-        return api.getUser(authHeader)
+        return api.getLoggedInUser(authHeader)
     }
 
-    override suspend fun getUser(authHeader: String): UserDTO {
-        TODO("Not yet implemented")
+    override suspend fun getUser(authHeader: String, username: String): UserDTO {
+        return api.getUser(authHeader = authHeader, username = username)
     }
 
     override suspend fun getUserPosts(authHeader: String, username: String): List<PostDTO> {

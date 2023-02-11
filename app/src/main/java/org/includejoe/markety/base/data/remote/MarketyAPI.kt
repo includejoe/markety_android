@@ -27,12 +27,20 @@ interface MarketyAPI  {
     suspend fun register(@Body body: Register): RegisterDTO
 
     @GET("user/check/{username}")
-    suspend fun checkUsername(@Path("username") username: String): CheckUsernameDTO
+    suspend fun checkUsername(
+        @Path("username") username: String
+    ): CheckUsernameDTO
 
     // USER
     @GET("user/")
-    suspend fun getUser(
+    suspend fun getLoggedInUser(
         @Header("Authorization") authHeader: String
+    ): UserDTO
+
+    @GET("user/detail/{username}")
+    suspend fun getUser(
+        @Header("Authorization") authHeader: String,
+        @Path("username") username: String
     ): UserDTO
 
 

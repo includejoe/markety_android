@@ -17,13 +17,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.insets.navigationBarsWithImePadding
 import androidx.navigation.NavController
 import org.includejoe.markety.R
-import org.includejoe.markety.base.presentation.composables.CountryPickerView
-import org.includejoe.markety.base.presentation.composables.Toast
+import org.includejoe.markety.base.presentation.composables.ServerError
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.base.util.Screens
 import org.includejoe.markety.feature_authentication.presentation.composables.*
@@ -37,15 +34,7 @@ fun RegisterScreen(
     val state = viewModel.state
 
     if(state.value.submissionError != null) {
-        when(state.value.submissionError) {
-            is Int -> {
-                Toast(message = stringResource(state.value.submissionError as Int))
-            }
-
-            is String -> {
-                Toast(message = state.value.submissionError as String)
-            }
-        }
+        ServerError(error = state.value.submissionError!!, toast = true)
     }
 
     Column(

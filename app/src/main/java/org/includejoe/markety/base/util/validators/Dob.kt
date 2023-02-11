@@ -1,17 +1,17 @@
-package org.includejoe.markety.feature_authentication.util.validators
+package org.includejoe.markety.base.util.validators
 
 import org.includejoe.markety.R
 import org.includejoe.markety.feature_authentication.util.ValidationResult
 
-class ValidateLocation {
+class ValidateDob {
     operator fun invoke(
-        location: String,
+        dob: String,
     ): ValidationResult {
 
-        if(location.isBlank()) {
+        if(dob.isBlank()) {
             return ValidationResult(
                 successful = false,
-                errorMessage = R.string.blank_location
+                errorMessage = R.string.blank_dob
             )
         }
 

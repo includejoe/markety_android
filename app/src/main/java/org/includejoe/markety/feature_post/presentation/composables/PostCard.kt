@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -31,12 +32,16 @@ import org.includejoe.markety.R
 import org.includejoe.markety.base.domain.model.UserInfo
 import org.includejoe.markety.base.presentation.composables.Name
 import org.includejoe.markety.base.presentation.theme.ui.Green
+import org.includejoe.markety.base.presentation.composables.PostDateFormatter
+import org.includejoe.markety.base.util.Screens
 import java.util.*
 
 @Composable
 fun PostCard(
     modifier: Modifier = Modifier,
     post: PostDTO,
+    navController: NavController,
+    viewModel: HomeViewModel = hiltViewModel(),
     onClick: (() -> Unit)? = null
 ) {
     Column(
@@ -44,7 +49,13 @@ fun PostCard(
             .fillMaxWidth()
             .padding(bottom = 5.dp,)
     ) {
-        UserInfo(user = post.user)
+        UserInfo(user = post.user) {
+            navController.navigate(
+                route = if (viewModel.baseApp.loggedInUser.value == post.user.username)
+                            Screens.ProfileScreen.route
+                        else Screens.ProfileScreen.route + "/${post.user.username}"
+            )
+        }
         PostDetails(post) {
             if (onClick != null) {
                 onClick()
@@ -65,13 +76,21 @@ fun PostCard(
 @Composable
 private fun UserInfo(
     user: UserInfo,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    onClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(50.dp)
-            .padding(horizontal = MaterialTheme.spacing.sm),
+            .padding(horizontal = MaterialTheme.spacing.sm)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null
+            ) {
+                onClick()
+            }
+        ,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -127,24 +146,32 @@ private fun PostDetails(
                 text = post.name,
                 style = MaterialTheme.typography.body1,
                 color = MaterialTheme.colors.onBackground,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.Bold
             )
 
             Text(
                 text = stringResource(id = if (post.isSold) R.string.sold else R.string.available),
                 style = MaterialTheme.typography.body1,
                 color = if(post.isSold) MaterialTheme.colors.error else Green,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.SemiBold
             )
         }
         Row(
             modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 text = stringResource(id = R.string.ghc, post.price),
                 style = MaterialTheme.typography.body1,
-                color = MaterialTheme.colors.onBackground.copy(alpha = 0.7f),
-                fontWeight = FontWeight.Bold
+                color = MaterialTheme.colors.onBackground,
+                fontWeight = FontWeight.SemiBold
+            )
+
+            Text(
+                text = stringResource(id = if(post.isNew) R.string.is_new else R.string.is_used),
+                style = MaterialTheme.typography.body1,
+                color = MaterialTheme.colors.onBackground,
+                fontWeight = FontWeight.SemiBold
             )
         }
         if(!post.description.isNullOrEmpty()) {
@@ -157,6 +184,12 @@ private fun PostDetails(
                     color = MaterialTheme.colors.onBackground,
                 )
             }
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            PostDateFormatter(dateString = post.createdAt)
         }
     }
 }

@@ -1,17 +1,17 @@
-package org.includejoe.markety.feature_authentication.util.validators
+package org.includejoe.markety.base.util.validators
 
 import org.includejoe.markety.R
 import org.includejoe.markety.feature_authentication.util.ValidationResult
 
-class ValidateDob {
+class ValidateBusCategory {
     operator fun invoke(
-        dob: String,
+        busCategory: String,
     ): ValidationResult {
 
-        if(dob.isBlank()) {
+        if(busCategory.isBlank()) {
             return ValidationResult(
                 successful = false,
-                errorMessage = R.string.blank_dob
+                errorMessage = R.string.blank_bus_category
             )
         }
 

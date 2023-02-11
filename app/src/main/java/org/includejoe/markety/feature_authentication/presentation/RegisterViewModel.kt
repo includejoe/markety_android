@@ -15,7 +15,7 @@ import org.includejoe.markety.base.util.getCountriesList
 import org.includejoe.markety.feature_authentication.domain.use_case.AuthenticationUseCases
 import org.includejoe.markety.feature_authentication.util.FormEvent
 import org.includejoe.markety.feature_authentication.util.RegisterState
-import org.includejoe.markety.feature_authentication.util.validators.FormValidators
+import org.includejoe.markety.base.util.validators.FormValidators
 import javax.inject.Inject
 
 @HiltViewModel

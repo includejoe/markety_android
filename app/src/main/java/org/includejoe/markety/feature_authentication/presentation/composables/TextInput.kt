@@ -12,6 +12,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import org.includejoe.markety.base.presentation.theme.ui.LightGray
@@ -60,7 +61,7 @@ fun TextInput(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),
-        textStyle = MaterialTheme.typography.body1,
+        textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
         singleLine = true,
         keyboardOptions = keyboardOptions,
         visualTransformation = visualTransformation,

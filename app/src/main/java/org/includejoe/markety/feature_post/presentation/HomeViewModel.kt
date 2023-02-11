@@ -27,7 +27,7 @@ class HomeViewModel @Inject constructor(
         getPosts()
     }
 
-    private fun getPosts() {
+    fun getPosts() {
         viewModelScope.launch {
             postUseCases.getPosts(tokenManager.readToken()).collectLatest { result ->
                 when(result) {

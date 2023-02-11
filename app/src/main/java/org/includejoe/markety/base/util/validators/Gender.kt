@@ -1,17 +1,17 @@
-package org.includejoe.markety.feature_authentication.util.validators
+package org.includejoe.markety.base.util.validators
 
 import org.includejoe.markety.R
 import org.includejoe.markety.feature_authentication.util.ValidationResult
 
-class ValidateLastName {
+class ValidateGender {
     operator fun invoke(
-        lastName: String,
+        gender: String,
     ): ValidationResult {
 
-        if(lastName.isBlank()) {
+        if(gender.isBlank()) {
             return ValidationResult(
                 successful = false,
-                errorMessage = R.string.blank_lastname
+                errorMessage = R.string.blank_gender
             )
         }
 

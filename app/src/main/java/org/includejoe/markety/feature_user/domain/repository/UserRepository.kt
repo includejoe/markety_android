@@ -6,7 +6,7 @@ import org.includejoe.markety.feature_user.data.remote.dto.UserDTO
 interface UserRepository {
     suspend fun getLoggedInUser(authHeader: String): UserDTO
 
-    suspend fun getUser(authHeader: String): UserDTO
+    suspend fun getUser(authHeader: String, username: String): UserDTO
 
     suspend fun getUserPosts(authHeader: String, username: String): List<PostDTO>
 

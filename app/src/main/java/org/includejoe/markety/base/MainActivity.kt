@@ -24,7 +24,8 @@ import org.includejoe.markety.feature_post.presentation.HomeScreen
 import org.includejoe.markety.feature_post.presentation.PostDetailScreen
 import org.includejoe.markety.feature_search.presentation.SearchScreen
 import org.includejoe.markety.feature_settings.presentation.SettingsScreen
-import org.includejoe.markety.feature_user.presentation.ProfileScreen
+import org.includejoe.markety.feature_user.presentation.LoggedInUserProfileScreen
+import org.includejoe.markety.feature_user.presentation.UserProfileScreen
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,7 +37,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-        lifecycleScope.launchWhenCreated { checkTheme() }
+        lifecycleScope.launchWhenCreated {
+            checkTheme()
+            setLoggedInUser()
+        }
         setContent {
             MarketyTheme(darkTheme = baseApp.isDarkTheme.value) {
                 Surface(color = MaterialTheme.colors.background) {
@@ -48,52 +52,19 @@ class MainActivity : ComponentActivity() {
                         Screens.LoginScreen.route
                     }
 
-                    NavHost(
+                    Navigation(
                         navController = navController,
                         startDestination = startDestination
-                    ) {
-                        composable(route = Screens.LoginScreen.route) {
-                            LoginScreen(navController = navController)
-                        }
-
-                        composable(route = Screens.RegisterScreen.route) {
-                            RegisterScreen(navController = navController)
-                        }
-
-                        composable(route = Screens.HomeScreen.route) {
-                            HomeScreen(navController = navController)
-                        }
-
-                        composable(route = Screens.PostDetailScreen.route + "/{postId}") {
-                            PostDetailScreen(navController = navController)
-                        }
-
-                        composable(route = Screens.SearchScreen.route) {
-                            SearchScreen(navController = navController)
-                        }
-
-                        composable(route = Screens.CreatePostScreen.route) {
-                            CreatePostScreen(navController = navController)
-                        }
-
-                        composable(route = Screens.NotificationsScreen.route) {
-                            NotificationsScreen(navController = navController)
-                        }
-
-                        composable(route = Screens.ProfileScreen.route) {
-                            ProfileScreen(navController = navController)
-                        }
-
-                        composable(route = Screens.SettingsScreen.route) {
-                            SettingsScreen(navController = navController)
-                        }
-
-                        composable(route = Screens.MessagesScreen.route) {
-                            MessagesScreen(navController = navController)
-                        }
-                    }
+                    )
                 }
             }
+        }
+    }
+
+    private suspend fun setLoggedInUser() {
+        if(userPreferencesRepository.getLoggedInUser() !== null) {
+            val username = userPreferencesRepository.getLoggedInUser()
+            baseApp.loggedInUser.value = username
         }
     }
 

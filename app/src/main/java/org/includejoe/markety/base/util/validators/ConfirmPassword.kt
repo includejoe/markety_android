@@ -1,4 +1,4 @@
-package org.includejoe.markety.feature_authentication.util.validators
+package org.includejoe.markety.base.util.validators
 
 import org.includejoe.markety.R
 import org.includejoe.markety.feature_authentication.util.ValidationResult

@@ -1,4 +1,4 @@
-package org.includejoe.markety.feature_authentication.util.validators
+package org.includejoe.markety.base.util.validators
 
 import android.util.Patterns
 import org.includejoe.markety.R

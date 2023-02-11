@@ -9,8 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import org.includejoe.markety.base.presentation.composables.BottomNavigation
-import org.includejoe.markety.base.util.NavigationItem
 import org.includejoe.markety.feature_messaging.presentation.composables.MessagesTopBar
 
 @Composable
@@ -33,9 +31,5 @@ fun MessagesScreen(
                 style = MaterialTheme.typography.h2,
             )
         }
-        BottomNavigation(
-            selectedItem = NavigationItem.MESSAGES,
-            navController = navController
-        )
     }
 }

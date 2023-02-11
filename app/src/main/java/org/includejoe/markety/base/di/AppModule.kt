@@ -11,32 +11,13 @@ import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.includejoe.markety.base.BaseApplication
-import org.includejoe.markety.base.data.remote.GooglePlacesAPI
-import org.includejoe.markety.base.data.remote.MarketyAPI
-import org.includejoe.markety.base.data.repository.GooglePlacesRepository
 import org.includejoe.markety.base.domain.repository.UserPreferencesRepository
-import org.includejoe.markety.base.domain.use_cases.GetGooglePlacesPredictionsUseCase
 import org.includejoe.markety.base.util.Constants
 import org.includejoe.markety.base.util.TokenManager
-import org.includejoe.markety.feature_authentication.data.repository.AuthenticationRepositoryImpl
-import org.includejoe.markety.feature_authentication.domain.repository.AuthenticationRepository
+import org.includejoe.markety.base.util.validators.*
 import org.includejoe.markety.feature_authentication.domain.use_case.*
-import org.includejoe.markety.feature_authentication.util.validators.*
-import org.includejoe.markety.feature_comment.data.repository.CommentRepositoryImpl
-import org.includejoe.markety.feature_comment.domain.repository.CommentRepository
 import org.includejoe.markety.feature_comment.domain.use_case.*
-import org.includejoe.markety.feature_post.data.PostsRepositoryImpl
-import org.includejoe.markety.feature_post.domain.repository.PostRepository
-import org.includejoe.markety.feature_post.domain.use_case.GetPostUseCase
-import org.includejoe.markety.feature_post.domain.use_case.GetPostsUseCase
-import org.includejoe.markety.feature_post.domain.use_case.PostUseCases
-import org.includejoe.markety.feature_user.data.repository.UserRepositoryImpl
-import org.includejoe.markety.feature_user.domain.repository.UserRepository
-import org.includejoe.markety.feature_user.domain.use_case.GetLoggedInUserUseCase
-import org.includejoe.markety.feature_user.domain.use_case.GetUserPosts
-import org.includejoe.markety.feature_user.domain.use_case.UserUseCases
 import retrofit2.Retrofit
-import retrofit2.Retrofit.Builder
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
@@ -118,113 +99,4 @@ object AppModule {
     fun provideRetrofitBuilder(): Retrofit.Builder = Retrofit
         .Builder()
         .addConverterFactory(GsonConverterFactory.create())
-
-    // Markety API
-    @Provides
-    @Singleton
-    fun provideMarketyAPI(retrofit: Retrofit.Builder): MarketyAPI =
-        retrofit
-            .baseUrl(Constants.MARKETY_BASE_URL)
-            .build()
-            .create(MarketyAPI::class.java)
-
-    // Google Places API
-    @Provides
-    @Singleton
-    fun provideGooglePlacesAPI(retrofit: Builder): GooglePlacesAPI =
-        retrofit
-            .baseUrl(GooglePlacesAPI.BASE_URL)
-            .build()
-            .create(GooglePlacesAPI::class.java)
-
-
-    // Authentication Repository
-    @Provides
-    @Singleton
-    fun provideAuthenticationRepository(api: MarketyAPI): AuthenticationRepository {
-        return AuthenticationRepositoryImpl(api)
-    }
-
-    // Google Places Repository
-    @Provides
-    @Singleton
-    fun provideGooglePlacesRepository(api: GooglePlacesAPI): GooglePlacesRepository {
-        return GooglePlacesRepository(api)
-    }
-
-
-    @Provides
-    @Singleton
-    fun provideUserRepository(api: MarketyAPI): UserRepository {
-        return UserRepositoryImpl(api)
-    }
-
-    // Authentication Use Cases
-    @Provides
-    @Singleton
-    fun provideAuthenticationUseCases(
-        repository: AuthenticationRepository,
-    ) = AuthenticationUseCases(
-        login = LoginUseCase(repository),
-        register = RegisterUseCase(repository),
-        checkUsername = CheckUsernameUseCase(repository)
-    )
-
-    // GetGooglePlacesPredictions Use Case
-    @Provides
-    @Singleton
-    fun provideGetGooglePlacesPredictionsUseCase(
-        repository: GooglePlacesRepository
-    ) = GetGooglePlacesPredictionsUseCase(repository)
-
-    // User Use Cases
-    @Provides
-    @Singleton
-    fun provideUserUseCases(
-        repository: UserRepository
-    ) = UserUseCases(
-        getLoggedInUserUseCase = GetLoggedInUserUseCase(repository),
-        getUserPosts = GetUserPosts(repository)
-    )
-
-    // Post Repository
-    @Provides
-    @Singleton
-    fun providePostRepository(
-        api: MarketyAPI
-    ): PostRepository {
-        return PostsRepositoryImpl(api)
-    }
-
-    // Post Use Cases
-    @Provides
-    @Singleton
-    fun providePostUseCases(
-        repository: PostRepository
-    ) = PostUseCases(
-        getPosts = GetPostsUseCase(repository),
-        getPost = GetPostUseCase(repository)
-    )
-
-    // Comment Repository
-    @Provides
-    @Singleton
-    fun provideCommentRepository(
-        api: MarketyAPI
-    ): CommentRepository {
-        return CommentRepositoryImpl(api)
-    }
-
-    // Comment Use Cases
-    @Provides
-    @Singleton
-    fun provideCommentUseCases(
-        repository: CommentRepository
-    ) = CommentUseCases(
-        createComment = CreateCommentUseCase(repository),
-        replyComment = ReplyCommentUseCase(repository),
-        likeComment = LikeCommentUseCase(repository),
-        getPostComments = GetPostCommentsUseCase(repository),
-        deleteComment = DeleteCommentUseCase(repository)
-    )
 }

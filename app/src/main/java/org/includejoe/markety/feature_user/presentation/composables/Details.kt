@@ -19,12 +19,12 @@ import androidx.compose.ui.unit.dp
 import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.composables.Name
 import org.includejoe.markety.base.presentation.theme.ui.spacing
-import org.includejoe.markety.feature_user.util.UserViewModelState
+import org.includejoe.markety.feature_user.util.UserState
 
 @Composable
 fun Details(
     isVendor: Boolean = false,
-    state: State<UserViewModelState>
+    state: State<UserState>
 ) {
     val iconSize = 15.dp
 

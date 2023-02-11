@@ -1,17 +1,17 @@
-package org.includejoe.markety.feature_authentication.util.validators
+package org.includejoe.markety.base.util.validators
 
 import org.includejoe.markety.R
 import org.includejoe.markety.feature_authentication.util.ValidationResult
 
-class ValidateBusCategory {
+class ValidateLocation {
     operator fun invoke(
-        busCategory: String,
+        location: String,
     ): ValidationResult {
 
-        if(busCategory.isBlank()) {
+        if(location.isBlank()) {
             return ValidationResult(
                 successful = false,
-                errorMessage = R.string.blank_bus_category
+                errorMessage = R.string.blank_location
             )
         }
 

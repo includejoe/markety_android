@@ -1,17 +1,17 @@
-package org.includejoe.markety.feature_authentication.util.validators
+package org.includejoe.markety.base.util.validators
 
 import org.includejoe.markety.R
 import org.includejoe.markety.feature_authentication.util.ValidationResult
 
-class ValidateBusName {
+class ValidateFirstName {
     operator fun invoke(
-        lastName: String,
+        firstName: String,
     ): ValidationResult {
 
-        if(lastName.isBlank()) {
+        if(firstName.isBlank()) {
             return ValidationResult(
                 successful = false,
-                errorMessage = R.string.blank_bus_name
+                errorMessage = R.string.blank_firstname
             )
         }
 

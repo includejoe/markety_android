@@ -13,9 +13,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.composables.BottomNavigation
-import org.includejoe.markety.base.util.NavigationItem
+import org.includejoe.markety.base.presentation.composables.NavigationItem
 import org.includejoe.markety.base.util.Screens
 import org.includejoe.markety.feature_post.presentation.composables.HomeTopBar
 import org.includejoe.markety.feature_post.presentation.composables.PostCard
@@ -26,6 +29,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ){
     val state = viewModel.state
+    val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.value.postsLoading)
 
     Column(
         modifier = Modifier
@@ -62,10 +66,25 @@ fun HomeScreen(
                     )
                 }
             } else {
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(state.value.posts!!) {post ->
-                        PostCard(post = post) {
-                            navController.navigate(Screens.PostDetailScreen.route + "/${post.id}")
+                SwipeRefresh(
+                    state = swipeRefreshState,
+                    onRefresh = {
+                        viewModel.getPosts()
+                    },
+                    indicator = { state, refreshTrigger ->
+                        SwipeRefreshIndicator(
+                            state = state,
+                            refreshTriggerDistance = refreshTrigger - 30.dp,
+                            backgroundColor = MaterialTheme.colors.surface,
+                            contentColor = MaterialTheme.colors.primary,
+                        )
+                    }
+                ) {
+                    LazyColumn(modifier = Modifier.fillMaxSize()) {
+                        items(state.value.posts!!) {post ->
+                            PostCard(post = post, navController = navController) {
+                                navController.navigate(Screens.PostDetailScreen.route + "/${post.id}")
+                            }
                         }
                     }
                 }

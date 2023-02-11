@@ -17,6 +17,7 @@ object Constants {
     const val JWT_KEY = "jwt"
     const val GOOGLE_MAPS_API_KEY = "AIzaSyACARrKET7OBzoC6oE4gl_cnH9ocdrQCb8"
     const val PARAM_POST_ID = "postId"
+    const val PARAM_USERNAME = "username"
 
     const val DATASTORE_USER_PREFERENCES = "user_preferences"
     const val ENCRYPTED_SHARED_PREFS = "encrypted_shared_prefs"

@@ -2,6 +2,8 @@ package org.includejoe.markety.feature_user.presentation
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,6 +11,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.includejoe.markety.R
 import org.includejoe.markety.base.BaseApplication
+import org.includejoe.markety.base.util.Constants
 import org.includejoe.markety.base.util.Response
 import org.includejoe.markety.base.util.TokenManager
 import org.includejoe.markety.feature_user.data.remote.dto.toUser
@@ -17,22 +20,28 @@ import org.includejoe.markety.feature_user.util.UserState
 import javax.inject.Inject
 
 @HiltViewModel
-class LoggedInUserViewModel @Inject constructor(
+class UserViewModel @Inject constructor(
     private val tokenManager: TokenManager,
     val baseApp: BaseApplication,
     private val userUseCases: UserUseCases,
+    savedStateHandle: SavedStateHandle
 ): ViewModel() {
     private val _state = mutableStateOf(UserState())
     val state: State<UserState> = _state
 
     init {
-        getLoggedInUser()
-        getUserPosts(username = baseApp.loggedInUser.value!!)
+        savedStateHandle.get<String>(Constants.PARAM_USERNAME)?.let { username ->
+            getUser(username)
+            getUserPosts(username)
+        }
     }
 
-    fun getLoggedInUser() {
+    fun getUser(username: String) {
         viewModelScope.launch {
-            userUseCases.getLoggedInUser(tokenManager.readToken()).collectLatest { result ->
+            userUseCases.getUser(
+                jwt = tokenManager.readToken(),
+                username = username
+            ).collectLatest { result ->
                 when(result) {
                     is Response.Loading -> {
                         _state.value = _state.value.copy(
@@ -62,7 +71,7 @@ class LoggedInUserViewModel @Inject constructor(
         }
     }
 
-    fun getUserPosts(username: String) {
+    private fun getUserPosts(username: String) {
         viewModelScope.launch {
             userUseCases.getUserPosts(
                 jwt = tokenManager.readToken(),
