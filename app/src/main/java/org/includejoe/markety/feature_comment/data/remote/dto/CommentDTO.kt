@@ -10,8 +10,10 @@ data class CommentDTO(
     val id: String,
     @SerializedName("is_reply")
     val isReply: Boolean,
+    @SerializedName("og_comment_owner")
+    val ogCommentOwner: String?,
     val likes: List<String>,
     val post: String,
-    val replies: List<CommentDTO>,
+    val replies: List<String>,
     val user: UserInfo
 )

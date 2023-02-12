@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import org.includejoe.markety.R
+import org.includejoe.markety.base.presentation.theme.ui.DarkGray
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 
 @Composable
@@ -61,6 +62,7 @@ fun CButton(
     modifier: Modifier = Modifier,
     text: Int,
     yes: Boolean = false,
+    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
     Button(
@@ -69,9 +71,11 @@ fun CButton(
             .clip(MaterialTheme.shapes.small),
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = if(yes) MaterialTheme.colors.primary else Color.Transparent
+            backgroundColor = if(yes) MaterialTheme.colors.primary else Color.Transparent,
+            disabledBackgroundColor = MaterialTheme.colors.primary,
         ),
-        elevation = null
+        elevation = null,
+        enabled = enabled
     ) {
         Text(
             text = stringResource(id = text),

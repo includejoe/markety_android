@@ -10,7 +10,10 @@ import java.util.*
 import org.includejoe.markety.R
 
 @Composable
-fun PostDateFormatter(dateString: String) {
+fun DateFormatter(
+    dateString: String,
+    fontWeight: FontWeight = FontWeight.SemiBold,
+) {
     val date = parseDate(dateString)
 
     val now = Calendar.getInstance().time
@@ -26,7 +29,7 @@ fun PostDateFormatter(dateString: String) {
                 text = stringResource(id = R.string.secs_ago, diffInSeconds),
                 style = MaterialTheme.typography.body1,
                 color = MaterialTheme.colors.onBackground,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = fontWeight
             )
         }
         diffInMinutes < 60 ->  {
@@ -34,7 +37,7 @@ fun PostDateFormatter(dateString: String) {
                 text = stringResource(id = R.string.mins_ago, diffInMinutes),
                 style = MaterialTheme.typography.body1,
                 color = MaterialTheme.colors.onBackground,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = fontWeight
             )
         }
         diffInHours < 24 ->  {
@@ -42,7 +45,7 @@ fun PostDateFormatter(dateString: String) {
                 text = stringResource(id = R.string.hrs_ago, diffInHours),
                 style = MaterialTheme.typography.body1,
                 color = MaterialTheme.colors.onBackground,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = fontWeight
             )
         }
         diffInDays < 7 ->  {
@@ -50,7 +53,7 @@ fun PostDateFormatter(dateString: String) {
                 text = stringResource(id = R.string.days_ago, diffInDays),
                 style = MaterialTheme.typography.body1,
                 color = MaterialTheme.colors.onBackground,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = fontWeight
             )
         }
         else -> {
@@ -63,7 +66,7 @@ fun PostDateFormatter(dateString: String) {
                 ),
                 style = MaterialTheme.typography.body1,
                 color = MaterialTheme.colors.onBackground,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = fontWeight
             )
 
         }

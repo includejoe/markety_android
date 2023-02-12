@@ -1,69 +1,54 @@
-package org.includejoe.markety.feature_post.presentation
+package org.includejoe.markety.feature_comment.presentation
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.includejoe.markety.base.BaseApplication
-import org.includejoe.markety.base.util.Constants
 import org.includejoe.markety.base.util.Response
 import org.includejoe.markety.base.util.TokenManager
 import org.includejoe.markety.feature_comment.domain.use_case.CommentUseCases
-import org.includejoe.markety.feature_comment.domain.use_case.GetPostCommentsUseCase
-import org.includejoe.markety.feature_post.domain.use_case.PostUseCases
-import org.includejoe.markety.feature_post.util.PostDetailVMState
-import retrofit2.http.Body
+import org.includejoe.markety.feature_comment.util.CommentState
 import javax.inject.Inject
 
 @HiltViewModel
-class PostDetailViewModel @Inject constructor(
-    private val postUseCases: PostUseCases,
+class CommentViewModel @Inject constructor(
     private val commentUseCases: CommentUseCases,
-    private val tokenManager: TokenManager,
-    val baseApp: BaseApplication,
-    savedStateHandle: SavedStateHandle
+    private val tokenManager: TokenManager
 ): ViewModel() {
+    private val _state = mutableStateOf(CommentState())
+    val state: State<CommentState> = _state
 
-    private val _state = mutableStateOf(PostDetailVMState())
-    val state: State<PostDetailVMState> = _state
-
-    init {
-        savedStateHandle.get<String>(Constants.PARAM_POST_ID)?.let { postId ->
-            getPost(postId)
-            getPostComments(postId)
-        }
-    }
-
-    private fun getPostComments(postId: String) {
+    fun createComment(
+        postId: String,
+        body: String
+    ) {
         viewModelScope.launch {
-            commentUseCases.getPostComments(
+            commentUseCases.createComment(
                 jwt = tokenManager.readToken(),
-                postId = postId
+                postId = postId,
+                body = body
             ).collectLatest { result ->
                 when(result) {
                     is Response.Loading -> {
                         _state.value = _state.value.copy(
-                            commentsLoading = true
+                            loading = true
                         )
                     }
 
                     is Response.Success -> {
                         _state.value = _state.value.copy(
-                            commentsLoading = false,
-                            comments = result.data,
-                            commentError = null
+                            loading = false,
+                            data = result.data
                         )
                     }
 
                     is Response.Error -> {
                         _state.value = _state.value.copy(
-                            commentsLoading = false,
-                            comments = null,
-                            commentError = result.message
+                            loading = false,
+                            data = null
                         )
                     }
                 }
@@ -71,32 +56,36 @@ class PostDetailViewModel @Inject constructor(
         }
     }
 
-    private fun getPost(postId: String) {
+    fun replyComment(
+        postId: String,
+        commentId: String,
+        body: String
+    ) {
         viewModelScope.launch {
-            postUseCases.getPost(
+            commentUseCases.replyComment(
+                jwt = tokenManager.readToken(),
+                commentId = commentId,
                 postId = postId,
-                jwt = tokenManager.readToken()
+                body = body
             ).collectLatest { result ->
                 when(result) {
                     is Response.Loading -> {
                         _state.value = _state.value.copy(
-                            isLoading = true
+                            loading = true
                         )
                     }
 
                     is Response.Success -> {
                         _state.value = _state.value.copy(
-                            isLoading = false,
-                            post = result.data,
-                            error = null
+                            loading = false,
+                            data = result.data
                         )
                     }
 
                     is Response.Error -> {
                         _state.value = _state.value.copy(
-                            isLoading = false,
-                            post = null,
-                            error = result.message
+                            loading = false,
+                            data = null
                         )
                     }
                 }

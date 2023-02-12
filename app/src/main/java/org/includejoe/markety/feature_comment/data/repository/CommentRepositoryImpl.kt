@@ -2,6 +2,7 @@ package org.includejoe.markety.feature_comment.data.repository
 
 import org.includejoe.markety.base.data.remote.MarketyAPI
 import org.includejoe.markety.feature_comment.data.remote.dto.CommentDTO
+import org.includejoe.markety.feature_comment.domain.models.Comment
 import org.includejoe.markety.feature_comment.domain.repository.CommentRepository
 import javax.inject.Inject
 
@@ -15,8 +16,10 @@ class CommentRepositoryImpl @Inject constructor(
     ): CommentDTO {
         return api.createComment(
             authHeader = authHeader,
-            postId = postId,
-            body = body
+            body = Comment (
+                post = postId,
+                body = body
+            )
         )
     }
 
@@ -39,8 +42,10 @@ class CommentRepositoryImpl @Inject constructor(
         return api.replyComment(
             authHeader = authHeader,
             commentId = commentId,
-            postId = postId,
-            body = body
+            body = Comment (
+                post = postId,
+                body = body
+            )
         )
     }
 

@@ -15,8 +15,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import org.includejoe.markety.R
+import org.includejoe.markety.base.presentation.composables.ServerError
 import org.includejoe.markety.base.presentation.theme.ui.spacing
-import org.includejoe.markety.feature_post.presentation.composables.Comment
+import org.includejoe.markety.feature_comment.presentation.composables.Comment
 import org.includejoe.markety.feature_post.presentation.composables.PostCard
 import org.includejoe.markety.feature_post.presentation.composables.PostDetailTopBar
 
@@ -55,24 +56,7 @@ fun PostDetailScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                when(state.value.error) {
-                    is Int -> {
-                        Text(
-                            text = stringResource(id = state.value.error as Int),
-                            color = MaterialTheme.colors.onBackground,
-                            textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.body1
-                        )
-                    }
-                    is String -> {
-                        Text(
-                            text = state.value.error as String,
-                            color = MaterialTheme.colors.onBackground,
-                            textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.body1
-                        )
-                    }
-                }
+                ServerError(error = state.value.error!!, toast = false)
                 TextButton(onClick = {
 
                 }) {
@@ -94,7 +78,7 @@ fun PostDetailScreen(
                     navController = navController,
                     postName = state.value.post?.name!!
                 )
-                LazyColumn() {
+                LazyColumn {
                     item {
                         PostCard(post = state.value.post!!, navController = navController)
                     }
@@ -112,7 +96,9 @@ fun PostDetailScreen(
                         items(state.value.comments!!) {comment ->
                             Comment(
                                 isDarkTheme = viewModel.baseApp.isDarkTheme.value,
-                                comment = comment
+                                comment = comment,
+                                replyingTo = if(comment.isReply) comment.ogCommentOwner
+                                else null
                             )
                         }
                     }

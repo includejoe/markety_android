@@ -56,9 +56,9 @@
 
 
     <!-- Date -->
-    <string name="secs_ago">%s seconds ago</string>
-    <string name="mins_ago">%s minutes ago</string>
-    <string name="hrs_ago">%s hours ago</string>
+    <string name="secs_ago">%s secs ago</string>
+    <string name="mins_ago">%s mins ago</string>
+    <string name="hrs_ago">%s hrs ago</string>
     <string name="days_ago">%s days ago</string>
     <string name="full_date">%s</string>
 
@@ -119,6 +119,7 @@
 
     <!-- Post Detail Screen -->
     <string name="comments">Comments</string>
+    <string name="replying_to">Replying to %s</string>
 
 
     <!-- Profile Screen -->

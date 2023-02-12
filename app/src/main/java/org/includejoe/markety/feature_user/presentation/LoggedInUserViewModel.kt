@@ -16,6 +16,8 @@ import org.includejoe.markety.feature_user.domain.use_case.UserUseCases
 import org.includejoe.markety.feature_user.util.UserState
 import javax.inject.Inject
 
+// TODO: Create getUserPosts function in a separate file
+
 @HiltViewModel
 class LoggedInUserViewModel @Inject constructor(
     private val tokenManager: TokenManager,

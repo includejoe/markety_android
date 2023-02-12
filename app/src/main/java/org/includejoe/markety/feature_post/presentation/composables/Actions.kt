@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.feature_comment.data.remote.dto.CommentDTO
+import org.includejoe.markety.feature_comment.presentation.composables.CommentDialog
 import org.includejoe.markety.feature_post.data.remote.dto.PostDTO
 
 @Composable
@@ -50,6 +51,7 @@ fun Actions(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row {
+            // LIKE
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = Icons.Outlined.Favorite,
@@ -72,6 +74,8 @@ fun Actions(
                 )
             }
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.md))
+
+            // COMMENT
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = Icons.Outlined.Comment,
@@ -103,8 +107,12 @@ fun Actions(
     }
 
     if(showCommentDialog) {
-        CommentDialog(cancel = { showCommentDialog = false }) {
-
+        CommentDialog(
+            replyingTo = comment?.user?.username,
+            postId = post?.id ?: comment!!.post,
+            commentId = comment?.id
+        ) {
+            showCommentDialog = false
         }
     }
 }

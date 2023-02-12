@@ -1,11 +1,8 @@
-package org.includejoe.markety.feature_post.presentation.composables
+package org.includejoe.markety.feature_comment.presentation.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,15 +10,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.hilt.navigation.compose.hiltViewModel
 import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.composables.CButton
 import org.includejoe.markety.base.presentation.theme.ui.LightGray
 import org.includejoe.markety.base.presentation.theme.ui.spacing
+import org.includejoe.markety.feature_comment.presentation.CommentViewModel
 
 @Composable
 fun CommentDialog(
+    replyingTo: String? = null,
+    commentId: String? = null,
+    postId: String,
+    viewModel: CommentViewModel = hiltViewModel(),
     cancel: () -> Unit,
-    submit: () -> Unit,
 ) {
     var value by remember { mutableStateOf("") }
 
@@ -39,6 +41,7 @@ fun CommentDialog(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
                 TextField(
                     value = value,
                     onValueChange = {
@@ -53,7 +56,8 @@ fun CommentDialog(
                     singleLine = false,
                     placeholder = {
                         Text(
-                            text = stringResource(id = R.string.write_comment),
+                            text = if (replyingTo.isNullOrBlank()) stringResource(id = R.string.write_comment)
+                            else stringResource(id = R.string.replying_to, "@$replyingTo"),
                             color = LightGray,
                             style = MaterialTheme.typography.body1
                         )
@@ -74,9 +78,22 @@ fun CommentDialog(
                     CButton(
                         modifier = Modifier.weight(1f),
                         text = R.string.comment_btn,
-                        yes = true
+                        yes = true,
+                        enabled = value.isNotEmpty()
                     ) {
-                        submit()
+                        if (replyingTo == null) {
+                            viewModel.createComment(
+                                postId = postId,
+                                body = value
+                            )
+                        } else {
+                            viewModel.replyComment(
+                                postId = postId,
+                                commentId = commentId!!,
+                                body = value
+                            )
+                        }
+                        cancel()
                     }
                 }
             }

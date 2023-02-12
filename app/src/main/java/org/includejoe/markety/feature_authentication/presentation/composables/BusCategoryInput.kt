@@ -112,6 +112,7 @@ fun BusCategoryPickerDialog(
                                 .padding(10.dp),
                             text = category,
                             style = MaterialTheme.typography.body1,
+                            color = MaterialTheme.colors.onBackground
                         )
                     }
                 }
