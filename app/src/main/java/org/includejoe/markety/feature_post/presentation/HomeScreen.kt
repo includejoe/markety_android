@@ -74,7 +74,7 @@ fun HomeScreen(
                     indicator = { state, refreshTrigger ->
                         SwipeRefreshIndicator(
                             state = state,
-                            refreshTriggerDistance = refreshTrigger - 30.dp,
+                            refreshTriggerDistance = refreshTrigger,
                             backgroundColor = MaterialTheme.colors.surface,
                             contentColor = MaterialTheme.colors.primary,
                         )

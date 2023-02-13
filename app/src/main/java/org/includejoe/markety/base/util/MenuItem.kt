@@ -4,6 +4,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 class MenuItem(
     val icon: ImageVector,
-    val label: Int,
+    val label: String,
     val onClick: () -> Unit
 )

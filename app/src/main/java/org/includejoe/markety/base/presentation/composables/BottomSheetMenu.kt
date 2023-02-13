@@ -53,12 +53,12 @@ fun BottomSheetMenu(
             ) {
                 Icon(
                     imageVector = item.icon,
-                    contentDescription = stringResource(id = item.label),
+                    contentDescription = item.label,
                     tint = MaterialTheme.colors.onBackground.copy(alpha = 0.6f)
                 )
                 Spacer(modifier = Modifier.width(MaterialTheme.spacing.sm))
                 Text(
-                    text = stringResource(id = item.label),
+                    text = item.label,
                     style = MaterialTheme.typography.body1,
                     color = MaterialTheme.colors.onBackground
                 )

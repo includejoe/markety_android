@@ -102,11 +102,21 @@
     <string name="cancel_btn">Cancel</string>
     <string name="comment_btn">Comment</string>
 
+    <!-- Menu Items -->
+    <string name="unfollow_user">Unfollow %s</string>
+    <string name="follow_user">Unfollow %s</string>
+    <string name="block">Block</string>
+    <string name="report">Report</string>
+    <string name="not_interested_post">Not interested in this post</string>
+    <string name="report_post">Report Post</string>
+    <string name="why_post">Why you\'re seeing this post</string>
+
 
     <!-- SCREENS -->
     <!-- Login Screen -->
     <string name="no_account">Don\'t have an account?</string>
     <string name="register">REGISTER</string>
+
 
     <!-- Home Screen -->
     <string name="available">AVAILABLE</string>
@@ -120,11 +130,6 @@
     <!-- Post Detail Screen -->
     <string name="comments">Comments</string>
     <string name="replying_to">Replying to %s</string>
-    <!-- menu-items -->
-    <string name="unfollow_user">Unfollow %s</string>
-    <string name="follow_user">Unfollow %s</string>
-    <string name="report_post">Report Post</string>
-    <string name="why_post">Why you\'re seeing this post</string>
 
 
     <!-- Profile Screen -->

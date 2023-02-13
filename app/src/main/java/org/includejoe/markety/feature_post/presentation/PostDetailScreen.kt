@@ -11,6 +11,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.NotInterested
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -61,10 +62,26 @@ fun PostDetailScreen(
         sheetContent = {
             BottomSheetMenu(
                 menuItems = listOf(
-                    MenuItem(icon = Icons.Default.Info, label = R.string.why_post, onClick = {}),
-                    MenuItem(icon = Icons.Default.Person, label = R.string.follow_user, onClick = {}),
-                    MenuItem(icon = Icons.Default.Person, label = R.string.unfollow_user, onClick = {}),
-                    MenuItem(icon = Icons.Default.Flag, label = R.string.report_post, onClick = {}),
+                    MenuItem(
+                        icon = Icons.Default.Info,
+                        label = stringResource(R.string.why_post),
+                        onClick = {}
+                    ),
+                    MenuItem(
+                        icon = Icons.Default.NotInterested,
+                        label = stringResource(R.string.not_interested_post),
+                        onClick = {}
+                    ),
+                    MenuItem(
+                        icon = Icons.Default.Person,
+                        label = stringResource(R.string.follow_user, "@${postState.value.post?.user?.username}"),
+                        onClick = {}
+                    ),
+                    MenuItem(
+                        icon = Icons.Default.Flag,
+                        label = stringResource(id = R.string.report_post),
+                        onClick = {}
+                    ),
                 )
             )
         }

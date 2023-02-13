@@ -25,7 +25,8 @@ import org.includejoe.markety.base.presentation.theme.ui.spacing
 @Composable
 fun UserProfileTopBar(
     navController: NavController,
-    username: String
+    username: String,
+    drawBottomMenu: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -67,7 +68,7 @@ fun UserProfileTopBar(
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null
-                ) {},
+                ) { drawBottomMenu() },
             tint = MaterialTheme.colors.onBackground
         )
     }
