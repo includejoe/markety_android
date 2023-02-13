@@ -120,6 +120,11 @@
     <!-- Post Detail Screen -->
     <string name="comments">Comments</string>
     <string name="replying_to">Replying to %s</string>
+    <!-- menu-items -->
+    <string name="unfollow_user">Unfollow %s</string>
+    <string name="follow_user">Unfollow %s</string>
+    <string name="report_post">Report Post</string>
+    <string name="why_post">Why you\'re seeing this post</string>
 
 
     <!-- Profile Screen -->

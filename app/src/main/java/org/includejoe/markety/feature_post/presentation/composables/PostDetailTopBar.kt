@@ -31,7 +31,8 @@ import org.includejoe.markety.feature_settings.util.SettingsItem
 @Composable
 fun PostDetailTopBar(
     navController: NavController,
-    postName: String
+    postName: String,
+    drawBottomSheet: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -72,7 +73,9 @@ fun PostDetailTopBar(
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null
-                ) {}
+                ) {
+                    drawBottomSheet()
+                }
         )
     }
 }
