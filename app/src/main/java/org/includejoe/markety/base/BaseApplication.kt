@@ -8,6 +8,6 @@ import org.includejoe.markety.feature_user.domain.model.User
 @HiltAndroidApp
 class BaseApplication : Application() {
     val isDarkTheme = mutableStateOf(false)
-    val loggedInUser = mutableStateOf<String?>("")
     val isAuthenticated = mutableStateOf(false)
+    val userDetails = mutableStateOf<User?>(User())
 }

@@ -22,6 +22,7 @@ import org.includejoe.markety.feature_post.data.PostsRepositoryImpl
 import org.includejoe.markety.feature_post.domain.repository.PostRepository
 import org.includejoe.markety.feature_post.domain.use_case.GetPostUseCase
 import org.includejoe.markety.feature_post.domain.use_case.GetPostsUseCase
+import org.includejoe.markety.feature_post.domain.use_case.LikePostUseCase
 import org.includejoe.markety.feature_post.domain.use_case.PostUseCases
 import org.includejoe.markety.feature_user.data.repository.UserRepositoryImpl
 import org.includejoe.markety.feature_user.domain.repository.UserRepository
@@ -132,7 +133,8 @@ object NetworkModule {
         repository: PostRepository
     ) = PostUseCases(
         getPosts = GetPostsUseCase(repository),
-        getPost = GetPostUseCase(repository)
+        getPost = GetPostUseCase(repository),
+        likePost = LikePostUseCase(repository)
     )
 
     // Comment Use Cases

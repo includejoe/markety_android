@@ -1,5 +1,8 @@
 package org.includejoe.markety.feature_user.domain.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class User(
     val bio: String? = "",
     val busCategory: String? = null,

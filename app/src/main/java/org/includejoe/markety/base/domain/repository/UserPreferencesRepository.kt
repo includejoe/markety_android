@@ -2,7 +2,13 @@ package org.includejoe.markety.base.domain.repository
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import org.includejoe.markety.feature_user.domain.model.User
 import javax.inject.Inject
 
 class UserPreferencesRepository @Inject constructor(
@@ -14,25 +20,26 @@ class UserPreferencesRepository @Inject constructor(
         }
     }
 
-    suspend fun setLoggedInUser(username: String) {
-        userPreferences.edit { preferences ->
-            preferences[LOGGED_IN_USER] = username
-        }
-    }
-
     suspend fun getIsDarkTheme(): Boolean? {
         val preferences = userPreferences.data.first()
         return preferences[IS_DARK_THEME]
     }
 
-    suspend fun getLoggedInUser(): String? {
-        val preferences = userPreferences.data.first()
-        return preferences[LOGGED_IN_USER]
+
+    suspend fun setUserDetails(userDetails: User) {
+        userPreferences.edit { preferences ->
+            preferences[USER_DETAILS] = Json.encodeToString(userDetails)
+        }
+    }
+
+    val userDetailsFlow: Flow<User?> = userPreferences.data.map { preferences ->
+        val serializedData = preferences[USER_DETAILS] ?: return@map null
+        Json.decodeFromString<User>(serializedData)
     }
 
     suspend fun clearPreferences() {
         userPreferences.edit { preferences ->
-            preferences[LOGGED_IN_USER] = ""
+            preferences.remove(USER_DETAILS)
         }
     }
 
@@ -41,8 +48,8 @@ class UserPreferencesRepository @Inject constructor(
             name = "isDarkTheme"
         )
 
-        val LOGGED_IN_USER = stringPreferencesKey(
-            name = "loggedInUser"
+        val USER_DETAILS = stringPreferencesKey(
+            name = "userDetails"
         )
     }
 }

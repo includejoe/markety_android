@@ -5,12 +5,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import org.includejoe.markety.base.presentation.theme.ui.MarketyTheme
 import org.includejoe.markety.base.domain.repository.UserPreferencesRepository
 import org.includejoe.markety.base.util.Screens
@@ -37,9 +43,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch {
             checkTheme()
-            setLoggedInUser()
+            setUserDetails()
         }
         setContent {
             MarketyTheme(darkTheme = baseApp.isDarkTheme.value) {
@@ -61,10 +67,9 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private suspend fun setLoggedInUser() {
-        if(userPreferencesRepository.getLoggedInUser() !== null) {
-            val username = userPreferencesRepository.getLoggedInUser()
-            baseApp.loggedInUser.value = username
+    private suspend fun setUserDetails() {
+        userPreferencesRepository.userDetailsFlow.collect {
+            baseApp.userDetails.value = it
         }
     }
 

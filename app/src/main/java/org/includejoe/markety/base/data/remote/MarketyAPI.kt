@@ -60,14 +60,20 @@ interface MarketyAPI  {
 
     @POST("posts/create/")
     suspend fun createPost(
-        @Body body: CreatePost,
-        @Header("Authorization") authHeader: String
+        @Header("Authorization") authHeader: String,
+        @Body body: CreatePost
     ): PostDTO
 
     @GET("posts/detail/{postId}/")
     suspend fun getPost(
-        @Path("postId") postId: String,
-        @Header("Authorization") authHeader: String
+        @Header("Authorization") authHeader: String,
+        @Path("postId") postId: String
+    ): PostDTO
+
+    @PATCH("posts/like/{postId}/")
+    suspend fun likePost(
+        @Header("Authorization") authHeader: String,
+        @Path("postId") postId: String
     ): PostDTO
 
 

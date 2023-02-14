@@ -197,7 +197,8 @@ fun UserProfileScreen(
                             0 -> {
                                 PostsTabView(
                                     isLoading = userState.value.userPostsLoading,
-                                    posts = userState.value.userPosts
+                                    posts = userState.value.userPosts,
+                                    navController = navController
                                 )
                             }
                             1 -> {

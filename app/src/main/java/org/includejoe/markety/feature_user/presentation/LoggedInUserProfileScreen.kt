@@ -51,113 +51,78 @@ fun LoggedInUserProfileScreen(
     }
 
     Column(
-        modifier = Modifier
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Column(modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-    ) {
-        if(state.value.loading) {
-            Column(
+            .weight(1f)
+        ) {
+            LoggedInUserProfileTopBar(navController)
+
+            ConstraintLayout(
+                constraintSet = constraints,
                 modifier = Modifier
-                    .fillMaxSize()
-                    .weight(1f),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .fillMaxWidth()
+                    .height(140.dp)
             ) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(25.dp),
-                    color = MaterialTheme.colors.primary,
-                    strokeWidth = 2.dp
+                CoverImage(
+                    src = state.value.data!!.coverImage
                 )
+
+                Avatar(
+                    modifier = Modifier
+                        .padding(start = MaterialTheme.spacing.sm)
+                        .size(80.dp),
+                    src = state.value.data!!.profileImage,
+                    isDarkTheme = viewModel.baseApp.isDarkTheme.value
+                )
+
+                FollowOrEditButton(text = R.string.edit_btn) {}
             }
-        } else if(state.value.error !== null) {
+
+            Spacer(modifier = Modifier.height(46.dp))
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = MaterialTheme.spacing.sm)
-                    .weight(1f),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .weight(1f)
             ) {
-                ServerError(error = state.value.error!!, toast = false)
-                TextButton(onClick = {
-                    viewModel.getLoggedInUser()
-                }) {
-                    Text(
-                        text = stringResource(id = R.string.try_again_btn),
-                        color = MaterialTheme.colors.secondary,
-                        style = MaterialTheme.typography.button
+                Details(state = state, isVendor = state.value.data?.isVendor!!)
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.sm))
+                TabView(
+                    tabModels = if(state.value.data!!.isVendor == true) listOf(
+                        R.string.posts,
+                        R.string.reviews,
+                        R.string.saved,
+                    ) else listOf(
+                        R.string.posts,
+                        R.string.saved
                     )
-                }
-            }
-        } else {
-                Column(modifier = Modifier
-                    .fillMaxSize()
-                    .weight(1f)) {
-                    LoggedInUserProfileTopBar(navController)
-
-                    ConstraintLayout(
-                        constraintSet = constraints,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(140.dp)
-                    ) {
-                        CoverImage(
-                            src = state.value.data!!.coverImage
+                ) { selectedTabIndex = it }
+                when(selectedTabIndex) {
+                    0 -> {
+                        PostsTabView(
+                            isLoading = state.value.userPostsLoading,
+                            posts = state.value.userPosts,
+                            navController = navController
                         )
-
-                        Avatar(
-                            modifier = Modifier
-                                .padding(start = MaterialTheme.spacing.sm)
-                                .size(80.dp),
-                            src = state.value.data!!.profileImage,
-                            isDarkTheme = viewModel.baseApp.isDarkTheme.value
-                        )
-
-                        FollowOrEditButton(text = R.string.edit_btn) {}
                     }
-
-                    Spacer(modifier = Modifier.height(46.dp))
-
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(horizontal = MaterialTheme.spacing.sm)
-                            .weight(1f)
-                    ) {
-                        Details(state = state, isVendor = state.value.data?.isVendor!!)
-                        Spacer(modifier = Modifier.height(MaterialTheme.spacing.sm))
-                        TabView(
-                            tabModels = if(state.value.data!!.isVendor == true) listOf(
-                                R.string.posts,
-                                R.string.reviews,
-                                R.string.saved,
-                            ) else listOf(
-                                R.string.posts,
-                                R.string.saved
-                            )
-                        ) { selectedTabIndex = it }
-                        when(selectedTabIndex) {
-                            0 -> {
-                                PostsTabView(
-                                    isLoading = state.value.userPostsLoading,
-                                    posts = state.value.userPosts
-                                )
-                            }
-                            1 -> {
-                                if(state.value.data!!.isVendor == true) {
-                                    ReviewsTabView()
-                                } else {
-                                    SavedTabView()
-                                }
-
-                            }
-                            2 -> {
-                                SavedTabView()
-                            }
+                    1 -> {
+                        if(state.value.data!!.isVendor == true) {
+                            ReviewsTabView()
+                        } else {
+                            SavedTabView()
                         }
+
+                    }
+                    2 -> {
+                        SavedTabView()
                     }
                 }
             }
+        }
 
         BottomNavigation(
             selectedItem = NavigationItem.PROFILE,

@@ -16,11 +16,15 @@ import org.includejoe.markety.base.util.TokenManager
 import org.includejoe.markety.feature_authentication.domain.use_case.AuthenticationUseCases
 import org.includejoe.markety.feature_authentication.util.*
 import org.includejoe.markety.base.util.validators.FormValidators
+import org.includejoe.markety.feature_user.data.remote.dto.toUser
+import org.includejoe.markety.feature_user.domain.use_case.GetLoggedInUserUseCase
+import org.includejoe.markety.feature_user.domain.use_case.GetUserUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val authUseCases: AuthenticationUseCases,
+    private val loggedInUserUseCase: GetLoggedInUserUseCase,
     private val validators: FormValidators,
     private val tokenManager: TokenManager,
     private val baseApp: BaseApplication,
@@ -74,9 +78,11 @@ class LoginViewModel @Inject constructor(
                     }
 
                     is Response.Success -> {
-                        _state.value = LoginState(data = result.data, submissionSuccess = true)
+                        _state.value = _state.value.copy(
+                            data = result.data
+                        )
                         tokenManager.login(result.data?.jwt)
-                        setLoggedInUser(result.data?.username!!)
+                        getUserDetails(result.data?.jwt)
                     }
 
                     is Response.Error -> {
@@ -89,10 +95,28 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun setLoggedInUser(username: String) {
+    private fun getUserDetails(jwt: String?) {
         viewModelScope.launch {
-            userPreferencesRepository.setLoggedInUser(username)
-            baseApp.loggedInUser.value = username
+            loggedInUserUseCase(jwt).collectLatest { result ->
+                when(result) {
+                    is Response.Loading -> {}
+
+                    is Response.Success -> {
+                        userPreferencesRepository.setUserDetails(result.data?.toUser()!!)
+                        baseApp.userDetails.value  = result.data.toUser()
+                        _state.value = _state.value.copy(
+                            isSubmitting = false,
+                            submissionSuccess = true
+                        )
+                    }
+
+                    is Response.Error -> {
+                        _state.value = LoginState(
+                            submissionError =  result.message ?: R.string.unexpected_error
+                        )
+                    }
+                }
+            }
         }
     }
 }

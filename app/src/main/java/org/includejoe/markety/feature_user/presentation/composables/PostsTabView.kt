@@ -2,6 +2,7 @@ package org.includejoe.markety.feature_user.presentation.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -15,15 +16,18 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import org.includejoe.markety.feature_post.data.remote.dto.PostDTO
 import org.includejoe.markety.R
+import org.includejoe.markety.base.util.Screens
 
 @Composable
 fun PostsTabView(
+    modifier: Modifier = Modifier,
     posts: List<PostDTO>?,
     isLoading: Boolean,
-    modifier: Modifier = Modifier
+    navController: NavController
 ) {
     if (isLoading) {
         Box(
@@ -58,7 +62,9 @@ fun PostsTabView(
                         .border(
                             width = 1.dp,
                             color = MaterialTheme.colors.background
-                        )
+                        ).clickable {
+                            navController.navigate(Screens.PostDetailScreen.route + "/${posts[it].id}")
+                        }
                 )
             }
         }

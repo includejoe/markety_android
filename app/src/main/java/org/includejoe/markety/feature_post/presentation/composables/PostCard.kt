@@ -30,11 +30,11 @@ import org.includejoe.markety.feature_post.data.remote.dto.PostDTO
 import org.includejoe.markety.feature_post.presentation.HomeViewModel
 import org.includejoe.markety.R
 import org.includejoe.markety.base.domain.model.UserInfo
+import org.includejoe.markety.base.presentation.composables.Actions
 import org.includejoe.markety.base.presentation.composables.DateFormatter
 import org.includejoe.markety.base.presentation.composables.Name
 import org.includejoe.markety.base.presentation.theme.ui.Green
 import org.includejoe.markety.base.util.Screens
-import org.includejoe.markety.feature_comment.presentation.CommentViewModel
 import java.util.*
 
 @Composable
@@ -52,7 +52,7 @@ fun PostCard(
     ) {
         UserInfo(user = post.user) {
             navController.navigate(
-                route = if (viewModel.baseApp.loggedInUser.value == post.user.username)
+                route = if (viewModel.baseApp.userDetails.value?.username == post.user.username)
                             Screens.ProfileScreen.route
                         else Screens.ProfileScreen.route + "/${post.user.username}"
             )

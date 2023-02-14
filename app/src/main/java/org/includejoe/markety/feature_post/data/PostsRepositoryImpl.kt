@@ -23,10 +23,14 @@ class PostsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getPost(authHeader: String, postId: String): PostDTO {
-        return api.getPost(postId = postId, authHeader = authHeader)
+        return api.getPost(authHeader = authHeader, postId = postId)
     }
 
     override suspend fun getPosts(authHeader: String): List<PostDTO> {
         return api.getPosts(authHeader)
+    }
+
+    override suspend fun likePost(authHeader: String, postId: String): PostDTO {
+        return api.likePost(authHeader = authHeader, postId = postId)
     }
 }

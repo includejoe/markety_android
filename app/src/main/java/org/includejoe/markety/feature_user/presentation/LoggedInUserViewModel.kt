@@ -28,40 +28,8 @@ class LoggedInUserViewModel @Inject constructor(
     val state: State<UserState> = _state
 
     init {
-        getLoggedInUser()
-        getUserPosts(username = baseApp.loggedInUser.value!!)
-    }
-
-    fun getLoggedInUser() {
-        viewModelScope.launch {
-            userUseCases.getLoggedInUser(tokenManager.readToken()).collectLatest { result ->
-                when(result) {
-                    is Response.Loading -> {
-                        _state.value = _state.value.copy(
-                            loading = true
-                        )
-                    }
-
-                    is Response.Success -> {
-                        _state.value = _state.value.copy(
-                            data = result.data?.toUser(),
-                            success = true,
-                            loading = false,
-                            error = null
-                        )
-                    }
-
-                    is Response.Error -> {
-                        _state.value = _state.value.copy(
-                            error = result.message ?: R.string.unexpected_error,
-                            loading = false,
-                            success = false,
-                            data = null
-                        )
-                    }
-                }
-            }
-        }
+        _state.value.data = baseApp.userDetails.value
+        getUserPosts(username = baseApp.userDetails.value?.username!!)
     }
 
     fun getUserPosts(username: String) {

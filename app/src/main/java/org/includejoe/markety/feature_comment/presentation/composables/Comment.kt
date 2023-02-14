@@ -20,7 +20,7 @@ import org.includejoe.markety.base.presentation.composables.DateFormatter
 import org.includejoe.markety.base.presentation.composables.Name
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.feature_comment.data.remote.dto.CommentDTO
-import org.includejoe.markety.feature_post.presentation.composables.Actions
+import org.includejoe.markety.base.presentation.composables.Actions
 import org.includejoe.markety.R
 
 @Composable

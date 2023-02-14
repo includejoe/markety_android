@@ -3,12 +3,15 @@ package org.includejoe.markety.base.presentation.composables
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import java.text.SimpleDateFormat
 import java.util.*
 import org.includejoe.markety.R
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun DateFormatter(
     dateString: String,
@@ -26,7 +29,11 @@ fun DateFormatter(
     when {
         diffInSeconds < 60 ->  {
             Text(
-                text = stringResource(id = R.string.secs_ago, diffInSeconds),
+                text = pluralStringResource(
+                    id = R.plurals.second,
+                    count = if(diffInSeconds == 1L) 1 else 2,
+                    diffInSeconds
+                ),
                 style = MaterialTheme.typography.body1,
                 color = MaterialTheme.colors.onBackground,
                 fontWeight = fontWeight
@@ -34,7 +41,11 @@ fun DateFormatter(
         }
         diffInMinutes < 60 ->  {
             Text(
-                text = stringResource(id = R.string.mins_ago, diffInMinutes),
+                text = pluralStringResource(
+                    id = R.plurals.minute,
+                    count = if(diffInMinutes == 1L) 1 else 2,
+                    diffInMinutes
+                ),
                 style = MaterialTheme.typography.body1,
                 color = MaterialTheme.colors.onBackground,
                 fontWeight = fontWeight
@@ -42,7 +53,11 @@ fun DateFormatter(
         }
         diffInHours < 24 ->  {
             Text(
-                text = stringResource(id = R.string.hrs_ago, diffInHours),
+                text = pluralStringResource(
+                    id = R.plurals.hour,
+                    count = if(diffInHours == 1L) 1 else 2,
+                    diffInHours
+                ),
                 style = MaterialTheme.typography.body1,
                 color = MaterialTheme.colors.onBackground,
                 fontWeight = fontWeight
@@ -50,7 +65,11 @@ fun DateFormatter(
         }
         diffInDays < 7 ->  {
             Text(
-                text = stringResource(id = R.string.days_ago, diffInDays),
+                text = pluralStringResource(
+                    id = R.plurals.day,
+                    count = if(diffInDays == 1L) 1 else 2,
+                    diffInDays
+                ),
                 style = MaterialTheme.typography.body1,
                 color = MaterialTheme.colors.onBackground,
                 fontWeight = fontWeight
@@ -58,7 +77,11 @@ fun DateFormatter(
         }
         else -> {
             val calendar = Calendar.getInstance().apply { time = date }
-            val fullDate = "${calendar.get(Calendar.DATE)}th ${calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.ENGLISH)}, ${calendar.get(Calendar.YEAR)}"
+            val fullDate = "${calendar.get(Calendar.DATE)}th ${calendar.getDisplayName(
+                Calendar.MONTH, 
+                Calendar.SHORT, 
+                Locale.ENGLISH)
+            }, ${calendar.get(Calendar.YEAR)}"
             Text(
                 text = stringResource(
                     id = R.string.full_date,

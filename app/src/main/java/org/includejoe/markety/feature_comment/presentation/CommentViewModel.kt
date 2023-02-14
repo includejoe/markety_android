@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.includejoe.markety.base.util.Response
@@ -90,6 +91,17 @@ class CommentViewModel @Inject constructor(
                     }
                 }
             }
+        }
+    }
+
+    fun likeComment(
+        commentId: String
+    ) {
+        viewModelScope.launch {
+            commentUseCases.likeComment(
+                jwt = tokenManager.readToken(),
+                commentId = commentId
+            ).collect()
         }
     }
 }

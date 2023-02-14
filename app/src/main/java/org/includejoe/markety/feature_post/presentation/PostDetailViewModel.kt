@@ -1,11 +1,14 @@
 package org.includejoe.markety.feature_post.presentation
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import arrow.core.continuations.result
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.includejoe.markety.base.BaseApplication
@@ -35,6 +38,15 @@ class PostDetailViewModel @Inject constructor(
         savedStateHandle.get<String>(Constants.PARAM_POST_ID)?.let { postId ->
             getPost(postId)
             getPostComments(postId)
+        }
+    }
+
+    fun likePost(postId: String) {
+        viewModelScope.launch {
+            postUseCases.likePost(
+                jwt = tokenManager.readToken(),
+                postId = postId
+            ).collect()
         }
     }
 
