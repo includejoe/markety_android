@@ -3,10 +3,9 @@ package org.includejoe.markety.feature_post.presentation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -43,7 +42,7 @@ fun HomeScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if(state.value.postsLoading) {
+            if (state.value.postsLoading) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -81,7 +80,7 @@ fun HomeScreen(
                     }
                 ) {
                     LazyColumn(modifier = Modifier.fillMaxSize()) {
-                        items(state.value.posts!!) {post ->
+                        items(state.value.posts!!) { post ->
                             PostCard(post = post, navController = navController) {
                                 navController.navigate(Screens.PostDetailScreen.route + "/${post.id}")
                             }
@@ -95,4 +94,5 @@ fun HomeScreen(
             navController = navController
         )
     }
+
 }

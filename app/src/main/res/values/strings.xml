@@ -40,6 +40,11 @@
     <string name="blank_bus_category">Business Category can\'t be blank</string>
 
 
+    <!-- Success -->
+    <string name="comment_sent">Your comment was sent</string>
+
+
+
     <!-- Labels -->
     <string name="username_label">Username</string>
     <string name="password_label">Password</string>

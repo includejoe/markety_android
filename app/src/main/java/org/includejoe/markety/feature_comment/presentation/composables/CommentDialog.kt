@@ -13,6 +13,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.composables.CButton
+import org.includejoe.markety.base.presentation.composables.Toast
 import org.includejoe.markety.base.presentation.theme.ui.LightGray
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.feature_comment.presentation.CommentViewModel
@@ -25,7 +26,17 @@ fun CommentDialog(
     viewModel: CommentViewModel = hiltViewModel(),
     cancel: () -> Unit,
 ) {
+    val state = viewModel.state
     var value by remember { mutableStateOf("") }
+    
+    if(state.value.data != null) {
+        Toast(message = stringResource(id = R.string.comment_sent))
+        cancel()
+    }else if(state.value.error != null) {
+        Toast(message = stringResource(id = R.string.something_wrong))
+        cancel()
+    }
+    
 
     Dialog(onDismissRequest = cancel) {
         Box {
@@ -93,7 +104,6 @@ fun CommentDialog(
                                 body = value
                             )
                         }
-                        cancel()
                     }
                 }
             }

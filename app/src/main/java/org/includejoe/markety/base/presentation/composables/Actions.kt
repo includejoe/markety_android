@@ -3,14 +3,11 @@ package org.includejoe.markety.base.presentation.composables
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.AddShoppingCart
 import androidx.compose.material.icons.outlined.Comment
-import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -81,11 +78,14 @@ fun Actions(
     }
 
     // COMMENT
+    var postCommentCount by remember { mutableStateOf(post?.comments?.size) }
+    var commentReplyCount by remember { mutableStateOf(comment?.replies?.size) }
+
     fun commentCount(): String {
         return if(post !== null) {
-            post.comments.size.toString()
+            postCommentCount.toString()
         } else {
-            comment?.replies?.size.toString()
+            commentReplyCount.toString()
         }
     }
 
@@ -100,8 +100,8 @@ fun Actions(
             // LIKE
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
-                    imageVector = if(isLiked()) Icons.Filled.Favorite
-                                  else Icons.Outlined.FavoriteBorder,
+                    imageVector = if (isLiked()) Icons.Filled.Favorite
+                    else Icons.Outlined.FavoriteBorder,
                     modifier = Modifier
                         .size(iconSize)
                         .clickable(
@@ -111,8 +111,8 @@ fun Actions(
                             likeAction()
                         },
                     contentDescription = "heart icon",
-                    tint = if(isLiked()) Color.Red
-                           else MaterialTheme.colors.onBackground
+                    tint = if (isLiked()) Color.Red
+                    else MaterialTheme.colors.onBackground
                 )
                 Spacer(modifier = Modifier.width(2.dp))
                 Text(
@@ -144,7 +144,7 @@ fun Actions(
                 )
             }
         }
-        if(post !== null) {
+        if (post !== null) {
             Icon(
                 imageVector = Icons.Outlined.AddShoppingCart,
                 modifier = Modifier.size(iconSize),
@@ -154,11 +154,12 @@ fun Actions(
         }
     }
 
+
     if(showCommentDialog) {
         CommentDialog(
             replyingTo = comment?.user?.username,
             postId = post?.id ?: comment!!.post,
-            commentId = comment?.id
+            commentId = comment?.id,
         ) {
             showCommentDialog = false
         }

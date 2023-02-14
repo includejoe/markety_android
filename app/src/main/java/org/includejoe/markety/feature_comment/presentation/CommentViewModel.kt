@@ -49,7 +49,8 @@ class CommentViewModel @Inject constructor(
                     is Response.Error -> {
                         _state.value = _state.value.copy(
                             loading = false,
-                            data = null
+                            data = null,
+                            error = result.message
                         )
                     }
                 }
