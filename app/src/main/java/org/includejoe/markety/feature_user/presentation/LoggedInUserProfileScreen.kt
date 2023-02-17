@@ -25,6 +25,7 @@ fun LoggedInUserProfileScreen(
     navController: NavHostController,
     viewModel: LoggedInUserViewModel = hiltViewModel()
 ){
+    val userDetails = viewModel.baseApp.userDetails.value
     val state = viewModel.state
     var selectedTabIndex by remember { mutableStateOf(0) }
     val constraints = ConstraintSet {
@@ -67,14 +68,14 @@ fun LoggedInUserProfileScreen(
                     .height(140.dp)
             ) {
                 CoverImage(
-                    src = state.value.data!!.coverImage
+                    src = userDetails!!.coverImage
                 )
 
                 Avatar(
                     modifier = Modifier
                         .padding(start = MaterialTheme.spacing.sm)
                         .size(80.dp),
-                    src = state.value.data!!.profileImage,
+                    src = userDetails.profileImage,
                     isDarkTheme = viewModel.baseApp.isDarkTheme.value
                 )
 
@@ -89,10 +90,10 @@ fun LoggedInUserProfileScreen(
                     .padding(horizontal = MaterialTheme.spacing.sm)
                     .weight(1f)
             ) {
-                Details(state = state, isVendor = state.value.data?.isVendor!!)
+                Details(details = userDetails!!, isVendor = userDetails.isVendor!!)
                 Spacer(modifier = Modifier.height(MaterialTheme.spacing.sm))
                 TabView(
-                    tabModels = if(state.value.data!!.isVendor == true) listOf(
+                    tabModels = if(userDetails.isVendor == true) listOf(
                         R.string.posts,
                         R.string.reviews,
                         R.string.saved,

@@ -28,8 +28,9 @@ class LoggedInUserViewModel @Inject constructor(
     val state: State<UserState> = _state
 
     init {
-        _state.value.data = baseApp.userDetails.value
-        getUserPosts(username = baseApp.userDetails.value?.username!!)
+        if(baseApp.userDetails.value != null) {
+            getUserPosts(username = baseApp.userDetails.value?.username!!)
+        }
     }
 
     fun getUserPosts(username: String) {

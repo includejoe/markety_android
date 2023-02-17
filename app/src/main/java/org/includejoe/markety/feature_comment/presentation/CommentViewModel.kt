@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -44,6 +45,9 @@ class CommentViewModel @Inject constructor(
                             loading = false,
                             data = result.data
                         )
+                        // wait 3 seconds and clear state
+                        delay(3000L)
+                        _state.value = CommentState()
                     }
 
                     is Response.Error -> {

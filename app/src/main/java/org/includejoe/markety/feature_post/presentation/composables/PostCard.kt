@@ -8,6 +8,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.EventAvailable
+import androidx.compose.material.icons.filled.NewReleases
+import androidx.compose.material.icons.filled.NotInterested
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -68,7 +73,11 @@ fun PostCard(
                 post.image2,
                 post.image3,
             )
-        )
+        ) {
+            if (onClick != null) {
+                onClick()
+            }
+        }
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.sm))
         Actions(
             post = post,
@@ -153,12 +162,24 @@ private fun PostDetails(
                 fontWeight = FontWeight.Bold
             )
 
-            Text(
-                text = stringResource(id = if (post.isSold) R.string.sold else R.string.available),
-                style = MaterialTheme.typography.body1,
-                color = if(post.isSold) MaterialTheme.colors.error else Green,
-                fontWeight = FontWeight.SemiBold
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(id = if (post.isSold) R.string.sold else R.string.available),
+                    style = MaterialTheme.typography.body1,
+                    color = if(post.isSold) MaterialTheme.colors.error else Green,
+                    fontWeight = FontWeight.SemiBold
+                )
+                Spacer(modifier = Modifier.width(3.dp))
+                Icon(
+                    imageVector = if(post.isSold)  Icons.Default.NotInterested
+                    else Icons.Default.EventAvailable,
+                    modifier = Modifier.size(15.dp),
+                    contentDescription = null,
+                    tint = if(post.isSold) MaterialTheme.colors.error else Green
+                )
+            }
         }
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -170,13 +191,24 @@ private fun PostDetails(
                 color = MaterialTheme.colors.onBackground,
                 fontWeight = FontWeight.SemiBold
             )
-
-            Text(
-                text = stringResource(id = if(post.isNew) R.string.is_new else R.string.is_used),
-                style = MaterialTheme.typography.body1,
-                color = MaterialTheme.colors.onBackground,
-                fontWeight = FontWeight.SemiBold
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(id = if(post.isNew) R.string.is_new else R.string.is_used),
+                    style = MaterialTheme.typography.body1,
+                    color = if(post.isNew) Green else MaterialTheme.colors.onBackground.copy(alpha = 0.5f),
+                    fontWeight = FontWeight.SemiBold
+                )
+                Spacer(modifier = Modifier.width(3.dp))
+                Icon(
+                    imageVector = if(post.isNew)  Icons.Default.NewReleases
+                    else Icons.Default.CheckCircle,
+                    modifier = Modifier.size(15.dp),
+                    contentDescription = null,
+                    tint = if(post.isNew) Green else MaterialTheme.colors.onBackground.copy(alpha = 0.5f)
+                )
+            }
         }
         if(!post.description.isNullOrEmpty()) {
             Row(
@@ -202,6 +234,7 @@ private fun PostDetails(
 @Composable
 private fun ImageSlider(
     images: List<String>,
+    onClick: () -> Unit
 ) {
     val state = rememberPagerState()
     val imageUrl = remember { mutableStateOf("") }
@@ -212,6 +245,12 @@ private fun ImageSlider(
         modifier = Modifier
             .fillMaxWidth()
             .height(500.dp)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null
+            ) {
+                onClick()
+            }
     ) {page ->
         imageUrl.value = images[page]
         Column(

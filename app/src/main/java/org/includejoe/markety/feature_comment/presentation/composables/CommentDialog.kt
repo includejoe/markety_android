@@ -24,6 +24,7 @@ fun CommentDialog(
     commentId: String? = null,
     postId: String,
     viewModel: CommentViewModel = hiltViewModel(),
+    incrementCommentCount: () -> Unit,
     cancel: () -> Unit,
 ) {
     val state = viewModel.state
@@ -31,12 +32,12 @@ fun CommentDialog(
     
     if(state.value.data != null) {
         Toast(message = stringResource(id = R.string.comment_sent))
+        incrementCommentCount()
         cancel()
-    }else if(state.value.error != null) {
+    } else if(state.value.error != null) {
         Toast(message = stringResource(id = R.string.something_wrong))
         cancel()
     }
-    
 
     Dialog(onDismissRequest = cancel) {
         Box {

@@ -65,7 +65,7 @@ fun CountryPickerView(
                 showDialog = true
             }
             .padding(start = 20.dp, end = 3.dp, top = 4.8.dp),
-        color = MaterialTheme.colors.onSurface,
+        color = MaterialTheme.colors.onBackground,
         text = "${getFlagEmojiFor(selectedCountry.nameCode)} +${selectedCountry.code}"
     )
 

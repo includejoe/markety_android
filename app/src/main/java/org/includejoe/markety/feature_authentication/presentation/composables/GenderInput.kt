@@ -59,16 +59,18 @@ fun GenderInput(
             placeholder = {
                 Text(
                     text = stringResource(inputType.label),
-                    color = LightGray,
+                    color = MaterialTheme.colors.onSurface,
                     style = MaterialTheme.typography.body1
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = MaterialTheme.colors.surface,
+                disabledTextColor = MaterialTheme.colors.onBackground,
+                textColor = MaterialTheme.colors.onBackground,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             ),
-            textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
+            textStyle = MaterialTheme.typography.body1,
             singleLine = true,
             visualTransformation = visualTransformation,
             enabled = false

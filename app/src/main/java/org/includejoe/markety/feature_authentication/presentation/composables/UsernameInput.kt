@@ -81,13 +81,13 @@ fun UsernameInput(
         placeholder = {
             Text(
                 text = stringResource(inputType.label),
-                color = LightGray,
+                color = MaterialTheme.colors.onSurface,
                 style = MaterialTheme.typography.body1
             )
         },
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = MaterialTheme.colors.surface,
-            textColor = MaterialTheme.colors.onSurface,
+            textColor = MaterialTheme.colors.onBackground,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent
         ),

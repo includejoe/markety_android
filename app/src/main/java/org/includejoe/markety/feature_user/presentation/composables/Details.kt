@@ -19,12 +19,13 @@ import androidx.compose.ui.unit.dp
 import org.includejoe.markety.R
 import org.includejoe.markety.base.presentation.composables.Name
 import org.includejoe.markety.base.presentation.theme.ui.spacing
+import org.includejoe.markety.feature_user.domain.model.User
 import org.includejoe.markety.feature_user.util.UserState
 
 @Composable
 fun Details(
     isVendor: Boolean = false,
-    state: State<UserState>
+    details: User
 ) {
     val iconSize = 15.dp
 
@@ -40,16 +41,16 @@ fun Details(
         ) {
             Name(
                 isVendor = isVendor,
-                busName = state.value.data?.busName,
-                firstName = state.value.data?.firstName!!,
-                lastName = state.value.data?.lastName!!
+                busName = details.busName,
+                firstName = details.firstName!!,
+                lastName = details.lastName!!
             )
         }
 
         // Username
         Row(modifier = Modifier.fillMaxWidth()) {
             Text(
-                text = "@${state.value.data?.username}",
+                text = "@${details.username}",
                 color = MaterialTheme.colors.onBackground.copy(alpha = 0.7f),
                 style = MaterialTheme.typography.body1
             )
@@ -58,10 +59,10 @@ fun Details(
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.sm))
 
         // Bio
-        if (!state.value.data?.bio.isNullOrEmpty()) {
+        if (!details.bio.isNullOrEmpty()) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    text = state.value.data?.bio!!,
+                    text = details.bio,
                     color = MaterialTheme.colors.onBackground,
                     style = MaterialTheme.typography.body1
                 )
@@ -82,7 +83,7 @@ fun Details(
                 )
                 Spacer(modifier = Modifier.width(3.dp))
                 Text(
-                    text = state.value.data?.location ?: "",
+                    text = details.location ?: "",
                     color = MaterialTheme.colors.onBackground,
                     style = MaterialTheme.typography.body1
                 )
@@ -104,7 +105,7 @@ fun Details(
                     )
                     Spacer(modifier = Modifier.width(3.dp))
                     Text(
-                        text = state.value.data?.busCategory ?: "",
+                        text = details.busCategory ?: "",
                         color = MaterialTheme.colors.onBackground,
                         style = MaterialTheme.typography.body1
                     )
@@ -114,7 +115,7 @@ fun Details(
 
         Row(modifier = Modifier.fillMaxWidth()) {
             // Business Website
-            if(isVendor && state.value.data?.busWebsite !== null) {
+            if(isVendor && details.busWebsite !== null) {
                 Row(
                     modifier = Modifier.wrapContentHeight(),
                     verticalAlignment = Alignment.CenterVertically
@@ -126,7 +127,7 @@ fun Details(
                         tint = MaterialTheme.colors.onBackground.copy(alpha = 0.7f)
                     )
                     Spacer(modifier = Modifier.width(3.dp))
-                    BusWebsiteLink(link = state.value.data?.busWebsite!!)
+                    BusWebsiteLink(link = details.busWebsite)
                 }
                 Spacer(modifier = Modifier.width(MaterialTheme.spacing.md))
             }
@@ -143,7 +144,7 @@ fun Details(
                     tint = MaterialTheme.colors.onBackground.copy(alpha = 0.7f)
                 )
                 Spacer(modifier = Modifier.width(3.dp))
-                JoinedDate(dateString = state.value.data?.createdAt!!)
+                JoinedDate(dateString = details.createdAt!!)
             }
         }
 
@@ -151,7 +152,7 @@ fun Details(
         Row(modifier = Modifier.fillMaxWidth()) {
             Row() {
                 Text(
-                    text = state.value.data?.following?.size.toString(),
+                    text = details.following?.size.toString(),
                     style = MaterialTheme.typography.body1,
                     color = MaterialTheme.colors.onBackground,
                     fontWeight = FontWeight.Bold
@@ -168,7 +169,7 @@ fun Details(
 
             Row() {
                 Text(
-                    text = state.value.data?.followers?.size.toString(),
+                    text = details.followers?.size.toString(),
                     style = MaterialTheme.typography.body1,
                     color = MaterialTheme.colors.onBackground,
                     fontWeight = FontWeight.Bold
@@ -185,7 +186,7 @@ fun Details(
 
             Row() {
                 Text(
-                    text = state.value.data?.posts?.size.toString(),
+                    text = details.posts?.size.toString(),
                     style = MaterialTheme.typography.body1,
                     color = MaterialTheme.colors.onBackground,
                     fontWeight = FontWeight.Bold

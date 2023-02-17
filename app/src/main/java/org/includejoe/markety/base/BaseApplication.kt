@@ -9,5 +9,5 @@ import org.includejoe.markety.feature_user.domain.model.User
 class BaseApplication : Application() {
     val isDarkTheme = mutableStateOf(false)
     val isAuthenticated = mutableStateOf(false)
-    val userDetails = mutableStateOf<User?>(User())
+    var userDetails = mutableStateOf<User?>(User())
 }

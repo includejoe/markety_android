@@ -1,5 +1,6 @@
 package org.includejoe.markety.base.presentation.composables
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -16,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import org.includejoe.markety.base.presentation.ActionsViewModel
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.feature_comment.data.remote.dto.CommentDTO
 import org.includejoe.markety.feature_comment.presentation.CommentViewModel
@@ -29,15 +31,17 @@ fun Actions(
     post: PostDTO? = null,
     comment: CommentDTO? = null,
     iconSize: Dp,
+    viewModel: ActionsViewModel = hiltViewModel(),
     userVM: LoggedInUserViewModel = hiltViewModel(),
     postVM: PostDetailViewModel = hiltViewModel(),
-    commentVM: CommentViewModel = hiltViewModel()
+    commentVM: CommentViewModel = hiltViewModel(),
 ) {
     var showCommentDialog by remember { mutableStateOf(false) }
 
     // LIKE
     var commentLikeCount by remember { mutableStateOf(comment?.likes?.size) }
     var postLikeCount by remember { mutableStateOf(post?.likes?.size) }
+
     var isPostLiked by remember {
         mutableStateOf(post?.likes?.contains(userVM.baseApp.userDetails.value?.id))
     }
@@ -89,6 +93,16 @@ fun Actions(
         }
     }
 
+    fun incrementCommentCount() {
+        if (commentVM.state.value.data != null) {
+            if (post != null) {
+                postCommentCount = postCommentCount!! + 1
+            } else {
+                commentReplyCount = commentReplyCount!! + 1
+            }
+        }
+    }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -117,8 +131,8 @@ fun Actions(
                 Spacer(modifier = Modifier.width(2.dp))
                 Text(
                     text = likeCount(),
-                    color = MaterialTheme.colors.onBackground,
-                    style = MaterialTheme.typography.body1
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.onBackground
                 )
             }
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.md))
@@ -160,6 +174,8 @@ fun Actions(
             replyingTo = comment?.user?.username,
             postId = post?.id ?: comment!!.post,
             commentId = comment?.id,
+            incrementCommentCount = {incrementCommentCount()}
+
         ) {
             showCommentDialog = false
         }

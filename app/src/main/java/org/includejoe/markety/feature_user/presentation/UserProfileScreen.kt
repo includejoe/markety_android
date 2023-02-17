@@ -183,7 +183,7 @@ fun UserProfileScreen(
                             .padding(horizontal = MaterialTheme.spacing.sm)
                             .weight(1f)
                     ) {
-                        Details(state = userState, isVendor = userState.value.data?.isVendor!!)
+                        Details(details = userState.value.data!!, isVendor = userState.value.data?.isVendor!!)
                         Spacer(modifier = Modifier.height(MaterialTheme.spacing.sm))
                         TabView(
                             tabModels = if (userState.value.data!!.isVendor == true) listOf(

@@ -92,7 +92,7 @@ fun AutoCompleteLocationInput(
                             imageVector = if (expanded) Icons.Rounded.KeyboardArrowUp
                             else Icons.Rounded.KeyboardArrowDown,
                             contentDescription = "expand",
-                            tint = MaterialTheme.colors.onSurface
+                            tint = MaterialTheme.colors.onBackground
                         )
                     }
                 }
@@ -100,13 +100,13 @@ fun AutoCompleteLocationInput(
             placeholder = {
                 Text(
                     text = stringResource(inputType.label),
-                    color = LightGray,
+                    color = MaterialTheme.colors.onSurface,
                     style = MaterialTheme.typography.body1
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = MaterialTheme.colors.surface,
-                textColor = MaterialTheme.colors.onSurface,
+                textColor = MaterialTheme.colors.onBackground,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             ),
@@ -164,7 +164,7 @@ fun Location(
     ) {
         Text(
             text = location,
-            color = MaterialTheme.colors.onSurface,
+            color = MaterialTheme.colors.onBackground,
             style = MaterialTheme.typography.body1
         )
     }
