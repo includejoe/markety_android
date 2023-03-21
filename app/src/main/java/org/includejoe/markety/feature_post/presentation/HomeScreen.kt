@@ -5,7 +5,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,7 +28,8 @@ fun HomeScreen(
     navController: NavHostController,
     viewModel: HomeViewModel = hiltViewModel()
 ){
-    val state = viewModel.state
+    val state  = viewModel.state
+//    val posts by rememberSaveable { mutableStateOf(viewModel.state.value.posts) }
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = state.value.postsLoading)
 
     Column(

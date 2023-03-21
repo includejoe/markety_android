@@ -24,4 +24,3 @@ data class PostDTO(
     val updatedAt: String,
     val user: UserInfo
 )
-

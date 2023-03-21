@@ -1,6 +1,5 @@
 package org.includejoe.markety.base.presentation.composables
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -11,13 +10,13 @@ import androidx.compose.material.icons.outlined.AddShoppingCart
 import androidx.compose.material.icons.outlined.Comment
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import org.includejoe.markety.base.presentation.ActionsViewModel
 import org.includejoe.markety.base.presentation.theme.ui.spacing
 import org.includejoe.markety.feature_comment.data.remote.dto.CommentDTO
 import org.includejoe.markety.feature_comment.presentation.CommentViewModel
@@ -31,7 +30,6 @@ fun Actions(
     post: PostDTO? = null,
     comment: CommentDTO? = null,
     iconSize: Dp,
-    viewModel: ActionsViewModel = hiltViewModel(),
     userVM: LoggedInUserViewModel = hiltViewModel(),
     postVM: PostDetailViewModel = hiltViewModel(),
     commentVM: CommentViewModel = hiltViewModel(),
@@ -39,13 +37,13 @@ fun Actions(
     var showCommentDialog by remember { mutableStateOf(false) }
 
     // LIKE
-    var commentLikeCount by remember { mutableStateOf(comment?.likes?.size) }
-    var postLikeCount by remember { mutableStateOf(post?.likes?.size) }
+    var commentLikeCount by rememberSaveable { mutableStateOf(comment?.likes?.size) }
+    var postLikeCount by rememberSaveable { mutableStateOf(post?.likes?.size) }
 
-    var isPostLiked by remember {
+    var isPostLiked by rememberSaveable {
         mutableStateOf(post?.likes?.contains(userVM.baseApp.userDetails.value?.id))
     }
-    var isCommentLiked by remember {
+    var isCommentLiked by rememberSaveable {
         mutableStateOf(comment?.likes?.contains(userVM.baseApp.userDetails.value?.id))
     }
 
@@ -82,8 +80,8 @@ fun Actions(
     }
 
     // COMMENT
-    var postCommentCount by remember { mutableStateOf(post?.comments?.size) }
-    var commentReplyCount by remember { mutableStateOf(comment?.replies?.size) }
+    var postCommentCount by rememberSaveable { mutableStateOf(post?.comments?.size) }
+    var commentReplyCount by rememberSaveable { mutableStateOf(comment?.replies?.size) }
 
     fun commentCount(): String {
         return if(post !== null) {
@@ -167,7 +165,6 @@ fun Actions(
             )
         }
     }
-
 
     if(showCommentDialog) {
         CommentDialog(

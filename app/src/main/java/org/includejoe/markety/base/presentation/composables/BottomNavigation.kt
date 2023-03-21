@@ -48,7 +48,13 @@ fun BottomNavigation(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = null
                     ) {
-                        navController.navigate(item.route)
+                        navController.navigate(item.route) {
+                            launchSingleTop = true
+                            restoreState = true
+                            popUpTo(Screens.HomeScreen.route) {
+                                inclusive = true
+                            }
+                        }
                     },
                 tint = if(item == selectedItem) MaterialTheme.colors.primary
                 else MaterialTheme.colors.onBackground
